@@ -1,2 +1,2 @@
 # TwitGood
-A Twitter Analytics Service
+A Twitter Account Analyzer Service
