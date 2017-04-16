@@ -84,3 +84,16 @@
     - `sudo apt-get install mysql-server`
         - "y" at prompt
         - "y" at prompt
+
+# Optional: Modify .vimrc
+24. The Ultimate vimrc
+    - There are 2 options within the ultimate vimrc: the 'Awesome Version' and the 'Basic Version'. The awesome version includes plugins and colors, the basic does not.
+    - Awesome Version:
+        - `git clone https://github.com/amix/vimrc.git ~/.vim_runtime`
+        - `sh ~/.vim_runtime/install_awesome_vimrc.sh`
+    - Basic Version:
+        - `git clone git://github.com/amix/vimrc.git ~/.vim_runtime`
+        - `sh ~/.vim_runtime/install_basic_vimrc.sh`
+    - For either version, to add line numbers do
+        - `vim ~/.vim_runtim/vimrcs/basic.vim`
+        - And add "set number" to the file. I added it after line 142.
