@@ -14,29 +14,32 @@ $app->get('/[{name}]', function ($request, $response, $args) {
 $app->post('/user/', function($request, $response) {
     $data = $request->getParsedBody();
     // Check if the email is unique 
-    $emailqry = "SELECT * FROM Users WHERE email =:email";
+
+    $emailsql = "SELECT * FROM Users WHERE email =:email";
+    $emailqry = $this->db->prepare($emailsql);
     $emailqry->bindParam("email", $data['email']);
     $emailqry->execute();
     $emailrslt = $emailqry->fetchAll();
-    if ($emailrslt.count() > 0)
+    
+    if ($emailqry->rowCount() > 0)
     {
-        $valid = json_encode(array('success' => False));
-        return $this->response->$valid;
+        $valid = json_encode(array('success' => False, 'location' => 'email'));
+        return $this->response->withJson($valid);
         echo "You messed up";
     }
     
     // Check if the twitter handle is unique 
-    $handleqry = "SELECT * FROM Users WHERE twitter_handle =:twitter_handle";
+    $handlesql = "SELECT * FROM Users WHERE twitter_handle =:twitter_handle";
+    $handleqry = $this->db->prepare($handlesql);
     $handleqry->bindParam("twitter_handle", $data['twitter_handle']);
     $handleqry->execute();
     $handlerslt = $handleqry->fetchAll();
-    if ($handlerslt.count() > 0)
+    if ($handleqry->rowCount() > 0)
     {
-        $valid = json_encode(array('success' => False));
-        return $this->response->$valid;
+        $valid = json_encode(array('success' => False, 'location' => 'handle'));
+        return $this->response->withJson($valid);
         echo "You messed up";
     }
-
 
     $sql = "INSERT INTO Users (email, first_name, password, twitter_handle, api_key, api_secret, created_at) VALUES (:email, :first_name, :password, :handle, :key, :secret, NOW())";
     $sth = $this->db->prepare($sql);
@@ -48,7 +51,8 @@ $app->post('/user/', function($request, $response) {
     $sth->bindParam("secret", $data['api_secret']);
     $sth->execute();
      
-    return $this->response->withJson($data);
+    $valid = json_encode(array('success' => True, 'location' => 'N/A'));
+    return $this->response->withJson($valid);
 });
 
 $app->get('/user/info/[{twitter_handle}]', function($request, $response, $args) {
