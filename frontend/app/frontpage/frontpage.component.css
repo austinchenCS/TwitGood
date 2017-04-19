@@ -1,0 +1,57 @@
+.size-normalizer{
+    height: 100vh;
+    width: 100vw;
+}
+
+.twitgood-green{
+    color: rgb(33,184,168);
+}
+
+.twitgood-green-bg{
+    background-color: rgb(33,184,168);
+}
+
+.full-width{
+    width: 100%;
+}
+
+.full-height{
+    height: 100%;
+}
+
+.vertical-center{
+    position: relative;
+    top: 20vh;
+}
+
+.big-text{
+    font-size: 12vh;
+}
+
+.med-text{
+    font-size: 3vh;
+}
+
+.move-up{
+    position: relative;
+    top: -1vh;
+    padding-bottom: 1.5vh;
+}
+
+.input-center{
+    position: relative;
+    left: 35vw;
+    height: 6vh;
+    width: 30vw;
+}
+
+.handle-insignia{
+    position: relative;
+    left: -16vw;
+    top: -4.2vh;
+}
+
+.logo{
+    width: 30vw;
+    padding-bottom: 3vh;
+}
