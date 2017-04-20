@@ -1,8 +1,16 @@
-DROP TABLE `Users`;
+TRUNCATE TABLE `Logins`;
 DROP TABLE `Logins`;
+TRUNCATE TABLE `ViewEngagement`;
 DROP TABLE `ViewEngagement`;
+TRUNCATE TABLE `TweetData`;
 DROP TABLE `TweetData`;
+TRUNCATE TABLE `HourlyData`;
 DROP TABLE `HourlyData`;
+TRUNCATE TABLE `WeeklyData`;
 DROP TABLE `WeeklyData`;
+TRUNCATE TABLE `TopWords`;
 DROP TABLE `TopWords`;
+TRUNCATE TABLE `TopHashtags`;
 DROP TABLE `TopHashtags`;
+TRUNCATE TABLE `Users`;
+DROP TABLE `Users`;

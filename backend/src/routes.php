@@ -89,7 +89,7 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
     $sth->execute();
     $obj = $sth->fetchObject();
 
-    if ($sth->rowCount() == 1)
+    if ($sth->rowCount() >= 1)
     {
         $id = $obj->user_id;
         $sth = $this->db->prepare("SELECT * FROM TweetData WHERE user_id=:user_id");
