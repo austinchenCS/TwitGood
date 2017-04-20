@@ -82,3 +82,69 @@ $app->post('/users/auth/', function($request, $response) {
     return $this->response->withJson($valid); 
 });
 
+// Retrieve User Data
+$app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
+    $sth = $this->db->prepare("SELECT * FROM Users WHERE twitter_handle=:twitter_handle");
+    $sth->bindParam("twitter_handle", $args['twitter_handle']);
+    $sth->execute();
+    $obj = $sth->fetchObject();
+
+    if ($sth->rowCount() == 1)
+    {
+        $id = $obj->user_id;
+        $sth = $this->db->prepare("SELECT * FROM TweetData WHERE user_id=:user_id");
+        $sth->bindParam("user_id", $id);
+        $sth->execute();
+        $obj = $sth->fetchObject();
+        
+        $sth = $this->db->prepare("SELECT * FROM HourlyData WHERE user_id=:user_id");
+        $sth->bindParam("user_id", $id);
+        $sth->execute();
+        $hourdata = $sth->fetchAll();
+        $houract = [];
+        $hoursucc = []; 
+        for ($i = 0; $i < 24; $i++) {
+            foreach($hourdata as $row) {
+                if( $i == $row['hour'] ) {
+                    array_push($houract, $row['activity']);
+                    array_push($hoursucc, $row['success']);
+                    break;  
+                }
+            }
+        }
+        $sth = $this->db->prepare("SELECT * FROM TopWords WHERE user_id=:user_id");
+        $sth->bindParam("user_id", $id);
+        $sth->execute();
+        $wordData = $sth->fetchAll();
+        $sth = $this->db->prepare("SELECT * FROM TopHashtags WHERE user_id=:user_id");
+        $sth->bindParam("user_id", $id);
+        $sth->execute();
+        $hashtagData = $sth->fetchAll();
+        $topwords = [];
+        $tophashtags = [];
+        for ($i = 0; $i < 5; $i++) {
+            foreach($wordData as $row) {
+                if ( $i == $row['rank'] ) {
+                    array_push($topwords, $row['word']); 
+                    break;
+                }
+            }
+            foreach($hashtagData as $row) {
+                if ( $i == $row['rank'] ) {
+                    array_push($tophashtags, $row['hashtag']);
+                    break;
+                }
+            }
+        }
+
+        $datarr = array('toptweet' => $obj->top_tweet, 'accountage' => $obj->account_age, 'hourlysuccess' => $hoursucc, 'hourlyactivity' => $houract, 'tophashtags' => $tophashtags, 'topwords' => $topwords);
+        return $this->response->withJson($datarr); 
+    }
+    else
+    {
+        echo "y do u keep messing up";
+    }
+    // Object that will eventually be returned
+    //$dataobj
+});
+
