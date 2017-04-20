@@ -11,6 +11,7 @@ $app->get('/[{name}]', function ($request, $response, $args) {
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+// Creates a new user
 $app->post('/user/', function($request, $response) {
     $data = $request->getParsedBody();
     // Check if the email is unique 
@@ -55,6 +56,7 @@ $app->post('/user/', function($request, $response) {
     return $this->response->withJson($valid);
 });
 
+// Given the Twitter handle, returns a user's account information
 $app->get('/user/info/[{twitter_handle}]', function($request, $response, $args) {
     $sth = $this->db->prepare("SELECT * FROM Users WHERE twitter_handle=:twitter_handle");
     $sth->bindParam("twitter_handle", $args['twitter_handle']);
@@ -64,5 +66,19 @@ $app->get('/user/info/[{twitter_handle}]', function($request, $response, $args) 
     return $this->response->withJson($todos);
 });
 
-
+// Authenticates a user
+$app->post('/users/auth/', function($request, $response) {
+    $data = $request->getParsedBody(); 
+    $sth = $this->db->prepare("SELECT * FROM Users WHERE email=:email AND password=:password");
+    $sth->bindParam("email", $data['email']);
+    $sth->bindParam("password", $data['password']);
+    $sth->execute();
+    $obj = $sth->fetchObject();
+    if ($sth->rowCount() == 1)
+    {
+        return $this->response->withJson(json_encode(array( 'success' => True, 'twitter_handle' => $obj->twitter_handle)));
+    }
+    $valid = json_encode(array('success' => False, 'twitter_handle' => 'NULL'));
+    return $this->response->withJson($valid); 
+});
 
