@@ -1,6 +1,13 @@
 #!/usr/bin/python
 
 import tweepy
+import KEYS
+
+consumer_key = KEYS.get_consumer_key()
+consumer_secret = KEYS.get_consumer_secret()
+
+access_token = KEYS.get_access_token()
+access_token_secret = KEYS.get_access_token_secret()
 
 def main():
     #authorizes
