@@ -6,8 +6,8 @@ import 'rxjs/add/operator/toPromise';
 
 @Component({
  selector: 'frontpage',
- templateUrl: './app/frontpage/frontpage.component.html',
- styleUrls: [ './app/frontpage/frontpage.component.css' ],
+ templateUrl: './frontpage.component.html',
+ styleUrls: [ './frontpage.component.css' ],
 })
 export class FrontpageComponent {
     create : boolean;
