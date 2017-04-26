@@ -1,0 +1,32 @@
+<div class="text-center size-normalizer">
+    <div class="vertical-center">
+        <img src="/app/resources/logo.png" class="logo"/>
+        <p class="med-text text-muted move-up">where dreams come true</p>
+        
+            <div class="input-center">
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon1">Email</span>
+                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1" [(ngModel)]="details.email">
+                </div>
+                <br *ngIf="create"/>
+                <div class="input-group" *ngIf="create">
+                    <span class="input-group-addon" id="sizing-addon1">Twitter Handle</span>
+                    <input type="text" class="form-control" placeholder="Twitter Handle" aria-describedby="sizing-addon1" [(ngModel)]="details.handle">
+                </div>
+                <br/>
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon1">Password</span>
+                    <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" [(ngModel)]="details.password">
+                </div>
+                <br/>
+                <div class="input-group" *ngIf="create">
+                    <span class="input-group-addon" id="sizing-addon1">Confirm Password</span>
+                    <input type="password" class="form-control" placeholder="Confirm Password" aria-describedby="sizing-addon1" [(ngModel)]="details.confirm">
+                </div>
+                <br *ngIf="create"/>
+                <p><button class="btn btn-primary full-width twitgood-green-bg" (click)="accountInteraction()">{{ create ? 'Submit' : 'Login'}}</button></p>
+                <p><button class="btn btn-primary full-width twitgood-green-bg" (click)="createFlip()">{{ create ? 'Cancel' : 'Create Account'}}</button></p>
+            </div>
+        
+    </div>
+</div>
