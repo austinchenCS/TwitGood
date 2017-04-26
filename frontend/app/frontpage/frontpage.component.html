@@ -4,27 +4,40 @@
         <p class="med-text text-muted move-up">where dreams come true</p>
         
             <div class="input-center">
+                <form name="loginForm"
+                #loginForm="ngForm"
+                (ngSubmit)="accountInteraction()"
+                novalidte>
                 <div class="input-group">
                     <span class="input-group-addon" id="sizing-addon1">Email</span>
-                    <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1" [(ngModel)]="details.email">
-                </div>
-                <br *ngIf="create"/>
-                <div class="input-group" *ngIf="create">
-                    <span class="input-group-addon" id="sizing-addon1">Twitter Handle</span>
-                    <input type="text" class="form-control" placeholder="Twitter Handle" aria-describedby="sizing-addon1" [(ngModel)]="details.handle">
+                    <input #email="ngModel" type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1" [(ngModel)]="details.email" name="email" required>
                 </div>
                 <br/>
+                <validation [model]="email" [messages]="{required : 'Email is required', pattern : 'Not a valid email'}"></validation>
+                <div *ngIf="create">
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon1">Twitter Handle</span>
+                    <input #handle="ngModel" type="text" class="form-control" placeholder="Twitter Handle" aria-describedby="sizing-addon1" [(ngModel)]="details.handle" name="handle" required>
+                </div>
+                <br *ngIf="create"/>
+                <validation [model]="handle" [messages]="{required : 'Handle is required'}"></validation>
+                </div>
                 <div class="input-group">
                     <span class="input-group-addon" id="sizing-addon1">Password</span>
-                    <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" [(ngModel)]="details.password">
+                    <input #password="ngModel" type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" [(ngModel)]="details.password" name="password" required>
                 </div>
                 <br/>
-                <div class="input-group" *ngIf="create">
+                <validation [model]="password" [messages]="{required : 'Password is required'}"></validation>
+                <div *ngIf="create">
+                <div class="input-group">
                     <span class="input-group-addon" id="sizing-addon1">Confirm Password</span>
-                    <input type="password" class="form-control" placeholder="Confirm Password" aria-describedby="sizing-addon1" [(ngModel)]="details.confirm">
+                    <input #confirm="ngModel" type="password" class="form-control" placeholder="Confirm Password" aria-describedby="sizing-addon1" [(ngModel)]="details.confirm" name="confirm" required>
                 </div>
                 <br *ngIf="create"/>
-                <p><button class="btn btn-primary full-width twitgood-green-bg" (click)="accountInteraction()">{{ create ? 'Submit' : 'Login'}}</button></p>
+                <validation [model]="confirm" [messages]="{required : 'Confirm password is required', pattern : 'Confirm password must match password'}"></validation>
+                </div>
+                <p><button class="btn btn-primary full-width twitgood-green-bg" type="submit">{{ create ? 'Submit' : 'Login'}}</button></p>
+                </form>
                 <p><button class="btn btn-primary full-width twitgood-green-bg" (click)="createFlip()">{{ create ? 'Cancel' : 'Create Account'}}</button></p>
             </div>
         

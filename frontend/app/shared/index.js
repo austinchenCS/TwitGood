@@ -5,4 +5,5 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./shared.module"));
 __export(require("./bar-chart/bar-chart.component"));
+__export(require("./validation/validation.component"));
 //# sourceMappingURL=index.js.map

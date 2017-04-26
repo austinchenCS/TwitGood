@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { LoginDetails } from '../api/login-details';
 import { Http, Headers, Response } from '@angular/http';
+import { ValidationComponent } from './../shared/validation/validation.component';
 import { Router } from '@angular/router'
 import 'rxjs/add/operator/toPromise';
 

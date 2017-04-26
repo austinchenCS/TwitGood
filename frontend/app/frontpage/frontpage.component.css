@@ -55,3 +55,8 @@
     width: 30vw;
     padding-bottom: 3vh;
 }
+
+form .ng-invalid.ng-touched {
+  background: pink;
+  border: solid 1px red;
+}
