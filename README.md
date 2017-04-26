@@ -85,13 +85,23 @@
         - "y" at prompt
         - "y" at prompt
 
-# Install Tweepy
-24. - `wget "https://bootstrap.pypa.io/get-pip.py"`
+# Install Twitter Dependencies
+24. Install Tweepy 
+    - `wget "https://bootstrap.pypa.io/get-pip.py"`
     - `sudo python get-pip.py`
     - `sudo pip install Tweepy`
 
+25. Install nltk
+    - `sudo pip install -U nltk`
+    - python
+    - `>>>import nltk`
+    - `>>>nltk.download()`
+    - Now download the "stopwords" corpus"
+
+
+
 # Optional: Modify .vimrc
-25. The Ultimate vimrc
+27. The Ultimate vimrc
     - There are 2 options within the ultimate vimrc: the 'Awesome Version' and the 'Basic Version'. The awesome version includes plugins and colors, the basic does not.
     - Awesome Version:
         - `git clone https://github.com/amix/vimrc.git ~/.vim_runtime`

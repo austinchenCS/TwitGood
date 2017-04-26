@@ -7,7 +7,14 @@ import sys
 import json
 import time
 import datetime
+import nltk
+from nltk.corpus import stopwords
 from operator import itemgetter
+from collections import Counter
+from string import punctuation
+
+import requests.packages.urllib3
+requests.packages.urllib3.disable_warnings()
 
 consumer_key = KEYS.get_consumer_key()
 consumer_secret = KEYS.get_consumer_secret()
@@ -79,6 +86,8 @@ def main():
             if re.search('\W+', entry['text']) is None:
                 all_hashtags.append(entry['text'])
 
+        # get all words
+        all_words.append(tweet._json['text'])
 
 
     print(all_hashtags)
@@ -117,7 +126,7 @@ def main():
 
     print(account_age)
 
-    # Get most frequent words
+    # Get most frequent hashtags
     word_counter = {}
     for word in all_hashtags:
         if word in word_counter:
@@ -130,7 +139,15 @@ def main():
 
     print(most_frequent_hashtags)
 
-    # Get most frequent hashtags
+    # Get most frequent words
+    stopwords = set(nltk.corpus.stopwords.words('english'))
+    with_stopwords = Counter()
+    for tweet in all_words:
+        split = tweet.split()
+        with_stopwords.update(w.lower().rstrip(punctuation) for w in split if w.lower() in stopwords)
+
+    for x in with_stopwords.most_common(5):
+        print(x)
 
 
     print(tweet_count)
