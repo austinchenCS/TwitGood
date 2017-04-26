@@ -9,5 +9,5 @@ import { User } from '../api/user';
 })
 
 export class AccountStatisticsComponent{
-    //user: User = new User("@johndoe",3,316,"../../images/Profile\ Picture.png");
+    user: User = new User("@johndoe",3,316,"../../images/Profile\ Picture.png");
 }
