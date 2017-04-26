@@ -13,7 +13,7 @@ export class FrontpageComponent {
     create : boolean;
     details : LoginDetails;
     loginFail : boolean = false;
-    private loginUrl = 'http://private-17592-twitgood.apiary-mock.com/users/auth';
+    private loginUrl = 'https://private-17592-twitgood.apiary-mock.com/users/auth/';
     private createUrl = 'https://private-17592-twitgood.apiary-mock.com/user/';
 
     constructor(private http: Http,
@@ -56,6 +56,6 @@ export class FrontpageComponent {
 
     goToAccount(handle : string){
         console.log(handle);
-        this.router.navigate(['summary/'+handle]);
+        this.router.navigate(['home/'+handle]);
     }
 }

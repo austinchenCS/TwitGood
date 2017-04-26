@@ -6,21 +6,23 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './bar-chart.component.html',
 })
 export class BarChartComponent {
-  @Input() model : Array<number>;
-  vector : Array<number>;
+  @Input() data : Array<number>;
+  @Input() bCL : Array<string>;
+  @Input() chartLabel : string;
   
   ngOnInit(){
-    this.vector = this.model;
     this.barChartData = [
-    {data: this.vector, label: 'Series A'},
-    {data: this.model, label: 'Series B'}
-  ];
+      {data: this.data, label: this.chartLabel},
+    ];
+    this.barChartLabels = this.bCL;
   }
   public barChartOptions:any = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    //showLines: false,
+    backgroundColor: 'fillPattern'
   };
-  public barChartLabels:string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9','10','11'];
+  public barChartLabels:string[]; //= ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9','10','11'];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
  
@@ -29,7 +31,7 @@ export class BarChartComponent {
   // events
   public chartClicked(e:any):void {
     console.log(e);
-    console.log(this.model.length);
+    console.log(this);
   }
  
   public chartHovered(e:any):void {

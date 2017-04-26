@@ -5,7 +5,7 @@ import { FrontpageComponent } from './frontpage/frontpage.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-
+import { routing, appRoutingProviders } from './app.routes';
 import * as Account from './account/index';
 import * as Shared from './shared/index';
 import { LandingComponent } from './landing/landing.component';
@@ -16,8 +16,10 @@ import { LandingComponent } from './landing/landing.component';
             HttpModule,
             RouterModule,
             Account.AccountModule,
-            Shared.SharedModule ],
+            Shared.SharedModule,
+            routing ],
  declarations: [ AppComponent, FrontpageComponent, LandingComponent ],
+ providers: [ appRoutingProviders ],
  bootstrap: [ AppComponent ]
 })
 export class AppModule {

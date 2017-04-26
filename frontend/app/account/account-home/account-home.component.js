@@ -7,19 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
-const user_1 = require("../api/user");
-let AccountStatisticsComponent = class AccountStatisticsComponent {
-    constructor() {
-        this.user = new user_1.User("@johndoe", 3, 316, "../../images/Profile\ Picture.png");
-    }
+let AccountHomeComponent = class AccountHomeComponent {
 };
-AccountStatisticsComponent = __decorate([
+AccountHomeComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'account-statistics',
-        templateUrl: 'account-statistics.component.html',
-        styleUrls: ['account-statistics.component.css']
+        selector: 'account-home',
+        templateUrl: 'account-home.component.html',
+        styleUrls: ['account-home.component.css']
     })
-], AccountStatisticsComponent);
-exports.AccountStatisticsComponent = AccountStatisticsComponent;
-//# sourceMappingURL=account-statistics.component.js.map
+], AccountHomeComponent);
+exports.AccountHomeComponent = AccountHomeComponent;
+//# sourceMappingURL=account-home.component.js.map

@@ -19,7 +19,7 @@ let FrontpageComponent = class FrontpageComponent {
         this.http = http;
         this.router = router;
         this.loginFail = false;
-        this.loginUrl = 'http://private-17592-twitgood.apiary-mock.com/users/auth';
+        this.loginUrl = 'https://private-17592-twitgood.apiary-mock.com/users/auth/';
         this.createUrl = 'https://private-17592-twitgood.apiary-mock.com/user/';
         this.create = false;
         this.details = new login_details_1.LoginDetails(false);
@@ -56,7 +56,7 @@ let FrontpageComponent = class FrontpageComponent {
     }
     goToAccount(handle) {
         console.log(handle);
-        this.router.navigate(['summary/' + handle]);
+        this.router.navigate(['home/' + handle]);
     }
 };
 FrontpageComponent = __decorate([

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -9,6 +9,7 @@ import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 })
 
 export class LandingComponent {
+    handle ='johndoe';
 
     constructor(private router: Router,
     private route: ActivatedRoute){};

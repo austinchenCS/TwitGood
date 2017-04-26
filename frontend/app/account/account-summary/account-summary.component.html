@@ -1,5 +1,23 @@
 <h1>
-    Account Summary
+    <strong>Account Summary</strong>
 </h1>
 
-<bar-chart [model]="user.hourlytweeting"></bar-chart>
+<h1><span> Volume by Hour </span></h1>
+
+<div style="display: block;height:30vh;width:30vw;margin:auto;">
+    <bar-chart [data]="user.hourlytweeting" [bCL]="xAxisLabels" [chartLabel]="chartTitle"></bar-chart>
+</div>
+
+<h1><span> Average Interactions </span></h1>
+
+<div style="display: block;height:30vh;width:30vw;margin:auto;">
+    <h2><span class="label label-default" style="color:#21b4a4;background-color:#ececec;
+    border-color: grey;border-style: solid;">
+        {{user.retweetsPerTweet}}</span> 
+    <font size="6">retweets per tweet</font></h2>
+    <br>
+    <h2><span class="label label-default" style="color:#21b4a4;background-color:#ececec;border-color: grey;
+    border-style: solid;">
+        {{user.likesPerTweet}}</span>
+        <font size="6">likes per tweet</font></h2>
+</div>
