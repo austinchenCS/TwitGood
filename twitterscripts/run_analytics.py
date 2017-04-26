@@ -90,41 +90,23 @@ def main():
         all_words.append(tweet._json['text'])
 
 
-    print(all_hashtags)
-        # create fat list of all words
-
-
-        #print("Favs: " + str(curr_fav) + " RT: " + str(curr_rt) + " Success: " + str(curr_success))
-
     # Get top tweets
     top_favorited_tweet = sorted(top_favorited_tweet, key=itemgetter(1), reverse=True)
     top_retweeted_tweet = sorted(top_retweeted_tweet, key=itemgetter(1), reverse=True)
     top_successful_tweet = sorted(top_successful_tweet, key=itemgetter(1), reverse=True)
 
-    print(top_favorited_tweet[:3])
-    print(top_retweeted_tweet[:3])
-    print(top_successful_tweet[:3])
-
     # Calculate account age (IN DAYS)
     date_created = str(user_data.created_at)
-    print(date_created)
     year_created = int(date_created[0:4])
     month_created = int(date_created[5:7])
     day_created = int(date_created[8:10])
-    print(year_created)
-    print(month_created)
-    print(day_created)
 
     date_created = datetime.date(year_created, month_created, day_created)
     today = datetime.datetime.now().date()
 
-    print(date_created)
-    print(today)
-
     account_age = today - date_created
     account_age = int(account_age.days)
 
-    print(account_age)
 
     # Get most frequent hashtags
     word_counter = {}
@@ -137,22 +119,47 @@ def main():
     popular_words = sorted(word_counter, key = word_counter.get, reverse = True)
     most_frequent_hashtags = popular_words[:3]
 
-    print(most_frequent_hashtags)
-
     # Get most frequent words
     stopwords = set(nltk.corpus.stopwords.words('english'))
     with_stopwords = Counter()
     for tweet in all_words:
         split = tweet.split()
-        with_stopwords.update(w.lower().rstrip(punctuation) for w in split if w.lower() in stopwords)
+        with_stopwords.update(w.lower().rstrip(punctuation) for w in split if w.lower() not in stopwords)
 
-    for x in with_stopwords.most_common(5):
-        print(x)
+    word_counter = 0
+    for x in with_stopwords.most_common(10):
+        if word_counter == 5:
+            break
+        if x[0] != '':
+            word_counter += 1
+            most_frequent_words.append((str(x[0].encode('utf-8')), int(x[1])))
+
+    # PRINT OUT DATA
+    print("#####################################################################################")
+    print("\nTwitter Handle: @" + user_handle)
+    print("Account age: " + str(account_age) + " days\n")
+    print("Top 3 Favorited Tweets: ")
+    for i in range(0, 3):
+        print("\t" + str(i + 1) + ". " + str(top_favorited_tweet[i][0]) + " Favorites: " + str(top_favorited_tweet[i][1]))
+    print("\nTop 3 Retweeted Tweets: ")
+    for i in range(0, 3):
+        print("\t" + str(i + 1) + ". " + str(top_favorited_tweet[i][0]) + " Retweets: " + str(top_retweeted_tweet[i][1]))
+    print("\nTop 3 Successful Tweets: ")
+    for i in range(0, 3):
+        print("\t" + str(i + 1) + ". " + str(top_successful_tweet[i][0]) + " Success: " + str(top_successful_tweet[i][1]))
+
+    print("\nMost frequent words: ")
+    for i in range(0, 5):
+        print(str(i + 1) + ". " + str(most_frequent_words[i][0]))
+
+    print("\nMost frequent hashtags: " )
+    for i in range(0, 3):
+        print(str(i + 1) + ". " + str(most_frequent_hashtags[i]))
 
 
-    print(tweet_count)
-    print(rt_count)
+    #print(tweet_count)
+    #print(rt_count)
 
-    print("done")
+    print("\n#####################################################################################")
 
 if __name__ == "__main__": main()
