@@ -13,6 +13,7 @@ const frontpage_component_1 = require("./frontpage/frontpage.component");
 const forms_1 = require("@angular/forms");
 const http_1 = require("@angular/http");
 const router_1 = require("@angular/router");
+const app_routes_1 = require("./app.routes");
 const Account = require("./account/index");
 const Shared = require("./shared/index");
 const landing_component_1 = require("./landing/landing.component");
@@ -25,8 +26,10 @@ AppModule = __decorate([
             http_1.HttpModule,
             router_1.RouterModule,
             Account.AccountModule,
-            Shared.SharedModule],
+            Shared.SharedModule,
+            app_routes_1.routing],
         declarations: [app_component_1.AppComponent, frontpage_component_1.FrontpageComponent, landing_component_1.LandingComponent],
+        providers: [app_routes_1.appRoutingProviders],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

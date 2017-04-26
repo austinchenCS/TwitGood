@@ -14,23 +14,23 @@ let BarChartComponent = class BarChartComponent {
     constructor() {
         this.barChartOptions = {
             scaleShowVerticalLines: false,
-            responsive: true
+            responsive: true,
+            //showLines: false,
+            backgroundColor: 'fillPattern'
         };
-        this.barChartLabels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
         this.barChartType = 'bar';
         this.barChartLegend = true;
     }
     ngOnInit() {
-        this.vector = this.model;
         this.barChartData = [
-            { data: this.vector, label: 'Series A' },
-            { data: this.model, label: 'Series B' }
+            { data: this.data, label: this.chartLabel },
         ];
+        this.barChartLabels = this.bCL;
     }
     // events
     chartClicked(e) {
         console.log(e);
-        console.log(this.model.length);
+        console.log(this);
     }
     chartHovered(e) {
         console.log(e);
@@ -39,7 +39,15 @@ let BarChartComponent = class BarChartComponent {
 __decorate([
     core_1.Input(),
     __metadata("design:type", Array)
-], BarChartComponent.prototype, "model", void 0);
+], BarChartComponent.prototype, "data", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], BarChartComponent.prototype, "bCL", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], BarChartComponent.prototype, "chartLabel", void 0);
 BarChartComponent = __decorate([
     core_1.Component({
         moduleId: module.id,

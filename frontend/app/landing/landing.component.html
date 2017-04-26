@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-2 col-sm-4 sidebar1">
                 <div class="logo">
-                    <img src="images/hobbit.jpg" class="img-responsive center-block" alt="Logo" style="width:120px;height:120px;">
+                    <img src="app/resources/ProfileAvatarPlaceholder.png" class="img-responsive center-block" alt="Logo" style="width:120px;height:120px;">
                     <!--/Users/jaimesilva/Desktop/Post login/images/nemo.jpg-->
                 </div>
                 <br>
@@ -26,24 +26,23 @@
                 <div class="left-navigation">
                     <ol class="list">
                         <li>
-                            <a href="javascript:void(0);" routerLink="summary"><strong>Summary</strong></a>
+                            <a href="javascript:void(0);" routerLink="summary/bruh">Summary</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" routerLink="statistics">Statistics</a>
+                            <a href="javascript:void(0);" routerLink="statistics/bruh">Statistics</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" routerLink="engagement">Engagement</a>
+                            <a href="javascript:void(0);" routerLink="engagement/bruh">Engagement</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" routerLink="highlights">Highlights</a>
+                            <a href="javascript:void(0);" routerLink="highlights/bruh">Highlights</a>
                         </li>
                     </ol>
                 </div>
             </div>
             <div class="col-md-10 col-sm-8 main-content" id="datadisplaybox" style="overflow: auto;">
             <!--Main content code to be written here --> 
-                <!--<account-summary></account-summary>-->
-                
+                <router-outlet></router-outlet>
             </div>
         </div>
     </div>

@@ -7,49 +7,28 @@ import { AccountSummaryComponent } from './account-summary/account-summary.compo
 import { AccountHighlightsComponent } from './account-highlights/account-highlights.component';
 import { AccountStatisticsComponent } from './account-statistics/account-statistics.component';
 import { AccountEngagementComponent } from './account-engagement/account-engagement.component';
+import { AccountHomeComponent } from './account-home/account-home.component';
 
 import * as Shared from '../shared/index';
 
-var routes = [
-  {
-    path: '',
-    component: FrontpageComponent
-  },
-  {
-    path: 'summary/:handle',
-    component: AccountSummaryComponent
-  },
-  {
-    path: 'statistics/:handle',
-    component: AccountStatisticsComponent
-  },
-  {
-    path: 'engagement/:handle',
-    component: AccountEngagementComponent
-  },
-  {
-    path: 'highlights/:handle',
-    component: AccountHighlightsComponent
-  },
-  
-];
 @NgModule({
   imports:      [ 
     BrowserModule,
-    Shared.SharedModule,
-    RouterModule.forRoot(routes),
+    Shared.SharedModule
   ],
   declarations: [
     AccountSummaryComponent,
     AccountHighlightsComponent,
     AccountStatisticsComponent,
-    AccountEngagementComponent
+    AccountEngagementComponent,
+    AccountHomeComponent
    ],
   exports: [
     AccountSummaryComponent,
     AccountHighlightsComponent,
     AccountStatisticsComponent,
-    AccountEngagementComponent
+    AccountEngagementComponent,
+    AccountHomeComponent
   ]
 })
 
