@@ -25,7 +25,7 @@ $app->post('/user/', function($request, $response) {
     if ($emailqry->rowCount() > 0)
     {
         $valid = json_encode(array('success' => False, 'location' => 'email'));
-        return $this->response->withJson($valid);
+        return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
         echo "You messed up";
     }
     
@@ -38,7 +38,7 @@ $app->post('/user/', function($request, $response) {
     if ($handleqry->rowCount() > 0)
     {
         $valid = json_encode(array('success' => False, 'location' => 'handle'));
-        return $this->response->withJson($valid);
+        return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
         echo "You messed up";
     }
 
@@ -53,7 +53,7 @@ $app->post('/user/', function($request, $response) {
     $sth->execute();
      
     $valid = json_encode(array('success' => True, 'location' => 'N/A'));
-    return $this->response->withJson($valid);
+    return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
 });
 
 // Given the Twitter handle, returns a user's account information
@@ -63,7 +63,9 @@ $app->get('/user/info/[{twitter_handle}]', function($request, $response, $args) 
     $sth->execute();
     $todos = $sth->fetchObject();
     echo "\n";
-    return $this->response->withJson($todos);
+    $valid = json_encode($todos);
+    //$newResponse = $valid->withHeader('Content-type', 'application/json');
+    return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
 });
 
 // Authenticates a user
@@ -76,10 +78,10 @@ $app->post('/users/auth/', function($request, $response) {
     $obj = $sth->fetchObject();
     if ($sth->rowCount() == 1)
     {
-        return $this->response->withJson(json_encode(array( 'success' => True, 'twitter_handle' => $obj->twitter_handle)));
+        return $this->response->withJson(json_encode(array( 'success' => True, 'twitter_handle' => $obj->twitter_handle)))->withHeader('Content-type', 'application/json');
     }
     $valid = json_encode(array('success' => False, 'twitter_handle' => 'NULL'));
-    return $this->response->withJson($valid); 
+    return $this->response->withJson($valid)->withHeader('Content-type', 'application/json'); 
 });
 
 // Retrieve User Data
@@ -138,7 +140,7 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
         }
 
         $datarr = array('toptweet' => $obj->top_tweet, 'accountage' => $obj->account_age, 'hourlysuccess' => $hoursucc, 'hourlyactivity' => $houract, 'tophashtags' => $tophashtags, 'topwords' => $topwords);
-        return $this->response->withJson($datarr); 
+        return $this->response->withJson($datarr)->withHeader('Content-type', 'application/json'); 
     }
     else
     {

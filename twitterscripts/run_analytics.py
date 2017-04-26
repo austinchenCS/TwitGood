@@ -1,4 +1,5 @@
 #!/usr/bin/python
+DEBUG = True
 
 import re
 import tweepy
@@ -95,6 +96,10 @@ def main():
     top_retweeted_tweet = sorted(top_retweeted_tweet, key=itemgetter(1), reverse=True)
     top_successful_tweet = sorted(top_successful_tweet, key=itemgetter(1), reverse=True)
 
+    # Get profile pic
+    profile_pic = str(user_data.profile_image_url_https)
+    profile_pic = profile_pic.replace("_normal", "")
+
     # Calculate account age (IN DAYS)
     date_created = str(user_data.created_at)
     year_created = int(date_created[0:4])
@@ -130,31 +135,32 @@ def main():
     for x in with_stopwords.most_common(10):
         if word_counter == 5:
             break
-        if x[0] != '':
+        if x[0] != '' and x[0] != '&amp':
             word_counter += 1
             most_frequent_words.append((str(x[0].encode('utf-8')), int(x[1])))
 
-    # PRINT OUT DATA
-    print("#####################################################################################")
-    print("\nTwitter Handle: @" + user_handle)
-    print("Account age: " + str(account_age) + " days\n")
-    print("Top 3 Favorited Tweets: ")
-    for i in range(0, 3):
-        print("\t" + str(i + 1) + ". " + str(top_favorited_tweet[i][0]) + " Favorites: " + str(top_favorited_tweet[i][1]))
-    print("\nTop 3 Retweeted Tweets: ")
-    for i in range(0, 3):
-        print("\t" + str(i + 1) + ". " + str(top_favorited_tweet[i][0]) + " Retweets: " + str(top_retweeted_tweet[i][1]))
-    print("\nTop 3 Successful Tweets: ")
-    for i in range(0, 3):
-        print("\t" + str(i + 1) + ". " + str(top_successful_tweet[i][0]) + " Success: " + str(top_successful_tweet[i][1]))
+    if DEBUG:
+        # PRINT OUT DATA
+        print("#####################################################################################")
+        print("\nTwitter Handle: @" + user_handle)
+        print("Account age: " + str(account_age) + " days\n")
+        print("Top 3 Favorited Tweets: ")
+        for i in range(0, 3):
+            print("\t" + str(i + 1) + ". " + str(top_favorited_tweet[i][0]) + " Favorites: " + str(top_favorited_tweet[i][1]))
+        print("\nTop 3 Retweeted Tweets: ")
+        for i in range(0, 3):
+            print("\t" + str(i + 1) + ". " + str(top_favorited_tweet[i][0]) + " Retweets: " + str(top_retweeted_tweet[i][1]))
+        print("\nTop 3 Successful Tweets: ")
+        for i in range(0, 3):
+            print("\t" + str(i + 1) + ". " + str(top_successful_tweet[i][0]) + " Success: " + str(top_successful_tweet[i][1]))
 
-    print("\nMost frequent words: ")
-    for i in range(0, 5):
-        print(str(i + 1) + ". " + str(most_frequent_words[i][0]))
+        print("\nMost frequent words: ")
+        for i in range(0, 5):
+            print(str(i + 1) + ". " + str(most_frequent_words[i][0]))
 
-    print("\nMost frequent hashtags: " )
-    for i in range(0, 3):
-        print(str(i + 1) + ". " + str(most_frequent_hashtags[i]))
+        print("\nMost frequent hashtags: " )
+        for i in range(0, 3):
+            print(str(i + 1) + ". " + str(most_frequent_hashtags[i]))
 
 
     #print(tweet_count)
