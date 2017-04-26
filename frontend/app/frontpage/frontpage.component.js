@@ -12,13 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const login_details_1 = require("../api/login-details");
 const http_1 = require("@angular/http");
+const router_1 = require("@angular/router");
 require("rxjs/add/operator/toPromise");
 let FrontpageComponent = class FrontpageComponent {
-    constructor(http) {
+    constructor(http, router) {
         this.http = http;
+        this.router = router;
         this.loginFail = false;
         this.loginUrl = 'http://private-17592-twitgood.apiary-mock.com/users/auth';
-        this.createUrl = 'http://private-17592-twitgood.apiary-mock.com/user';
+        this.createUrl = 'https://private-17592-twitgood.apiary-mock.com/user/';
         this.create = false;
         this.details = new login_details_1.LoginDetails(false);
     }
@@ -45,14 +47,16 @@ let FrontpageComponent = class FrontpageComponent {
     }
     validateResult(result) {
         console.log(result);
-        if (result.data.success) {
-            this.goToAccount(result.data.twitter_handle);
+        if (result.success) {
+            this.goToAccount(result.handle);
         }
         else {
             this.loginFail = true;
         }
     }
     goToAccount(handle) {
+        console.log(handle);
+        this.router.navigate(['summary/' + handle]);
     }
 };
 FrontpageComponent = __decorate([
@@ -61,7 +65,8 @@ FrontpageComponent = __decorate([
         templateUrl: './app/frontpage/frontpage.component.html',
         styleUrls: ['./app/frontpage/frontpage.component.css'],
     }),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http,
+        router_1.Router])
 ], FrontpageComponent);
 exports.FrontpageComponent = FrontpageComponent;
 //# sourceMappingURL=frontpage.component.js.map

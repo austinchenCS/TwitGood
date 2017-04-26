@@ -16,19 +16,19 @@ var routes = [
     component: FrontpageComponent
   },
   {
-    path: 'summary',
+    path: 'summary/:handle',
     component: AccountSummaryComponent
   },
   {
-    path: 'statistics',
+    path: 'statistics/:handle',
     component: AccountStatisticsComponent
   },
   {
-    path: 'engagement',
+    path: 'engagement/:handle',
     component: AccountEngagementComponent
   },
   {
-    path: 'highlights',
+    path: 'highlights/:handle',
     component: AccountHighlightsComponent
   },
   

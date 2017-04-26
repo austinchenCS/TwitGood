@@ -21,19 +21,19 @@ var routes = [
         component: frontpage_component_1.FrontpageComponent
     },
     {
-        path: 'summary',
+        path: 'summary/:handle',
         component: account_summary_component_1.AccountSummaryComponent
     },
     {
-        path: 'statistics',
+        path: 'statistics/:handle',
         component: account_statistics_component_1.AccountStatisticsComponent
     },
     {
-        path: 'engagement',
+        path: 'engagement/:handle',
         component: account_engagement_component_1.AccountEngagementComponent
     },
     {
-        path: 'highlights',
+        path: 'highlights/:handle',
         component: account_highlights_component_1.AccountHighlightsComponent
     },
 ];
