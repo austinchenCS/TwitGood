@@ -12,44 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
+require("rxjs/add/operator/map");
 let UserRepository = class UserRepository {
     constructor(http) {
         this.http = http;
-        this._apiUrl = 'http://polls.apiblueprint.org/user/';
+        this._apiUrl = 'https://private-17592-twitgood.apiary-mock.com/user';
     }
-    listAll() {
-        return this.http
-            .get(this._apiUrl)
-            .toPromise()
-            .then(x => x.json().data)
-            .catch(x => x.message);
-    }
-    getById(id) {
-        return this.http
-            .get(`${this._apiUrl}/${id}`)
-            .toPromise()
-            .then(x => x.json().data)
-            .catch(x => x.message);
-    }
-    add(user) {
-        return this.http
-            .post(this._apiUrl, user)
-            .toPromise()
-            .then(x => x.json().data)
-            .catch(x => x.message);
-    }
-    update(user) {
-        return this.http
-            .put(`${this._apiUrl}/${user.twitterHandle}`, user)
-            .toPromise()
-            .then(() => user)
-            .catch(x => x.message);
-    }
-    delete(user) {
-        return this.http
-            .delete(`${this._apiUrl}/${user.twitterHandle}`)
-            .toPromise()
-            .catch(x => x.message);
+    getUserData(handle) {
+        let apiUrl = 'https://private-09ea1-twitgood.apiary-mock.com/user/' + handle;
+        return this.http.get(apiUrl).map((res) => res.json());
     }
 };
 UserRepository = __decorate([
@@ -57,6 +28,4 @@ UserRepository = __decorate([
     __metadata("design:paramtypes", [http_1.Http])
 ], UserRepository);
 exports.UserRepository = UserRepository;
-class userData {
-}
 //# sourceMappingURL=user-repository.js.map

@@ -8,6 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const platform_browser_1 = require("@angular/platform-browser");
+const http_1 = require("@angular/http");
+const user_repository_1 = require("./api/user-repository");
 const account_summary_component_1 = require("./account-summary/account-summary.component");
 const account_highlights_component_1 = require("./account-highlights/account-highlights.component");
 const account_statistics_component_1 = require("./account-statistics/account-statistics.component");
@@ -20,7 +22,8 @@ AccountModule = __decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
-            Shared.SharedModule
+            Shared.SharedModule,
+            http_1.HttpModule
         ],
         declarations: [
             account_summary_component_1.AccountSummaryComponent,
@@ -35,7 +38,8 @@ AccountModule = __decorate([
             account_statistics_component_1.AccountStatisticsComponent,
             account_engagement_component_1.AccountEngagementComponent,
             account_home_component_1.AccountHomeComponent
-        ]
+        ],
+        providers: [user_repository_1.UserRepository]
     })
 ], AccountModule);
 exports.AccountModule = AccountModule;

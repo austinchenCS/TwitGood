@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
  
 @Component({
   moduleId: module.id,
@@ -10,11 +10,17 @@ export class BarChartComponent {
   @Input() bCL : Array<string>;
   @Input() chartLabel : string;
   
+  ngOnChanges(){
+    this.barChartData = [
+      {data: this.data, label: this.chartLabel},
+    ];
+  }
   ngOnInit(){
     this.barChartData = [
       {data: this.data, label: this.chartLabel},
     ];
     this.barChartLabels = this.bCL;
+    console.log(this.data);
   }
   public barChartOptions:any = {
     scaleShowVerticalLines: false,

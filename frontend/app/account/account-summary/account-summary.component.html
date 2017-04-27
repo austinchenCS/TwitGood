@@ -5,7 +5,7 @@
 <h1><span> Volume by Hour </span></h1>
 
 <div style="display: block;height:30vh;width:30vw;margin:auto;">
-    <bar-chart [data]="user.hourlytweeting" [bCL]="xAxisLabels" [chartLabel]="chartTitle"></bar-chart>
+    <bar-chart [data]="user?.hourlytweeting" [bCL]="xAxisLabels" [chartLabel]="chartTitle"></bar-chart>
 </div>
 
 <h1><span> Average Interactions </span></h1>
@@ -20,4 +20,7 @@
     border-style: solid;">
         {{user.likesPerTweet}}</span>
         <font size="6">likes per tweet</font></h2>
+    <iframe border=0 frameborder=0 height=500 width=600 scrolling="no" 
+ src="http://twitframe.com/show?url=https://twitter.com/premierleague/status/857455028738699264"></iframe>
+
 </div>

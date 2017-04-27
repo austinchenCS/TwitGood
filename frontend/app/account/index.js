@@ -10,4 +10,6 @@ __export(require("./account-statistics/account-statistics.component"));
 __export(require("./account-engagement/account-engagement.component"));
 __export(require("./account-home/account-home.component"));
 __export(require("./api/user"));
+__export(require("./api/user-data"));
+__export(require("./api/user-repository"));
 //# sourceMappingURL=index.js.map

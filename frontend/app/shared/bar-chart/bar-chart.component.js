@@ -21,11 +21,17 @@ let BarChartComponent = class BarChartComponent {
         this.barChartType = 'bar';
         this.barChartLegend = true;
     }
+    ngOnChanges() {
+        this.barChartData = [
+            { data: this.data, label: this.chartLabel },
+        ];
+    }
     ngOnInit() {
         this.barChartData = [
             { data: this.data, label: this.chartLabel },
         ];
         this.barChartLabels = this.bCL;
+        console.log(this.data);
     }
     // events
     chartClicked(e) {
