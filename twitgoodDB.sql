@@ -138,3 +138,4 @@ INSERT INTO `TopHashtags` (`user_id`, `rank`, `hashtag`, `created`)
 VALUES ('3', '00', 'synergy', NOW()), ('3', '01', 'marketing', NOW()),
 ('3', '02', 'seo', NOW()), ('3', '03', 'supercallifragilisticexpiallodocius', NOW()),
 ('3', '04', 'good', NOW());
+
