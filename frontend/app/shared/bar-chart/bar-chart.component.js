@@ -31,7 +31,6 @@ let BarChartComponent = class BarChartComponent {
             { data: this.data, label: this.chartLabel },
         ];
         this.barChartLabels = this.bCL;
-        console.log(this.data);
     }
     // events
     chartClicked(e) {

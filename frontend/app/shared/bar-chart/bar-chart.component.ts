@@ -20,7 +20,6 @@ export class BarChartComponent {
       {data: this.data, label: this.chartLabel},
     ];
     this.barChartLabels = this.bCL;
-    console.log(this.data);
   }
   public barChartOptions:any = {
     scaleShowVerticalLines: false,

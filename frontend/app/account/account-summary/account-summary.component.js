@@ -18,10 +18,14 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         this.router = router;
         this.route = route;
         this.userService = userService;
-        this.xAxisLabels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+        this.hours = Array.from(Array(24)).map((e, i) => i);
         this.chartTitle = 'Hourly Tweeting';
     }
     ngOnInit() {
+        this.xAxisLabels = new Array(this.hours.length);
+        for (var i = 0; i < this.xAxisLabels.length; i++) {
+            this.xAxisLabels[i] = this.hours[i].toString();
+        }
         this.user = new user_1.User("twitgood", 3, 316, "../../images/Profile\ Picture.png");
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => { this.userData = data, this.user.hourlytweeting = this.userData.hourlyactivity; });
     }
