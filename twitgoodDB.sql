@@ -4,9 +4,9 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `first_name` varchar(20) NOT NULL,
   `password` varchar(50) NOT NULL,
   `twitter_handle` varchar(50) NOT NULL,
-  `api_key` varchar(50),
-  `api_secret` varchar(50), 
-  `profile_image` varchar(150),
+  `api_key` varchar(50) NOT NULL,
+  `api_secret` varchar(50) NOT NULL, 
+  `profile_image` varchar(150) NOT NULL,
   `created_at` timestamp NOT NULL,
   `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -16,12 +16,12 @@ ALTER TABLE `Users` ADD PRIMARY KEY(`user_id`);
 ALTER TABLE `Users` MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
 
 INSERT INTO `Users` (`email`, `first_name`, `password`, `twitter_handle`, `api_key`, `api_secret`, `profile_image`, `created_at`)
-VALUES ('one@gmail.gov', 'Jerry Knowles', 'password', 'jknowles', '82329847298432', '23974142397 12834792374', `url hey`, NOW()),
-('two@gmail.gov', 'Jenny', 'password', 'j_malo', '82329847298432', '23974142397 12834792374', `url hey`, NOW()),
-('three@gmail.gov', 'gargomel', 'password', 'i_got_truth', '82329847298432', '23974142397 12834792374', `url hey`, NOW()),
-('four@gmail.gov', 'It me', 'password', 'fentibego', '82329847298432', '23974142397 12834792374', `url hey`, NOW()),
-('five@gmail.gov', 'Garnet', 'password', 'garnet_love_time', '82329847298432', '23974142397 12834792374',`url hey`,  NOW()),
-('six@gmail.gov', 'XMentosFan2012X', 'password', 'xmentosfan2012x', '82329847298432', '23974142397 12834792374', `url hey`, NOW());
+VALUES ('one@gmail.gov', 'Jerry Knowles', 'password', 'jknowles', '82329847298432', '23974142397 12834792374', 'url hey', NOW()),
+('two@gmail.gov', 'Jenny', 'password', 'j_malo', '82329847298432', '23974142397 12834792374', 'url hey', NOW()),
+('three@gmail.gov', 'gargomel', 'password', 'i_got_truth', '82329847298432', '23974142397 12834792374', 'url hey', NOW()),
+('four@gmail.gov', 'It me', 'password', 'fentibego', '82329847298432', '23974142397 12834792374', 'url hey', NOW()),
+('five@gmail.gov', 'Garnet', 'password', 'garnet_love_time', '82329847298432', '23974142397 12834792374', 'url hey',  NOW()),
+('six@gmail.gov', 'XMentosFan2012X', 'password', 'xmentosfan2012x', '82329847298432', '23974142397 12834792374', 'url hey', NOW());
 
 CREATE TABLE IF NOT EXISTS `Logins` (
   `user_id` int(11) NOT NULL,
