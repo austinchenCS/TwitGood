@@ -1,0 +1,10 @@
+<div *ngIf="model && model.errors && model.touched" class="alert alert-danger" role="alert">
+    <ul>
+        <li [hidden]="!model.errors.required">
+            {{ messages.required }}
+        </li>
+        <li [hidden]="!model.errors.pattern">
+            {{ messages.pattern }}
+        </li>
+    </ul>
+</div>
