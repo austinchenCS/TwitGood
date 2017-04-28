@@ -85,11 +85,12 @@
         - "y" at prompt
         - "y" at prompt
 
-# Install Twitter Dependencies
-24. Install Tweepy 
+# Install Dependencies
+24. Install Pip & modules 
     - `wget "https://bootstrap.pypa.io/get-pip.py"`
     - `sudo python get-pip.py`
     - `sudo pip install Tweepy`
+    - `sudo pip install peewee`
 
 25. Install nltk
     - `sudo pip install -U nltk`
@@ -97,7 +98,6 @@
     - `>>>import nltk`
     - `>>>nltk.download()`
     - Now download the "stopwords" corpus"
-
 
 
 # Optional: Modify .vimrc

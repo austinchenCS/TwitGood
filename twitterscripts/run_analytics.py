@@ -1,5 +1,6 @@
 #!/usr/bin/python
-DEBUG = True
+DEBUG = False
+DEMO = False
 
 import re
 import tweepy
@@ -13,6 +14,7 @@ from nltk.corpus import stopwords
 from operator import itemgetter
 from collections import Counter
 from string import punctuation
+from mymodels import *
 
 #import requests.packages.urllib3
 #requests.packages.urllib3.disable_warnings()
@@ -167,5 +169,16 @@ def main():
     #print(rt_count)
 
     print("\n#####################################################################################")
+    if not DEMO:
+        users = Users.get(Users.twitter_handle == sys.argv[1])
+        tweetdata = Tweetdata(user_id = users.user, top_faved = top_favorited_tweet[0][0], top_rted = top_retweeted_tweet[0][0], top_success = top_successful_tweet[0][0], account_age = account_age, created = datetime.datetime.now())
+        tweetdata.save()
+        topwords = []
+	for i in range(len(most_frequent_words)):
+            print i
+            Topwords(user_id = users.user, rank = most_frequent_words[i][1], word = most_frequent_words[i][0], created = datetime.datetime.now())).save()  
+	for topword in topwords:
+            topword.save()
+            print topword.word
 
 if __name__ == "__main__": main()
