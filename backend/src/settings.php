@@ -19,7 +19,7 @@ return [
 	    "host" => "localhost",
 	    "dbname" => "Twitgood",
 	    "user" => "root",
-	    "pass" => "password"
+	    "pass" => "jJT89vEEjq"
 	],	
     ],
 ];

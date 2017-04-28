@@ -14,8 +14,8 @@ from operator import itemgetter
 from collections import Counter
 from string import punctuation
 
-import requests.packages.urllib3
-requests.packages.urllib3.disable_warnings()
+#import requests.packages.urllib3
+#requests.packages.urllib3.disable_warnings()
 
 consumer_key = KEYS.get_consumer_key()
 consumer_secret = KEYS.get_consumer_secret()
