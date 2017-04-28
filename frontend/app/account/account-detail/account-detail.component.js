@@ -9,46 +9,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_repository_1 = require("./../api/user-repository");
 const core_1 = require("@angular/core");
-const user_1 = require("../api/user");
-//import { UserData } from '../api/user-data';
 const router_1 = require("@angular/router");
-let AccountSummaryComponent = class AccountSummaryComponent {
+const user_1 = require("../api/user");
+const user_repository_1 = require("./../api/user-repository");
+let AccountDetailComponent = class AccountDetailComponent {
     constructor(router, route, userService) {
         this.router = router;
         this.route = route;
         this.userService = userService;
-        this.xAxisLabels = ['S', 'M', 'T', 'W', 'Th', 'F', 'S']; //= ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9','10','11','12','13','14','15','16','17',''];
-        this.hours = Array.from(Array(24)).map((e, i) => i);
-        this.chartTitle = 'Tweet Success by Days';
     }
     ngOnInit() {
-        // this.xAxisLabels = new Array<string>(this.hours.length);
-        // for(var i=0;i<this.xAxisLabels.length;i++){
-        //   this.xAxisLabels[i] = this.hours[i].toString();
-        // }
         this.user = new user_1.User('twitgood');
-        this.user.weeklysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
-        this.user.topwords = ['35', '6'];
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
             this.userData = data,
-                this.user.weeklysuccess = this.userData.weeklysuccess,
-                this.user.topwords = this.userData.topwords,
-                this.user.top_successful_tweet = this.userData.top_successful_tweet;
+                this.user.accountage = this.userData.hourlyactivity,
+                this.user.tophashtags = this.userData.tophashtags,
+                this.user.topwords = this.userData.topwords;
         });
     }
 };
-AccountSummaryComponent = __decorate([
+AccountDetailComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'account-summary',
-        templateUrl: 'account-summary.component.html',
-        styleUrls: ['account-summary.component.css'],
+        selector: 'account-detail',
+        templateUrl: 'account-detail.component.html',
+        styleUrls: ['account-detail.component.css']
     }),
     __metadata("design:paramtypes", [router_1.Router,
         router_1.ActivatedRoute,
         user_repository_1.UserRepository])
-], AccountSummaryComponent);
-exports.AccountSummaryComponent = AccountSummaryComponent;
-//# sourceMappingURL=account-summary.component.js.map
+], AccountDetailComponent);
+exports.AccountDetailComponent = AccountDetailComponent;
+//# sourceMappingURL=account-detail.component.js.map
