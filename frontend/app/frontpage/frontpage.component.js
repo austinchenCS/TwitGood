@@ -59,6 +59,10 @@ let FrontpageComponent = class FrontpageComponent {
         this.router.navigate(['home/' + handle]);
     }
 };
+__decorate([
+    core_1.ViewChild("confirm"),
+    __metadata("design:type", Object)
+], FrontpageComponent.prototype, "modelVar", void 0);
 FrontpageComponent = __decorate([
     core_1.Component({
         selector: 'frontpage',

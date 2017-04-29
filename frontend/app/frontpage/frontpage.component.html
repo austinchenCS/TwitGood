@@ -10,7 +10,7 @@
                 novalidte>
                 <div class="input-group">
                     <span class="input-group-addon" id="sizing-addon1">Email</span>
-                    <input #email="ngModel" type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1" [(ngModel)]="details.email" name="email" required>
+                    <input #email="ngModel" type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1" [(ngModel)]="details.email" name="email" required pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$">
                 </div>
                 <br/>
                 <validation [model]="email" [messages]="{required : 'Email is required', pattern : 'Not a valid email'}"></validation>
@@ -24,18 +24,18 @@
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon" id="sizing-addon1">Password</span>
-                    <input #password="ngModel" type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" [(ngModel)]="details.password" name="password" required>
+                    <input #password="ngModel" type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" [(ngModel)]="details.password" name="password" required minlength=7>
                 </div>
                 <br/>
-                <validation [model]="password" [messages]="{required : 'Password is required'}"></validation>
-                <div *ngIf="create">
+                <validation [model]="password" [messages]="{required : 'Password is required', minlength : 'Password must be at least seven characters'}"></validation>
+                <!--<div *ngIf="create">
                 <div class="input-group">
                     <span class="input-group-addon" id="sizing-addon1">Confirm Password</span>
-                    <input #confirm="ngModel" type="password" class="form-control" placeholder="Confirm Password" aria-describedby="sizing-addon1" [(ngModel)]="details.confirm" name="confirm" required>
+                    <input #confirm="ngModel" type="password" class="form-control" placeholder="Confirm Password" aria-describedby="sizing-addon1" [(ngModel)]="details.confirm" name="confirm" required value-match>
                 </div>
                 <br *ngIf="create"/>
-                <validation [model]="confirm" [messages]="{required : 'Confirm password is required', pattern : 'Confirm password must match password'}"></validation>
-                </div>
+                <validation [model]="confirm" [messages]="{required : 'Confirm password is required', matching : 'Confirm password must match password'}"></validation>
+                </div>-->
                 <p><button class="btn btn-primary full-width twitgood-green-bg" type="submit">{{ create ? 'Submit' : 'Login'}}</button></p>
                 </form>
                 <p><button class="btn btn-primary full-width twitgood-green-bg" (click)="createFlip()">{{ create ? 'Cancel' : 'Create Account'}}</button></p>

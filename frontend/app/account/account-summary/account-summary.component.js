@@ -23,8 +23,8 @@ let AccountSummaryComponent = class AccountSummaryComponent {
     }
     ngOnInit() {
         this.xAxisLabels = new Array(this.hours.length);
-        for (var i = 0; i < this.xAxisLabels.length; i++) {
-            this.xAxisLabels[i] = this.hours[i].toString();
+        for (var i = 0; i < 24; i++) {
+            this.xAxisLabels[i] = (i % 12 || 12).toString() + (Math.floor(i / 12) ? 'PM' : 'AM');
         }
         this.user = new user_1.User("twitgood", 3, 316, "../../images/Profile\ Picture.png");
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => { this.userData = data, this.user.hourlytweeting = this.userData.hourlyactivity; });

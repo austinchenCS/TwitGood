@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormsModule, Validators } from '@angular/forms';
 import { LoginDetails } from '../api/login-details';
 import { Http, Headers, Response } from '@angular/http';
 import { ValidationComponent } from './../shared/validation/validation.component';
-import { Router } from '@angular/router'
+import { ValueMatchDirective } from './../shared/value-match/value-match.directive';
+import { Router } from '@angular/router';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -12,6 +13,9 @@ import 'rxjs/add/operator/toPromise';
  styleUrls: [ './app/frontpage/frontpage.component.css' ],
 })
 export class FrontpageComponent {
+
+    @ViewChild("confirm") modelVar : any;
+
     create : boolean;
     details : LoginDetails;
     loginFail : boolean = false;

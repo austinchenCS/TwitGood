@@ -25,8 +25,8 @@ export class AccountSummaryComponent{
       ngOnInit(){
         this.xAxisLabels = new Array<string>(this.hours.length);
 
-        for(var i=0;i<this.xAxisLabels.length;i++){
-          this.xAxisLabels[i] = this.hours[i].toString();
+        for(var i=0;i<24;i++){
+          this.xAxisLabels[i] = (i%12 || 12).toString()+(Math.floor(i/12) ? 'PM' : 'AM');
         }
 
         this.user = new User("twitgood",3,316,"../../images/Profile\ Picture.png");
