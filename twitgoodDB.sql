@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `TweetData` (
   `top_rted` varchar(150) NOT NULL,
   `top_success` varchar(150) NOT NULL,
   `account_age` varchar(150) NOT NULL,
+  `tweets_positive` varchar(150) NOT NULL,
   `created` timestamp NOT NULL,
   `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -55,13 +56,13 @@ CREATE TABLE IF NOT EXISTS `TweetData` (
 ALTER TABLE `TweetData` ADD PRIMARY KEY(`user_id`);
 ALTER TABLE `TweetData` ADD FOREIGN KEY(`user_id`) REFERENCES `Users`(`user_id`);
 
-INSERT INTO `TweetData` (`user_id`, `top_faved`, `top_rted`, `top_success`, `account_age`, `created`)
-VALUES ('1', 'url1','url2','url3','3 months, 2 days', NOW()),
-('4', 'url1','url2','url3','5 days', NOW()),
-('2', 'url1','url2','url3','1 day', NOW()),
-('3', 'Great website.','fj','ksjfls','10 years, 12 months, 30 days', NOW()),
-('5', 'Big fan of the blue bird website that I\'m on!','x','y','5 years',NOW()),
-('6', 'This is also *my* top tweet.','orjt','ayyy','2 years, 1 day', NOW());
+INSERT INTO `TweetData` (`user_id`, `top_faved`, `top_rted`, `top_success`, `account_age`, `tweets_positive`, `created`)
+VALUES ('1', 'url1','url2','url3','3 months, 2 days', '58.23', NOW()),
+('4', 'url1','url2','url3','5 days', '12.43', NOW()),
+('2', 'url1','url2','url3','1 day', '50.00', NOW()),
+('3', 'Great website.','fj','ksjfls','10 years, 12 months, 30 days', '39.45', NOW()),
+('5', 'Big fan of the blue bird website that I\'m on!','x','y','5 years', '24.34', NOW()),
+('6', 'This is also *my* top tweet.','orjt','ayyy','2 years, 1 day', '32.12',  NOW());
 
 CREATE TABLE IF NOT EXISTS `HourlyData` (
   `user_id` int(11) NOT NULL,

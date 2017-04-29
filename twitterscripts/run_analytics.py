@@ -123,9 +123,6 @@ def main():
         # get all words
         all_words.append(tweet._json['text'])
 
-    for data in time_data:
-        print(data)
-
     # Get activity per hour and day
     for data in time_data:
         weekly_activity[str(data[1])] += 1
@@ -204,10 +201,10 @@ def main():
         with_stopwords.update(w.lower().rstrip(punctuation) for w in split if w.lower() not in stopwords)
 
     word_counter = 0
-    for x in with_stopwords.most_common(10):
+    for x in with_stopwords.most_common(11):
         if word_counter == 5:
             break
-        if x[0] != '' and x[0] != '&amp':
+        if x[0] != '' and x[0] != '&amp' and re.search(r'@\w+', x[0]) is None and re.search(r'[^a-zA-Z0-9]+', x[0]) is None:
             word_counter += 1
             most_frequent_words.append((str(x[0].encode('utf-8')), int(x[1])))
 
@@ -238,7 +235,7 @@ def main():
             print("\t" + str(i + 1) + ". " + str(top_favorited_tweet[i][0]) + " Favorites: " + str(top_favorited_tweet[i][1]))
         print("\nTop 3 Retweeted Tweets: ")
         for i in range(0, 3):
-            print("\t" + str(i + 1) + ". " + str(top_favorited_tweet[i][0]) + " Retweets: " + str(top_retweeted_tweet[i][1]))
+            print("\t" + str(i + 1) + ". " + str(top_retweeted_tweet[i][0]) + " Retweets: " + str(top_retweeted_tweet[i][1]))
         print("\nTop 3 Successful Tweets: ")
         for i in range(0, 3):
             print("\t" + str(i + 1) + ". " + str(top_successful_tweet[i][0]) + " Success: " + str(top_successful_tweet[i][1]))
@@ -270,6 +267,11 @@ def main():
         print("\nPolarity split of tweets: ")
         print("   Positive: " + str(round((tweet_polarity_split[0] * 100), 2)) + "%")
         print("   Negative: " + str(round((tweet_polarity_split[1] * 100), 2)) + "%")
+
+        print(top_favorited_tweet[0][0])
+        print(top_retweeted_tweet[0][0])
+        print(top_successful_tweet[0][0])
+        print(account_age)
 
     	print("\n#####################################################################################")
 
