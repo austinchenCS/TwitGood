@@ -28,9 +28,23 @@ access_token = KEYS.get_access_token()
 access_token_secret = KEYS.get_access_token_secret()
 
 # For now, only takes into account central time.
-#def convertUTC( (day, hour) ):
+def convertUTC( time_tuple ):
+    days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
 
+    day_index = days.index(str(time_tuple[0]))
+    hour = int(time_tuple[1])
 
+    # Offset for Dallas time
+    hour -= 5
+
+    if hour < 0:
+        day_index -= 1
+        hour += 24
+
+    formatted_dt = (str(days[day_index]), str(hour))
+    return formatted_dt
+
+# Main analysis
 def main():
     # authorizes
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -46,7 +60,7 @@ def main():
     # create user data thing
     user_data = api.get_user(screen_name = user_handle)
 
-    # list of tuples: (tweet, day, hour)
+    # time_data is a list of tuples (tweet_link, day, hour, success)
     time_data = []
     hourly_activity = {}
     weekly_activity = {"sun": 0, "mon": 0, "tue": 0, "wed": 0, "thu": 0, "fri": 0, "sat": 0}
@@ -84,8 +98,9 @@ def main():
 
         tweet_count += 1
 
-        time_data.append((curr_url, tweet._json['created_at'][:3].lower(), tweet._json['created_at'][11:13]))
-        print(tweet._json['created_at'][:3].lower(), tweet._json['created_at'][11:13])
+        # Format time stamp
+        time_tup = ( tweet._json['created_at'][:3].lower(), tweet._json['created_at'][11:13] )
+        new_time = convertUTC(time_tup)
 
         # get top tweets
         curr_fav = int(tweet._json['favorite_count'])
@@ -94,6 +109,9 @@ def main():
         top_favorited_tweet.append((curr_url, curr_fav))
         top_retweeted_tweet.append((curr_url, curr_rt))
         top_successful_tweet.append((curr_url, curr_success))
+
+        # build tuple
+        time_data.append((curr_url, new_time[0], new_time[1], str(curr_success)))
 
         # get hashtags
         curr_hashtags = tweet._json['entities']['hashtags']
@@ -104,6 +122,8 @@ def main():
         # get all words
         all_words.append(tweet._json['text'])
 
+    for data in time_data:
+        print(data)
 
     # Get top tweets
     top_favorited_tweet = sorted(top_favorited_tweet, key=itemgetter(1), reverse=True)
@@ -125,7 +145,6 @@ def main():
 
     account_age = today - date_created
     account_age = int(account_age.days)
-
 
     # Get most frequent hashtags
     word_counter = {}
@@ -209,15 +228,11 @@ def main():
 
     if not DEMO:
         users = Users.get(Users.twitter_handle == sys.argv[1])
-        tweetdata = Tweetdata(user_id = users.user, top_faved = top_favorited_tweet[0][0], top_rted = top_retweeted_tweet[0][0], top_success = top_successful_tweet[0][0], account_age = account_age, created = datetime.datetime.now())
-        tweetdata.save()
-        #topwords = []
-	#for i in range(len(most_frequent_words)):
-        #    print i
-        #    Topwords(user_id = users.user, rank = most_frequent_words[i][1], word = most_frequent_words[i][0], created = datetime.datetime.now())).save()
-	#for topword in topwords:
-        #    topword.save()
-        #    print topword.word
+        new_tweetdata = Tweetdata(user_id = users.user, top_faved = top_favorited_tweet[0][0], top_rted = top_retweeted_tweet[0][0], top_success = top_successful_tweet[0][0], account_age = account_age, created = datetime.datetime.now())
+        new_tweetdata.save()
+
+	for i in range(len(most_frequent_words)):
+            Topwords.create(user_id = users.user, rank = most_frequent_words[i][1], word = most_frequent_words[i][0], created = datetime.datetime.now()).save()
 
 ###############################################################################
 ######### /SQL INSERTION ######################################################

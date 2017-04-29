@@ -92,7 +92,6 @@ def learn_tweet_polarity():
 
     # Returns positive/negative split of tweets
     split = (polarity_pct["positive"], polarity_pct["negative"])
-    print(split)
 
     return split
 
