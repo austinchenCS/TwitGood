@@ -16,7 +16,7 @@ require("rxjs/add/operator/map");
 let UserRepository = class UserRepository {
     constructor(http) {
         this.http = http;
-        this._apiUrl = 'https://private-17592-twitgood.apiary-mock.com/user';
+        this._apiUrl = 'https://private-09ea1-twitgood.apiary-mock.com/user/';
     }
     getUserData(handle) {
         let apiUrl = 'https://private-09ea1-twitgood.apiary-mock.com/user/' + handle;

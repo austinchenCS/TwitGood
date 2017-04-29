@@ -1,1 +1,50 @@
-<h1>Account detail</h1>
+<div class="container" style="margin:auto;">
+    <h1>
+        <strong>Account Detail</strong>
+    </h1>
+
+    <br>
+
+    <h2><span> Your account is {{user?.accountage}} </span></h2>
+
+    <br>
+
+    <div style="display: block;height:40vh;width:25vw;margin:auto;">
+        <h1><span> Top hashtags </span></h1>
+            <table class="table table-sm table-inverse">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Hashtag</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let hashtag of user?.tophashtags; let i = index; trackBy: trackByFn">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{hashtag}}</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+
+    <br>
+
+    <div style="display: block;height:40vh;width:25vw;margin:auto;">
+        <h1><span> Top words </span></h1>
+            <table class="table table-sm table-inverse">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Word</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let word of user?.topwords; let i = index; trackBy: trackByFn">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{word}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        <h1><span> Top words </span></h1>
+    </div>  
+</div>

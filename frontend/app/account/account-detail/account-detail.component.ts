@@ -12,10 +12,7 @@ import { UserRepository } from './../api/user-repository';
 })
 
 export class AccountDetailComponent{
-    user: User;// = new User("@johndoe",3,316,"../../images/Profile\ Picture.png");
-    // accountAge: string;
-    // topHashTags: string[];
-    // topWords: string[];
+    user: User;
     userData: any;
     constructor(private router: Router,
               private route: ActivatedRoute,
@@ -26,7 +23,7 @@ export class AccountDetailComponent{
       
       this.userService.getUserData(this.user.twitterHandle).subscribe(
         (data) => {this.userData = data,
-            this.user.accountage = this.userData.hourlyactivity,
+            this.user.accountage = this.userData.accountage,
             this.user.tophashtags = this.userData.tophashtags,
             this.user.topwords = this.userData.topwords
         }

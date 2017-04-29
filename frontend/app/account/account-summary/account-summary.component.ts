@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class AccountSummaryComponent{
-    user: User; //= new User("twitgood",3,316,"../../images/Profile\ Picture.png");
+    user: User;
     xAxisLabels: string[] = ['S','M','T','W','Th','F','S']; //= ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9','10','11','12','13','14','15','16','17',''];
     hours : number[] = Array.from(Array(24)).map((e,i)=>i);
     chartTitle = 'Tweet Success by Days';

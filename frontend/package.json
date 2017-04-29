@@ -1,5 +1,5 @@
 {
-  "name": "Homework",
+  "name": "TwitGood",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "lite": "lite-server",

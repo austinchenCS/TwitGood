@@ -23,7 +23,7 @@ let AccountDetailComponent = class AccountDetailComponent {
         this.user = new user_1.User('twitgood');
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
             this.userData = data,
-                this.user.accountage = this.userData.hourlyactivity,
+                this.user.accountage = this.userData.accountage,
                 this.user.tophashtags = this.userData.tophashtags,
                 this.user.topwords = this.userData.topwords;
         });
