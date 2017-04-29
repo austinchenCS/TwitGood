@@ -36,6 +36,13 @@
                 <br *ngIf="create"/>
                 <validation [model]="confirm" [messages]="{required : 'Confirm password is required', matching : 'Confirm password must match password'}"></validation>
                 </div>-->
+                <div *ngIf="loginFail" class="alert alert-danger" role="alert">
+                    <ul style="list-style: none">
+                        <li>
+                            {{ create ? "Username is taken" : "Username or password is incorrect" }}
+                        </li>
+                    </ul>
+                </div>
                 <p><button class="btn btn-primary full-width twitgood-green-bg" type="submit">{{ create ? 'Submit' : 'Login'}}</button></p>
                 </form>
                 <p><button class="btn btn-primary full-width twitgood-green-bg" (click)="createFlip()">{{ create ? 'Cancel' : 'Create Account'}}</button></p>

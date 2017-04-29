@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
+const forms_1 = require("@angular/forms");
 const login_details_1 = require("../api/login-details");
 const http_1 = require("@angular/http");
 const router_1 = require("@angular/router");
@@ -28,6 +29,8 @@ let FrontpageComponent = class FrontpageComponent {
     createFlip() {
         this.create = !this.create;
         this.details = new login_details_1.LoginDetails(this.create);
+        this.loginFail = false;
+        this.myForm.reset();
     }
     accountInteraction() {
         if (this.create) {
@@ -60,9 +63,9 @@ let FrontpageComponent = class FrontpageComponent {
     }
 };
 __decorate([
-    core_1.ViewChild("confirm"),
-    __metadata("design:type", Object)
-], FrontpageComponent.prototype, "modelVar", void 0);
+    core_1.ViewChild("loginForm"),
+    __metadata("design:type", forms_1.NgForm)
+], FrontpageComponent.prototype, "myForm", void 0);
 FrontpageComponent = __decorate([
     core_1.Component({
         selector: 'frontpage',

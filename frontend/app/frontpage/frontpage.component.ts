@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormsModule, Validators } from '@angular/forms';
+import { FormsModule, Validators, NgForm } from '@angular/forms';
 import { LoginDetails } from '../api/login-details';
 import { Http, Headers, Response } from '@angular/http';
 import { ValidationComponent } from './../shared/validation/validation.component';
@@ -14,7 +14,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class FrontpageComponent {
 
-    @ViewChild("confirm") modelVar : any;
+    @ViewChild("loginForm") myForm : NgForm;
 
     create : boolean;
     details : LoginDetails;
@@ -31,6 +31,8 @@ export class FrontpageComponent {
     createFlip(){
         this.create = !this.create;
         this.details = new LoginDetails(this.create);
+        this.loginFail = false;
+        this.myForm.reset();
     }
 
     accountInteraction(){
