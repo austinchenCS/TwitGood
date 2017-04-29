@@ -1,8 +1,9 @@
 #!/usr/bin/python
-DEBUG = False
-DEMO = False
+DEBUG = True
+DEMO = True
 
 import re
+import csv
 import tweepy
 import KEYS
 import sys
@@ -15,6 +16,7 @@ from operator import itemgetter
 from collections import Counter
 from string import punctuation
 from mymodels import *
+from analyze_polarity import learn_tweet_polarity
 
 #import requests.packages.urllib3
 #requests.packages.urllib3.disable_warnings()
@@ -24,6 +26,10 @@ consumer_secret = KEYS.get_consumer_secret()
 
 access_token = KEYS.get_access_token()
 access_token_secret = KEYS.get_access_token_secret()
+
+# For now, only takes into account central time.
+#def convertUTC( (day, hour) ):
+
 
 def main():
     # authorizes
@@ -42,9 +48,13 @@ def main():
 
     # list of tuples: (tweet, day, hour)
     time_data = []
+    hourly_activity = {}
+    weekly_activity = {"sun": 0, "mon": 0, "tue": 0, "wed": 0, "thu": 0, "fri": 0, "sat": 0}
+    hourly_success = {}
+    weekly_success = {"sun": 0, "mon": 0, "tue": 0, "wed": 0, "thu": 0, "fri": 0, "sat": 0}
 
     # list of tuples for tweets
-    # format: (tweet_url, likes, retweets)
+    # format: (tweet_url, retweets)
     top_favorited_tweet = []
     top_retweeted_tweet = []
     top_successful_tweet = []
@@ -69,11 +79,13 @@ def main():
             rt_count += 1
             continue
 
-        tweet_count += 1
-        time_data.append((tweet._json, tweet._json['created_at'][:3].lower(), tweet._json['created_at'][11:13]))
-
         # build URL of current tweet
         curr_url = "https://twitter.com/twitgood/status/" + tweet._json['id_str']
+
+        tweet_count += 1
+
+        time_data.append((curr_url, tweet._json['created_at'][:3].lower(), tweet._json['created_at'][11:13]))
+        print(tweet._json['created_at'][:3].lower(), tweet._json['created_at'][11:13])
 
         # get top tweets
         curr_fav = int(tweet._json['favorite_count'])
@@ -141,10 +153,26 @@ def main():
             word_counter += 1
             most_frequent_words.append((str(x[0].encode('utf-8')), int(x[1])))
 
+    # Analyze tweet polarity with machine learning
+    with open('all_tweets.csv', 'wb') as my_csv_file:
+        the_data_writer = csv.writer(my_csv_file, delimiter=',')
+        label = ("tweets", " ")
+        the_data_writer.writerow(label)
+        for tweet in all_words:
+            the_data_writer.writerow([str(tweet.encode('utf-8'))])
+
+    tweet_polarity_split = learn_tweet_polarity()
+
+
+###############################################################################
+########## DEBUG ##############################################################
+###############################################################################
+
     if DEBUG:
         # PRINT OUT DATA
         print("#####################################################################################")
         print("\nTwitter Handle: @" + user_handle)
+        print("\nTime Zone: " + str(user_data.utc_offset))
         print("Account age: " + str(account_age) + " days\n")
         print("Top 3 Favorited Tweets: ")
         for i in range(0, 3):
@@ -164,21 +192,34 @@ def main():
         for i in range(0, 3):
             print(str(i + 1) + ". " + str(most_frequent_hashtags[i]))
 
+        print("\nPolarity split of tweets: ")
+        print("   Positive: " + str(tweet_polarity_split[0] * 100) + "%")
+        print("   Negative: " + str(tweet_polarity_split[1] * 100) + "%")
 
-    #print(tweet_count)
-    #print(rt_count)
+    	print("\n#####################################################################################")
 
-    print("\n#####################################################################################")
+###############################################################################
+######### /DEBUG ##############################################################
+###############################################################################
+
+
+###############################################################################
+########## SQL INSERTION ######################################################
+###############################################################################
+
     if not DEMO:
         users = Users.get(Users.twitter_handle == sys.argv[1])
         tweetdata = Tweetdata(user_id = users.user, top_faved = top_favorited_tweet[0][0], top_rted = top_retweeted_tweet[0][0], top_success = top_successful_tweet[0][0], account_age = account_age, created = datetime.datetime.now())
         tweetdata.save()
-        topwords = []
-	for i in range(len(most_frequent_words)):
-            print i
-            Topwords(user_id = users.user, rank = most_frequent_words[i][1], word = most_frequent_words[i][0], created = datetime.datetime.now())).save()  
-	for topword in topwords:
-            topword.save()
-            print topword.word
+        #topwords = []
+	#for i in range(len(most_frequent_words)):
+        #    print i
+        #    Topwords(user_id = users.user, rank = most_frequent_words[i][1], word = most_frequent_words[i][0], created = datetime.datetime.now())).save()
+	#for topword in topwords:
+        #    topword.save()
+        #    print topword.word
 
+###############################################################################
+######### /SQL INSERTION ######################################################
+###############################################################################
 if __name__ == "__main__": main()
