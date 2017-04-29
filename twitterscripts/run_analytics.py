@@ -125,6 +125,40 @@ def main():
     for data in time_data:
         print(data)
 
+    # Get activity per hour and day
+    for data in time_data:
+        weekly_activity[str(data[1])] += 1
+        weekly_success[str(data[1])] += int(data[3])
+
+        if int(data[2]) not in hourly_activity:
+            hourly_activity[int(data[2])] = 0
+
+        else:
+            hourly_activity[int(data[2])] += 1
+
+        if int(data[2]) not in hourly_success:
+            hourly_success[int(data[2])] = 0
+
+        else:
+            hourly_success[int(data[2])] += int(data[3])
+
+
+    # Get average success per hour and day
+    for key in weekly_success:
+        divide = weekly_activity[key]
+        if divide == 0:
+            divide += 1
+
+        weekly_success[key] = float(weekly_success[key]) / float(divide)
+
+    for key in hourly_success:
+        divide = hourly_activity[key]
+        if divide == 0:
+            divide += 1
+
+        hourly_success[key] = float(hourly_success[key]) / float(divide)
+
+
     # Get top tweets
     top_favorited_tweet = sorted(top_favorited_tweet, key=itemgetter(1), reverse=True)
     top_retweeted_tweet = sorted(top_retweeted_tweet, key=itemgetter(1), reverse=True)
@@ -202,6 +236,22 @@ def main():
         print("\nTop 3 Successful Tweets: ")
         for i in range(0, 3):
             print("\t" + str(i + 1) + ". " + str(top_successful_tweet[i][0]) + " Success: " + str(top_successful_tweet[i][1]))
+
+        print("\nTweet volume per day: ")
+        for key in weekly_activity:
+            print(" " + key + ": " + str(weekly_activity[key]))
+
+        print("\nTweet volume per hour: ")
+        for key in hourly_activity:
+            print(" " + str(key) + ": " + str(hourly_activity[key]))
+
+        print("\nTweet success per day: ")
+        for key in weekly_success:
+            print(" " + key + ": " + str(weekly_success[key]))
+
+        print("\nTweet success per hour: ")
+        for key in hourly_success:
+            print(" " + str(key) + ": " + str(hourly_success[key]))
 
         print("\nMost frequent words: ")
         for i in range(0, 5):
