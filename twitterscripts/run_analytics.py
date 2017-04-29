@@ -150,14 +150,14 @@ def main():
         if divide == 0:
             divide += 1
 
-        weekly_success[key] = float(weekly_success[key]) / float(divide)
+        weekly_success[key] = round((float(weekly_success[key]) / float(divide)), 2)
 
     for key in hourly_success:
         divide = hourly_activity[key]
         if divide == 0:
             divide += 1
 
-        hourly_success[key] = float(hourly_success[key]) / float(divide)
+        hourly_success[key] = round((float(hourly_success[key]) / float(divide)), 2)
 
 
     # Get top tweets
@@ -268,8 +268,8 @@ def main():
             print(str(i + 1) + ". " + str(most_frequent_hashtags[i]))
 
         print("\nPolarity split of tweets: ")
-        print("   Positive: " + str(tweet_polarity_split[0] * 100) + "%")
-        print("   Negative: " + str(tweet_polarity_split[1] * 100) + "%")
+        print("   Positive: " + str(round((tweet_polarity_split[0] * 100), 2)) + "%")
+        print("   Negative: " + str(round((tweet_polarity_split[1] * 100), 2)) + "%")
 
     	print("\n#####################################################################################")
 
@@ -288,7 +288,7 @@ def main():
         new_tweetdata.save()
 
 	for i in range(len(most_frequent_words)):
-            Topwords.create(user_id = users.user, rank = most_frequent_words[i][1], word = most_frequent_words[i][0], created = datetime.datetime.now()).save()
+            Topwords.create(user_id = users.user, rank = (i + 1), word = most_frequent_words[i][0], created = datetime.datetime.now()).save()
 
 ###############################################################################
 ######### /SQL INSERTION ######################################################
