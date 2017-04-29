@@ -1,1 +1,24 @@
-<h1>Account Engagement</h1>
+<div class="container" style="margin:auto;">
+    <h1>
+        <strong>Account Engagement</strong>
+    </h1>
+
+    <div>
+
+        <div class="chart-container" style="display: block; height:40vh; width:40vw; margin:auto;">
+            <bar-chart [data]="user?.hourlyactivity" [bCL]="hours" [chartLabel]="'Hourly Activity'"></bar-chart>
+        </div>
+
+        <div class="chart-container" style="display: block;height:40vh;width:40vw;margin:auto;">
+            <bar-chart [data]="user?.hourlysuccess" [bCL]="hours" [chartLabel]="'Hourly Success'"></bar-chart>
+        </div>
+
+        <div class="chart-container" style="display: block;height:40vh;width:40vw;margin:auto;">
+            <bar-chart [data]="user?.weeklyactivity" [bCL]="days" [chartLabel]="'Weekly Activity'"></bar-chart>
+        </div>
+
+        <div class="chart-container" style="display: block;height:40vh;width:40vw;margin:auto;">
+            <bar-chart [data]="user?.weeklysuccess" [bCL]="days" [chartLabel]="'Weekly Success'"></bar-chart>
+        </div>
+    </div>
+</div>

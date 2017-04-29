@@ -10,7 +10,7 @@ exports.routes = [
         children: [
             { path: '', component: Account.AccountHomeComponent, pathMatch: 'full' },
             { path: 'summary', component: Account.AccountSummaryComponent },
-            { path: 'statistics', component: Account.AccountStatisticsComponent },
+            { path: 'detail', component: Account.AccountDetailComponent },
             { path: 'engagement', component: Account.AccountEngagementComponent },
             { path: 'highlights', component: Account.AccountHighlightsComponent }
         ]

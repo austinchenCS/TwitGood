@@ -12,7 +12,7 @@ const http_1 = require("@angular/http");
 const user_repository_1 = require("./api/user-repository");
 const account_summary_component_1 = require("./account-summary/account-summary.component");
 const account_highlights_component_1 = require("./account-highlights/account-highlights.component");
-const account_statistics_component_1 = require("./account-statistics/account-statistics.component");
+const account_detail_component_1 = require("./account-detail/account-detail.component");
 const account_engagement_component_1 = require("./account-engagement/account-engagement.component");
 const account_home_component_1 = require("./account-home/account-home.component");
 const Shared = require("../shared/index");
@@ -28,14 +28,14 @@ AccountModule = __decorate([
         declarations: [
             account_summary_component_1.AccountSummaryComponent,
             account_highlights_component_1.AccountHighlightsComponent,
-            account_statistics_component_1.AccountStatisticsComponent,
+            account_detail_component_1.AccountDetailComponent,
             account_engagement_component_1.AccountEngagementComponent,
             account_home_component_1.AccountHomeComponent
         ],
         exports: [
             account_summary_component_1.AccountSummaryComponent,
             account_highlights_component_1.AccountHighlightsComponent,
-            account_statistics_component_1.AccountStatisticsComponent,
+            account_detail_component_1.AccountDetailComponent,
             account_engagement_component_1.AccountEngagementComponent,
             account_home_component_1.AccountHomeComponent
         ],
