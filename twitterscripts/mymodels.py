@@ -1,6 +1,9 @@
 from peewee import *
+from KEYS import *
 
-database = MySQLDatabase('Twitgood', **{'password': 'password', 'user': 'root'})
+passwd = get_mySQL_pass()
+
+database = MySQLDatabase('Twitgood', **{'password': passwd, 'user': 'root'})
 
 class UnknownField(object):
     def __init__(self, *_, **__): pass

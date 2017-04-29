@@ -9,7 +9,6 @@ import KEYS
 import sys
 import json
 import time
-import datetime
 import nltk
 from nltk.corpus import stopwords
 from operator import itemgetter
@@ -17,6 +16,8 @@ from collections import Counter
 from string import punctuation
 from mymodels import *
 from analyze_polarity import learn_tweet_polarity
+from dateutil.relativedelta import relativedelta
+import datetime
 
 #import requests.packages.urllib3
 #requests.packages.urllib3.disable_warnings()
@@ -74,7 +75,7 @@ def main():
     top_successful_tweet = []
 
     # account age (IN DAYS)
-    account_age = 0
+    account_age = ""
 
     # list of frequent hashtags and words
     most_frequent_words = []
@@ -168,7 +169,7 @@ def main():
     profile_pic = str(user_data.profile_image_url_https)
     profile_pic = profile_pic.replace("_normal", "")
 
-    # Calculate account age (IN DAYS)
+    # Calculate account age
     date_created = str(user_data.created_at)
     year_created = int(date_created[0:4])
     month_created = int(date_created[5:7])
@@ -177,8 +178,12 @@ def main():
     date_created = datetime.date(year_created, month_created, day_created)
     today = datetime.datetime.now().date()
 
-    account_age = today - date_created
-    account_age = int(account_age.days)
+    rdelta = relativedelta(today, date_created)
+    years = int(rdelta.years)
+    months = int(rdelta.months)
+    days = int(rdelta.days)
+
+    account_age += str(years) + " years, " + str(months) + " months, " + str(days) + " days"
 
     # Get most frequent hashtags
     word_counter = {}
@@ -225,8 +230,9 @@ def main():
         # PRINT OUT DATA
         print("#####################################################################################")
         print("\nTwitter Handle: @" + user_handle)
+        print("\nProfile Pic: " + profile_pic)
         print("\nTime Zone: " + str(user_data.utc_offset))
-        print("Account age: " + str(account_age) + " days\n")
+        print("Account age: Your account is " + account_age + " old.\n")
         print("Top 3 Favorited Tweets: ")
         for i in range(0, 3):
             print("\t" + str(i + 1) + ". " + str(top_favorited_tweet[i][0]) + " Favorites: " + str(top_favorited_tweet[i][1]))
