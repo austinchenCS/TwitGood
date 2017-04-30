@@ -46,7 +46,12 @@ $app->post('/user/', function($request, $response) {
     $sth = $this->db->prepare($sql);
     $sth->bindParam("email", $data['email']);
     $sth->bindParam("first_name", $data['first_name']);
-    $sth->bindParam("password", $data['password']);
+
+    // Hash the password
+    $password_temp = $data['password'];
+    $hashed_password = password_hash($password_temp, PASSWORD_DEFAULT);
+    $sth->bindParam("password", $hashed_password);
+
     $sth->bindParam("handle", $data['twitter_handle']);
     $sth->bindParam("key", $data['api_key']);
     $sth->bindParam("secret", $data['api_secret']);
@@ -71,18 +76,31 @@ $app->get('/user/info/[{twitter_handle}]', function($request, $response, $args) 
 // Authenticates a user
 $app->post('/users/auth/', function($request, $response) {
     $data = $request->getParsedBody(); 
-    $sth = $this->db->prepare("SELECT * FROM Users WHERE email=:email AND password=:password");
+    $sth = $this->db->prepare("SELECT * FROM Users WHERE email=:email");
     $sth->bindParam("email", $data['email']);
-    $sth->bindParam("password", $data['password']);
+
     $sth->execute();
+
     $obj = $sth->fetchObject();
-    if ($sth->rowCount() == 1)
+    
+    $password_in = $data['password'];
+    $password = $obj->password;
+    
+    $is_valid = password_verify($password_in, $password);
+
+    if ($is_valid)
     {
-        return $this->response->withJson(json_encode(array( 'success' => True, 'twitter_handle' => $obj->twitter_handle)))->withHeader('Content-type', 'application/json');
+        return $this->response->withJson(json_encode(array( 'success' => True, 'twitter_handle' => $obj->twitter_handle)));
     }
-    $valid = json_encode(array('success' => False, 'twitter_handle' => 'NULL'));
-    return $this->response->withJson($valid)->withHeader('Content-type', 'application/json'); 
+
+    if ($is_valid != true)
+    {
+        $valid = json_encode(array('success' => False, 'twitter_handle' => 'NULL'));
+        return $this->response->withJson($valid);  
+    }
+
 });
+
 
 // Retrieve User Data
 $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {

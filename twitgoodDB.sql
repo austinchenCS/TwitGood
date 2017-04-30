@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `user_id` int(11) NOT NULL,
   `email` varchar(200) NOT NULL,
   `first_name` varchar(20) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(256) NOT NULL,
   `twitter_handle` varchar(50) NOT NULL,
   `api_key` varchar(50) NOT NULL,
   `api_secret` varchar(50) NOT NULL, 
