@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `twitter_handle` varchar(50) NOT NULL,
   `api_key` varchar(50) NOT NULL,
   `api_secret` varchar(50) NOT NULL, 
-  `profile_image` varchar(150) NOT NULL,
+  `profile_image` varchar(150),
   `created_at` timestamp NOT NULL,
   `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

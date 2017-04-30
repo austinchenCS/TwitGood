@@ -116,7 +116,9 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
         $sth->bindParam("user_id", $id);
         $sth->execute();
         $obj = $sth->fetchObject();
-        
+
+        print $obj->user_id; 
+
         $sth = $this->db->prepare("SELECT * FROM HourlyData WHERE user_id=:user_id");
         $sth->bindParam("user_id", $id);
         $sth->execute();
@@ -131,6 +133,23 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
                     break;  
                 }
             }
+        }
+
+        $sth = $this->db->prepare("SELECT * FROM WeeklyData WHERE user_id=:user_id");
+        $sth->bindParam("user_id", $id);
+        $sth->execute();
+        $weeklydata = $sth->fetchAll();
+        $weeklyact = [];
+        $weeklysucc = []; 
+        for ($i = 0; $i < 6; $i++) {
+            foreach($weeklydata as $row) {
+                if( $i == $row['day'] ) {
+                    array_push($weeklyact, $row['activity']);
+                    array_push($weeklysucc, $row['success']);
+                    break;  
+                }
+            }
+
         }
         $sth = $this->db->prepare("SELECT * FROM TopWords WHERE user_id=:user_id");
         $sth->bindParam("user_id", $id);
@@ -157,7 +176,7 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
             }
         }
 
-        $datarr = array('toptweet' => $obj->top_tweet, 'accountage' => $obj->account_age, 'hourlysuccess' => $hoursucc, 'hourlyactivity' => $houract, 'tophashtags' => $tophashtags, 'topwords' => $topwords);
+        $datarr = array('top_favorited_tweet' => $obj->top_faved, 'top_retweeted_tweet' => $obj->top_rted, 'top_successful_tweet' => $obj->top_success, 'hourlysuccess' => $hoursucc, 'hourlyactivity' => $houract, 'weeklysuccess' => $weeklysucc, 'weeklyactivity' => $weeklyact, 'tophashtags' => $tophashtags, 'topwords' => $topwords, 'accountage' => $obj->account_age, 'positive' => $obj->tweets_positive );
         return $this->response->withJson($datarr)->withHeader('Content-type', 'application/json'); 
     }
     else
