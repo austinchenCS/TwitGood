@@ -1,8 +1,8 @@
 import { UserRepository } from './../api/user-repository';
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ElementRef } from '@angular/core';
 import { User } from '../api/user';
-import { UserData } from '../api/user-data';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
 	moduleId: module.id,
@@ -12,32 +12,54 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class AccountSummaryComponent{
-    user: User; //= new User("twitgood",3,316,"../../images/Profile\ Picture.png");
-    xAxisLabels: string[]; //= ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9','10','11','12','13','14','15','16','17',''];
+    user: User;
+    xAxisLabels: string[] = ['S','M','T','W','Th','F','S'];
     hours : number[] = Array.from(Array(24)).map((e,i)=>i);
-    chartTitle = 'Hourly Tweeting';
+    chartTitle = 'Tweet Success by Days';
     userData: any;
+    tweetHTML: any;
 
-    	constructor(private router: Router,
-                private route: ActivatedRoute,
-                private userService: UserRepository){}
+    constructor(private router: Router,
+              private route: ActivatedRoute,
+              private userService: UserRepository,
+              protected sanitizer: DomSanitizer,
+              private elementRef:ElementRef){}
 
-      ngOnInit(){
-        this.xAxisLabels = new Array<string>(this.hours.length);
+    ngOnInit(){
+      this.route.parent.params.subscribe(x => {
+          this.user = new User(x['handle']);
+          console.log(this.user);
+      });
+      this.user.weeklysuccess = [35,6,2,8,10,5,20,3,8,12,50,51,64]; //Placeholders
+      this.user.topwords = ['35','6'];
 
-        for(var i=0;i<this.xAxisLabels.length;i++){
-          this.xAxisLabels[i] = this.hours[i].toString();
-        }
+      this.userService.getUserData(this.user.twitterHandle).subscribe(
+        (data) => {this.userData = data,
+          this.user.weeklysuccess = this.userData.weeklysuccess,
+          this.user.topwords = this.userData.topwords,
+          this.user.top_successful_tweet = this.userData.top_successful_tweet,
+          this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.user.top_successful_tweet)),
+          this.insertScript() 
+      });
+    }
 
-        this.user = new User("twitgood",3,316,"../../images/Profile\ Picture.png");
-        
-        this.userService.getUserData(this.user.twitterHandle).subscribe(
-          (data) => {this.userData = data,this.user.hourlytweeting = this.userData.hourlyactivity}
-        );            
-      }
+    ngAfterViewInit() {
+    }
 
-      printUD(){
-        console.log(this.user.hourlytweeting);
+    insertScript(){
+      var s = document.createElement("script");
+      s.type = "text/javascript";
+      s.src = "http://platform.twitter.com/widgets.js";
+      this.elementRef.nativeElement.appendChild(s);
+    }
 
-      }
+    addCenterAlignmentToTweet(s:string){
+      let str = 'blockquote class="twitter-tweet';
+      let cstr = ' tw-align-center';
+      var n = str.length;
+      var m:number;
+      m = s.indexOf('blockquote class="twitter-tweet');
+      let idx = n+m;
+      return s.slice(0, idx) + cstr + s.slice(idx + Math.abs(0));
+    }
 }

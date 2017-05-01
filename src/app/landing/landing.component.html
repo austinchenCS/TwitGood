@@ -1,20 +1,20 @@
 <div>
-<nav class="navbar navbar-default navbar-fixed-top" id="topbar">
+<nav class="navbar navbar-default navbar-fixed-top" id="topbar" style="height:7vh">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Twitgood</a>
+      <a class="navbar-brand" href="#" style="color: white; font-size: 4vh; font-weight: bold;">Twitgood</a>
     </div>
 
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Support</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a></li>
+        <li><a href="#" style="color: white">FAQ</a></li>
+        <li><a href="#" style="color: white">Support</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true" style="color: white"></span></a></li>
     </ul>
   </div>
 </nav>
 </div>
 
-<div class="container-fluid" style="margin-top:50px;">
+<div class="container-fluid" style="margin-top:7vh;height:93vh">
         <div class="row">
             <div class="col-md-2 col-sm-4 sidebar1">
                 <div class="logo">
@@ -27,21 +27,21 @@
                 <div class="left-navigation">
                     <ol class="list">
                         <li>
-                            <a href="javascript:void(0);" [routerLink]="'summary'">Summary</a>
+                            <a href="javascript:void(0);" [routerLink]="'summary'" class="biggerFont">Summary</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" [routerLink]="'statistics'">Statistics</a>
+                            <a href="javascript:void(0);" [routerLink]="'detail'" class="biggerFont">Detail</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" [routerLink]="'engagement'">Engagement</a>
+                            <a href="javascript:void(0);" [routerLink]="'engagement'" class="biggerFont">Engagement</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" [routerLink]="'highlights'">Highlights</a>
+                            <a href="javascript:void(0);" [routerLink]="'highlights'" class="biggerFont">Highlights</a>
                         </li>
                     </ol>
                 </div>
             </div>
-            <div class="col-md-10 col-sm-8 main-content container" id="datadisplaybox" style="overflow: auto;">
+            <div class="col-md-10 col-sm-8 main-content container" id="datadisplaybox" style="overflow: auto;margin: auto;height:93vh">
             <!--Main content code to be written here --> 
                 <router-outlet></router-outlet>
             </div>

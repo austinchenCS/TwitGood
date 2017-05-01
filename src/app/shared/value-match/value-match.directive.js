@@ -10,26 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
-const http_1 = require("@angular/http");
-require("rxjs/add/operator/toPromise");
-require("rxjs/add/operator/map");
-let UserRepository = class UserRepository {
-    constructor(http) {
-        this.http = http;
-        this._apiUrl = 'https://private-09ea1-twitgood.apiary-mock.com/user/';
+const forms_1 = require("@angular/forms");
+let ValueMatchDirective = ValueMatchDirective_1 = class ValueMatchDirective {
+    constructor() {
+        console.log(this);
     }
-    getUserData(handle) {
-        let apiUrl = 'https://private-09ea1-twitgood.apiary-mock.com/user/' + handle;
-        return this.http.get(apiUrl).map((res) => res.json());
-    }
-    getTweet(tweetLink) {
-        let tweetUrl = 'https://publish.twitter.com/oembed?url=' + tweetLink;
-        return this.http.get(tweetUrl).map((res) => res.json());
+    validate(c) {
+        return { "matching": false };
     }
 };
-UserRepository = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], UserRepository);
-exports.UserRepository = UserRepository;
-//# sourceMappingURL=user-repository.js.map
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], ValueMatchDirective.prototype, "compare", void 0);
+ValueMatchDirective = ValueMatchDirective_1 = __decorate([
+    core_1.Directive({
+        selector: 'value-match',
+        providers: [{ provide: forms_1.NG_VALIDATORS, useExisting: core_1.forwardRef(() => ValueMatchDirective_1), multi: true }]
+    }),
+    __metadata("design:paramtypes", [])
+], ValueMatchDirective);
+exports.ValueMatchDirective = ValueMatchDirective;
+var ValueMatchDirective_1;
+//# sourceMappingURL=value-match.directive.js.map

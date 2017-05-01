@@ -7,19 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
-const user_1 = require("../api/user");
-let AccountStatisticsComponent = class AccountStatisticsComponent {
-    constructor() {
-        this.user = new user_1.User("@johndoe", 3, 316, "../../images/Profile\ Picture.png");
+let EscapeHtmlPipe = class EscapeHtmlPipe {
+    transform(value, args = []) {
+        return value;
     }
 };
-AccountStatisticsComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'account-statistics',
-        templateUrl: 'account-statistics.component.html',
-        styleUrls: ['account-statistics.component.css']
-    })
-], AccountStatisticsComponent);
-exports.AccountStatisticsComponent = AccountStatisticsComponent;
-//# sourceMappingURL=account-statistics.component.js.map
+EscapeHtmlPipe = __decorate([
+    core_1.Pipe({ name: 'escapeHtml', pure: false })
+], EscapeHtmlPipe);
+exports.EscapeHtmlPipe = EscapeHtmlPipe;
+//# sourceMappingURL=escape-html.pipe.js.map

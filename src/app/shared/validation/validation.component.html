@@ -6,5 +6,8 @@
         <li [hidden]="!model.errors.pattern">
             {{ messages.pattern }}
         </li>
+        <li [hidden]="!model.errors.minlength">
+            {{ messages.minlength }}
+        </li>
     </ul>
 </div>
