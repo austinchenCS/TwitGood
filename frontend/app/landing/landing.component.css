@@ -14,7 +14,6 @@ a:hover {
     /*background: linear-gradient(#F17153, #F58D63, #f1ab53);*/
     /* Standard syntax */
     padding: 0px;
-    min-height: 100%;
 }
 .logo {
     max-height: 130px;
