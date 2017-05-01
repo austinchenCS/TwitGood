@@ -25,7 +25,7 @@ $app->post('/user/', function($request, $response) {
     if ($emailqry->rowCount() > 0)
     {
         $valid = json_encode(array('success' => False, 'location' => 'email'));
-        return $this->response->withJson($valid);
+        return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
         echo "You messed up";
     }
     
@@ -38,7 +38,7 @@ $app->post('/user/', function($request, $response) {
     if ($handleqry->rowCount() > 0)
     {
         $valid = json_encode(array('success' => False, 'location' => 'handle'));
-        return $this->response->withJson($valid);
+        return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
         echo "You messed up";
     }
 
@@ -46,14 +46,19 @@ $app->post('/user/', function($request, $response) {
     $sth = $this->db->prepare($sql);
     $sth->bindParam("email", $data['email']);
     $sth->bindParam("first_name", $data['first_name']);
-    $sth->bindParam("password", $data['password']);
+
+    // Hash the password
+    $password_temp = $data['password'];
+    $hashed_password = password_hash($password_temp, PASSWORD_DEFAULT);
+    $sth->bindParam("password", $hashed_password);
+
     $sth->bindParam("handle", $data['twitter_handle']);
     $sth->bindParam("key", $data['api_key']);
     $sth->bindParam("secret", $data['api_secret']);
     $sth->execute();
      
     $valid = json_encode(array('success' => True, 'location' => 'N/A'));
-    return $this->response->withJson($valid);
+    return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
 });
 
 // Given the Twitter handle, returns a user's account information
@@ -63,24 +68,39 @@ $app->get('/user/info/[{twitter_handle}]', function($request, $response, $args) 
     $sth->execute();
     $todos = $sth->fetchObject();
     echo "\n";
-    return $this->response->withJson($todos);
+    $valid = json_encode($todos);
+    //$newResponse = $valid->withHeader('Content-type', 'application/json');
+    return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
 });
 
 // Authenticates a user
 $app->post('/users/auth/', function($request, $response) {
     $data = $request->getParsedBody(); 
-    $sth = $this->db->prepare("SELECT * FROM Users WHERE email=:email AND password=:password");
+    $sth = $this->db->prepare("SELECT * FROM Users WHERE email=:email");
     $sth->bindParam("email", $data['email']);
-    $sth->bindParam("password", $data['password']);
+
     $sth->execute();
+
     $obj = $sth->fetchObject();
-    if ($sth->rowCount() == 1)
+    
+    $password_in = $data['password'];
+    $password = $obj->password;
+    
+    $is_valid = password_verify($password_in, $password);
+
+    if ($is_valid)
     {
         return $this->response->withJson(json_encode(array( 'success' => True, 'twitter_handle' => $obj->twitter_handle)));
     }
-    $valid = json_encode(array('success' => False, 'twitter_handle' => 'NULL'));
-    return $this->response->withJson($valid); 
+
+    if ($is_valid != true)
+    {
+        $valid = json_encode(array('success' => False, 'twitter_handle' => 'NULL'));
+        return $this->response->withJson($valid);  
+    }
+
 });
+
 
 // Retrieve User Data
 $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
@@ -96,7 +116,9 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
         $sth->bindParam("user_id", $id);
         $sth->execute();
         $obj = $sth->fetchObject();
-        
+
+        print $obj->user_id; 
+
         $sth = $this->db->prepare("SELECT * FROM HourlyData WHERE user_id=:user_id");
         $sth->bindParam("user_id", $id);
         $sth->execute();
@@ -111,6 +133,23 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
                     break;  
                 }
             }
+        }
+
+        $sth = $this->db->prepare("SELECT * FROM WeeklyData WHERE user_id=:user_id");
+        $sth->bindParam("user_id", $id);
+        $sth->execute();
+        $weeklydata = $sth->fetchAll();
+        $weeklyact = [];
+        $weeklysucc = []; 
+        for ($i = 0; $i < 6; $i++) {
+            foreach($weeklydata as $row) {
+                if( $i == $row['day'] ) {
+                    array_push($weeklyact, $row['activity']);
+                    array_push($weeklysucc, $row['success']);
+                    break;  
+                }
+            }
+
         }
         $sth = $this->db->prepare("SELECT * FROM TopWords WHERE user_id=:user_id");
         $sth->bindParam("user_id", $id);
@@ -137,8 +176,8 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
             }
         }
 
-        $datarr = array('toptweet' => $obj->top_tweet, 'accountage' => $obj->account_age, 'hourlysuccess' => $hoursucc, 'hourlyactivity' => $houract, 'tophashtags' => $tophashtags, 'topwords' => $topwords);
-        return $this->response->withJson($datarr); 
+        $datarr = array('top_favorited_tweet' => $obj->top_faved, 'top_retweeted_tweet' => $obj->top_rted, 'top_successful_tweet' => $obj->top_success, 'hourlysuccess' => $hoursucc, 'hourlyactivity' => $houract, 'weeklysuccess' => $weeklysucc, 'weeklyactivity' => $weeklyact, 'accountage' => $obj->account_age,'tophashtags' => $tophashtags, 'topwords' => $topwords, 'positive' => $obj->tweets_positive );
+        return $this->response->withJson($datarr)->withHeader('Content-type', 'application/json'); 
     }
     else
     {

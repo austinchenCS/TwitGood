@@ -85,8 +85,23 @@
         - "y" at prompt
         - "y" at prompt
 
+# Install Dependencies
+24. Install Pip & modules 
+    - `wget "https://bootstrap.pypa.io/get-pip.py"`
+    - `sudo python get-pip.py`
+    - `sudo pip install Tweepy`
+    - `sudo pip install peewee`
+
+25. Install nltk
+    - `sudo pip install -U nltk`
+    - python
+    - `>>>import nltk`
+    - `>>>nltk.download()`
+    - Now download the "stopwords" corpus"
+
+
 # Optional: Modify .vimrc
-24. The Ultimate vimrc
+27. The Ultimate vimrc
     - There are 2 options within the ultimate vimrc: the 'Awesome Version' and the 'Basic Version'. The awesome version includes plugins and colors, the basic does not.
     - Awesome Version:
         - `git clone https://github.com/amix/vimrc.git ~/.vim_runtime`
@@ -97,3 +112,5 @@
     - For either version, to add line numbers do
         - `vim ~/.vim_runtim/vimrcs/basic.vim`
         - And add "set number" to the file. I added it after line 142.
+
+
