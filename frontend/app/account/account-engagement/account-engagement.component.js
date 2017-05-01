@@ -24,8 +24,11 @@ let AccountEngagementComponent = class AccountEngagementComponent {
     ngOnInit() {
         this.hours = new Array(this.hoursNum.length);
         for (var i = 0; i < this.hours.length; i++) {
-            this.hours[i] = this.hoursNum[i].toString();
+            this.hours[i] = (i % 12 || 12).toString() + (Math.floor(i / 12) ? 'PM' : 'AM');
         }
+        //this.xAxisLabels = new Array<string>(this.hours.length);
+        // for(var i=0;i<24;i++)
+        //   this.xAxisLabels[i] = (i%12 || 12).toString()+(Math.floor(i/12) ? 'PM' : 'AM');
         this.user = new user_1.User('twitgood');
         this.user.hourlysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
         this.user.hourlyactivity = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64];
@@ -33,14 +36,9 @@ let AccountEngagementComponent = class AccountEngagementComponent {
         this.user.weeklyactivity = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64];
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
             this.userData = data,
-                console.log(data),
-                console.log(this.userData.hourlysuccess),
                 this.user.hourlysuccess = this.userData.hourlysuccess,
-                console.log(this.userData.hourlyactivity),
                 this.user.hourlyactivity = this.userData.hourlyactivity,
-                console.log(this.userData.weeklysuccess),
                 this.user.weeklysuccess = this.userData.weeklysuccess,
-                console.log(this.userData.weeklyactivity),
                 this.user.weeklyactivity = this.userData.weeklyactivity;
         });
     }

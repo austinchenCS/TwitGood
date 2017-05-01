@@ -12,18 +12,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_repository_1 = require("./../api/user-repository");
 const core_1 = require("@angular/core");
 const user_1 = require("../api/user");
-//import { UserData } from '../api/user-data';
 const router_1 = require("@angular/router");
+const platform_browser_1 = require("@angular/platform-browser");
 let AccountSummaryComponent = class AccountSummaryComponent {
-    constructor(router, route, userService) {
+    constructor(router, route, userService, sanitizer, elementRef) {
         this.router = router;
         this.route = route;
         this.userService = userService;
-        this.xAxisLabels = ['S', 'M', 'T', 'W', 'Th', 'F', 'S']; //= ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9','10','11','12','13','14','15','16','17',''];
+        this.sanitizer = sanitizer;
+        this.elementRef = elementRef;
+        this.xAxisLabels = ['S', 'M', 'T', 'W', 'Th', 'F', 'S'];
         this.hours = Array.from(Array(24)).map((e, i) => i);
         this.chartTitle = 'Tweet Success by Days';
     }
     ngOnInit() {
+<<<<<<< HEAD
         this.xAxisLabels = new Array(this.hours.length);
         for (var i = 0; i < 24; i++) {
             this.xAxisLabels[i] = (i % 12 || 12).toString() + (Math.floor(i / 12) ? 'PM' : 'AM');
@@ -31,12 +34,46 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         this.user = new user_1.User('twitgood');
         this.user.weeklysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
         this.user.topwords = ['35', '6'];
+=======
+        this.user = new user_1.User('twitgood');
+        this.user.weeklysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
+        this.user.topwords = ['35', '6'];
+        let tweetJSON;
+>>>>>>> 8feb577cea48bb5a1afe5953b9324d53795bf385
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
             this.userData = data,
                 this.user.weeklysuccess = this.userData.weeklysuccess,
                 this.user.topwords = this.userData.topwords,
+<<<<<<< HEAD
                 this.user.top_successful_tweet = this.userData.top_successful_tweet;
         });
+=======
+                this.user.top_successful_tweet = this.userData.top_successful_tweet,
+                this.userService.getTweet(this.user.top_successful_tweet).subscribe((x) => {
+                    tweetJSON = x,
+                        console.log(tweetJSON.html),
+                        this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(tweetJSON.html));
+                }),
+                this.insertScript();
+        });
+    }
+    ngAfterViewInit() {
+    }
+    insertScript() {
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.src = "http://platform.twitter.com/widgets.js";
+        this.elementRef.nativeElement.appendChild(s);
+    }
+    addCenterAlignmentToTweet(s) {
+        let str = 'blockquote class="twitter-tweet';
+        let cstr = ' tw-align-center';
+        var n = str.length;
+        var m;
+        m = s.indexOf('blockquote class="twitter-tweet');
+        let idx = n + m;
+        return s.slice(0, idx) + cstr + s.slice(idx + Math.abs(0));
+>>>>>>> 8feb577cea48bb5a1afe5953b9324d53795bf385
     }
 };
 AccountSummaryComponent = __decorate([
@@ -48,7 +85,9 @@ AccountSummaryComponent = __decorate([
     }),
     __metadata("design:paramtypes", [router_1.Router,
         router_1.ActivatedRoute,
-        user_repository_1.UserRepository])
+        user_repository_1.UserRepository,
+        platform_browser_1.DomSanitizer,
+        core_1.ElementRef])
 ], AccountSummaryComponent);
 exports.AccountSummaryComponent = AccountSummaryComponent;
 //# sourceMappingURL=account-summary.component.js.map

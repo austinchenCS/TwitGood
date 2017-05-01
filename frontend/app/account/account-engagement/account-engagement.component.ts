@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class AccountEngagementComponent{
-        user: User;
+    user: User;
     days: string[] = ['S','M','T','W','Th','F','S'];
     hours: string[];
     hoursNum : number[] = Array.from(Array(24)).map((e,i)=>i);
@@ -25,8 +25,13 @@ export class AccountEngagementComponent{
       this.hours = new Array<string>(this.hoursNum.length);
 
       for(var i=0;i<this.hours.length;i++){
-        this.hours[i] = this.hoursNum[i].toString();
+        this.hours[i] = (i%12 || 12).toString()+(Math.floor(i/12) ? 'PM' : 'AM');
       }
+
+              //this.xAxisLabels = new Array<string>(this.hours.length);
+
+        // for(var i=0;i<24;i++)
+        //   this.xAxisLabels[i] = (i%12 || 12).toString()+(Math.floor(i/12) ? 'PM' : 'AM');
 
       this.user = new User('twitgood'); 
       this.user.hourlysuccess = [35,6,2,8,10,5,20,3,8,12,50,51,64]; //Placeholders
@@ -36,14 +41,9 @@ export class AccountEngagementComponent{
       
       this.userService.getUserData(this.user.twitterHandle).subscribe(
         (data) => {this.userData = data,
-            console.log(data),
-            console.log(this.userData.hourlysuccess),
             this.user.hourlysuccess = this.userData.hourlysuccess,
-            console.log(this.userData.hourlyactivity),
             this.user.hourlyactivity = this.userData.hourlyactivity,
-            console.log(this.userData.weeklysuccess),
             this.user.weeklysuccess = this.userData.weeklysuccess,
-            console.log(this.userData.weeklyactivity),
             this.user.weeklyactivity = this.userData.weeklyactivity
         }
       );            
