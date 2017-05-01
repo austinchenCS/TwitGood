@@ -55,7 +55,14 @@ export class FrontpageComponent {
     validateResult(result : any){
         console.log(result);
         if(result.success){
-            this.goToAccount(result.handle);
+            if(this.create)
+            {
+                this.goToAccount(this.details.twitter_handle);
+            }
+            else
+            {
+                this.goToAccount(result.handle);
+            }
         }
         else{
             this.loginFail = true;
