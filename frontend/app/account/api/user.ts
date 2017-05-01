@@ -10,6 +10,7 @@ export class User{
 	tophashtags: string[];
 	topwords: string[];
     twitterHandle: string;
+    positive: number;
 
     constructor(handle: string)
     {
