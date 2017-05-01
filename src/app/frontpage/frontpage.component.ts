@@ -19,8 +19,8 @@ export class FrontpageComponent {
     create : boolean;
     details : LoginDetails;
     loginFail : boolean = false;
-    private loginUrl = 'https://private-17592-twitgood.apiary-mock.com/users/auth/';
-    private createUrl = 'https://private-17592-twitgood.apiary-mock.com/user/';
+    private loginUrl = 'http://35.164.145.233/TwitGood/backend/public/users/auth/';
+    private createUrl = 'http://35.164.145.233/TwitGood/backend/public/user/';
 
     constructor(private http: Http,
     private router: Router){

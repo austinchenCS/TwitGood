@@ -12,7 +12,7 @@ export class UserRepository {
 	constructor(private http: Http) {}
 
 	getUserData(handle:string){
-		let apiUrl = 'https://private-09ea1-twitgood.apiary-mock.com/user/'+handle;
+		let apiUrl = 'http://35.164.145.233/TwitGood/backend/public/user/'+handle;
 
 		return this.http.get(apiUrl).map(
 			(res) => res.json()
