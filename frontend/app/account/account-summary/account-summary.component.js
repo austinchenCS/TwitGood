@@ -29,20 +29,12 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         this.user = new user_1.User('twitgood');
         this.user.weeklysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
         this.user.topwords = ['35', '6'];
-        let tweetJSON;
-        this.AtweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.AtweetHTML);
-        console.log(this.AtweetHTML);
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
             this.userData = data,
                 this.user.weeklysuccess = this.userData.weeklysuccess,
                 this.user.topwords = this.userData.topwords,
                 this.user.top_successful_tweet = this.userData.top_successful_tweet,
                 this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.user.top_successful_tweet)),
-                //   this.userService.getTweet(this.user.top_successful_tweet).subscribe(
-                //   (x) => { tweetJSON = x,
-                //     console.log(tweetJSON.html),
-                //     this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(tweetJSON.html))
-                // }),
                 this.insertScript();
         });
     }
