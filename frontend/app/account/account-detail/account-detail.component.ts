@@ -19,7 +19,7 @@ export class AccountDetailComponent{
               private userService: UserRepository){}
 
     ngOnInit(){
-      this.router.routerState.parent(this.route).params.subscribe(x => {
+      this.route.parent.params.subscribe(x => {
           this.user = new User(x['handle']);
           console.log(this.user);
       });
