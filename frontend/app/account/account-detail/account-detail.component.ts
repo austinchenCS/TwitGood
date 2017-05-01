@@ -28,7 +28,8 @@ export class AccountDetailComponent{
         (data) => {this.userData = data,
             this.user.accountage = this.userData.accountage,
             this.user.tophashtags = this.userData.tophashtags,
-            this.user.topwords = this.userData.topwords
+            this.user.topwords = this.userData.topwords,
+            this.user.positive = this.userData.positive;
         }
       );            
     }
