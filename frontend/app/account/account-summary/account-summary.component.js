@@ -26,28 +26,17 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         this.chartTitle = 'Tweet Success by Days';
     }
     ngOnInit() {
-<<<<<<< HEAD
-        this.xAxisLabels = new Array(this.hours.length);
-        for (var i = 0; i < 24; i++) {
-            this.xAxisLabels[i] = (i % 12 || 12).toString() + (Math.floor(i / 12) ? 'PM' : 'AM');
-        }
-        this.user = new user_1.User('twitgood');
-        this.user.weeklysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
-        this.user.topwords = ['35', '6'];
-=======
-        this.user = new user_1.User('twitgood');
+        this.router.routerState.parent(this.route).params.subscribe(x => {
+            this.user = new user_1.User(x['handle']);
+            console.log(this.user);
+        });
         this.user.weeklysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
         this.user.topwords = ['35', '6'];
         let tweetJSON;
->>>>>>> 8feb577cea48bb5a1afe5953b9324d53795bf385
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
             this.userData = data,
                 this.user.weeklysuccess = this.userData.weeklysuccess,
                 this.user.topwords = this.userData.topwords,
-<<<<<<< HEAD
-                this.user.top_successful_tweet = this.userData.top_successful_tweet;
-        });
-=======
                 this.user.top_successful_tweet = this.userData.top_successful_tweet,
                 this.userService.getTweet(this.user.top_successful_tweet).subscribe((x) => {
                     tweetJSON = x,
@@ -73,7 +62,6 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         m = s.indexOf('blockquote class="twitter-tweet');
         let idx = n + m;
         return s.slice(0, idx) + cstr + s.slice(idx + Math.abs(0));
->>>>>>> 8feb577cea48bb5a1afe5953b9324d53795bf385
     }
 };
 AccountSummaryComponent = __decorate([

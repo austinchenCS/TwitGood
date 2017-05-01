@@ -32,8 +32,10 @@ export class AccountEngagementComponent{
 
         // for(var i=0;i<24;i++)
         //   this.xAxisLabels[i] = (i%12 || 12).toString()+(Math.floor(i/12) ? 'PM' : 'AM');
-
-      this.user = new User('twitgood'); 
+        this.router.routerState.parent(this.route).params.subscribe(x => {
+          this.user = new User(x['handle']);
+          console.log(this.user);
+      });
       this.user.hourlysuccess = [35,6,2,8,10,5,20,3,8,12,50,51,64]; //Placeholders
       this.user.hourlyactivity = [35,6,2,8,10,5,20,3,8,12,50,51,64]; 
       this.user.weeklysuccess = [35,6,2,8,10,5,20,3,8,12,50,51,64]; 

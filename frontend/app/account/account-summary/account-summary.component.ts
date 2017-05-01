@@ -1,7 +1,7 @@
 import { UserRepository } from './../api/user-repository';
 import { Component, OnInit, Input, AfterViewInit, ElementRef } from '@angular/core';
 import { User } from '../api/user';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
@@ -27,7 +27,10 @@ export class AccountSummaryComponent{
               private elementRef:ElementRef){}
 
     ngOnInit(){
-      this.user = new User('twitgood'); 
+      this.router.routerState.parent(this.route).params.subscribe(x => {
+          this.user = new User(x['handle']);
+          console.log(this.user);
+      });
       this.user.weeklysuccess = [35,6,2,8,10,5,20,3,8,12,50,51,64]; //Placeholders
       this.user.topwords = ['35','6'];
       let tweetJSON: any;

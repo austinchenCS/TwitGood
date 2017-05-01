@@ -20,7 +20,10 @@ let AccountDetailComponent = class AccountDetailComponent {
         this.userService = userService;
     }
     ngOnInit() {
-        this.user = new user_1.User('twitgood');
+        this.router.routerState.parent(this.route).params.subscribe(x => {
+            this.user = new user_1.User(x['handle']);
+            console.log(this.user);
+        });
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
             this.userData = data,
                 this.user.accountage = this.userData.accountage,
