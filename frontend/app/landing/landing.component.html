@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-2 col-sm-4 sidebar1" style="height:93vh">
                 <div class="logo">
-                    <img src="app/resources/ProfileAvatarPlaceholder.png" class="img-responsive center-block" alt="Logo" style="width:120px;height:120px;">
+                    <img [src]="imageSource || 'app/resources/ProfileAvatarPlaceholder.png'" class="img-responsive center-block" alt="Logo" style="width:120px;height:120px;">
                     <!--/Users/jaimesilva/Desktop/Post login/images/nemo.jpg-->
                     <h3 style="text-align:center;">@{{handle}}</h3>
                 </div>
@@ -27,16 +27,16 @@
                 <div class="left-navigation">
                     <ol class="list">
                         <li>
-                            <a href="javascript:void(0);" [routerLink]="'summary'" class="biggerFont">Summary</a>
+                            <a href="javascript:void(0);" [routerLink]="'summary'" [routerLinkActive]="['activeRoute']" class="biggerFont">Summary</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" [routerLink]="'detail'" class="biggerFont">Detail</a>
+                            <a href="javascript:void(0);" [routerLink]="'detail'" [routerLinkActive]="['activeRoute']" class="biggerFont">Detail</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" [routerLink]="'engagement'" class="biggerFont">Engagement</a>
+                            <a href="javascript:void(0);" [routerLink]="'engagement'" [routerLinkActive]="['activeRoute']" class="biggerFont">Engagement</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" [routerLink]="'highlights'" class="biggerFont">Highlights</a>
+                            <a href="javascript:void(0);" [routerLink]="'highlights'" [routerLinkActive]="['activeRoute']" class="biggerFont">Highlights</a>
                         </li>
                     </ol>
                 </div>

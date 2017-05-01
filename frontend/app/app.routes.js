@@ -8,7 +8,7 @@ exports.routes = [
     { path: '', component: frontpage_component_1.FrontpageComponent, pathMatch: 'full' },
     { path: 'home/:handle', component: landing_component_1.LandingComponent,
         children: [
-            { path: '', component: Account.AccountHomeComponent, pathMatch: 'full' },
+            { path: '', redirectTo: 'summary', pathMatch: 'full' },
             { path: 'summary', component: Account.AccountSummaryComponent },
             { path: 'detail', component: Account.AccountDetailComponent },
             { path: 'engagement', component: Account.AccountEngagementComponent },
