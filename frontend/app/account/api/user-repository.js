@@ -14,22 +14,23 @@ const http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
 require("rxjs/add/operator/map");
 let UserRepository = class UserRepository {
-    constructor(http) {
-        this.http = http;
+    constructor(http1, http2) {
+        this.http1 = http1;
+        this.http2 = http2;
         this._apiUrl = 'https://private-09ea1-twitgood.apiary-mock.com/user/';
     }
     getUserData(handle) {
         let apiUrl = 'https://private-09ea1-twitgood.apiary-mock.com/user/' + handle;
-        return this.http.get(apiUrl).map((res) => res.json());
+        return this.http1.get(apiUrl).map((res) => res.json());
     }
     getTweet(tweetLink) {
         let tweetUrl = 'https://publish.twitter.com/oembed?url=' + tweetLink;
-        return this.http.get(tweetUrl).map((res) => res.json());
+        return this.http2.get(tweetUrl).map((res) => res.json());
     }
 };
 UserRepository = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, http_1.Http])
 ], UserRepository);
 exports.UserRepository = UserRepository;
 //# sourceMappingURL=user-repository.js.map
