@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -9,9 +9,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class LandingComponent {
-    handle ='johndoe';
+    handle : string;
 
     constructor(private router: Router,
-    private route: ActivatedRoute){};
+    private route: ActivatedRoute){
+        this.route.params.subscribe(x => this.handle = x['handle']);
+    };
     
 }

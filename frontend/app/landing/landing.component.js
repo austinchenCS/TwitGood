@@ -15,7 +15,7 @@ let LandingComponent = class LandingComponent {
     constructor(router, route) {
         this.router = router;
         this.route = route;
-        this.handle = 'johndoe';
+        this.route.params.subscribe(x => this.handle = x['handle']);
     }
     ;
 };
