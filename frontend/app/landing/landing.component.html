@@ -2,12 +2,15 @@
 <nav class="navbar navbar-default navbar-fixed-top" id="topbar" style="height:7vh">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#" style="color: white; font-size: 4vh; font-weight: bold;">Twitgood</a>
+      <a class="navbar-brand" href="javascript:void(0);"
+            [routerLink]="'/home/' + handle" style="color: white; font-size: 4vh; font-weight: bold;">Twitgood</a>
     </div>
 
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" style="color: white">FAQ</a></li>
-        <li><a href="#" style="color: white">Support</a></li>
+        <li><a href="javascript:void(0);"
+            [routerLink]="'/home/' + handle" style="color: white">FAQ</a></li>
+        <li><a href="javascript:void(0);"
+            [routerLink]="'/home/' + handle" style="color: white">Support</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true" style="color: white"></span></a></li>
     </ul>
   </div>
@@ -19,7 +22,6 @@
             <div class="col-md-2 col-sm-4 sidebar1" style="height:93vh">
                 <div class="logo">
                     <img [src]="imageSource || 'app/resources/ProfileAvatarPlaceholder.png'" class="img-responsive center-block" alt="Logo" style="width:120px;height:120px;">
-                    <!--/Users/jaimesilva/Desktop/Post login/images/nemo.jpg-->
                     <h3 style="text-align:center;">@{{handle}}</h3>
                 </div>
                 <br><br>
