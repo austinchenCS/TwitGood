@@ -24,7 +24,7 @@ let AccountHighlightsComponent = class AccountHighlightsComponent {
     }
     ;
     ngOnInit() {
-        this.router.routerState.parent(this.route).params.subscribe(x => {
+        this.route.parent.params.subscribe(x => {
             this.handle = x['handle'];
             console.log(this.handle);
         });

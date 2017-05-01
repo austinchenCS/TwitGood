@@ -26,7 +26,7 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         this.chartTitle = 'Tweet Success by Days';
     }
     ngOnInit() {
-        this.router.routerState.parent(this.route).params.subscribe(x => {
+        this.route.parent.params.subscribe(x => {
             this.user = new user_1.User(x['handle']);
             console.log(this.user);
         });

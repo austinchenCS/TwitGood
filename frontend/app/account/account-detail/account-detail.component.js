@@ -20,7 +20,7 @@ let AccountDetailComponent = class AccountDetailComponent {
         this.userService = userService;
     }
     ngOnInit() {
-        this.router.routerState.parent(this.route).params.subscribe(x => {
+        this.route.parent.params.subscribe(x => {
             this.user = new user_1.User(x['handle']);
             console.log(this.user);
         });
