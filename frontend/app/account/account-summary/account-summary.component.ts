@@ -27,6 +27,7 @@ export class AccountSummaryComponent{
 
         for(var i=0;i<24;i++){
           this.xAxisLabels[i] = (i%12 || 12).toString()+(Math.floor(i/12) ? 'PM' : 'AM');
+        }
 
       this.user = new User('twitgood'); 
       this.user.weeklysuccess = [35,6,2,8,10,5,20,3,8,12,50,51,64]; //Placeholders
