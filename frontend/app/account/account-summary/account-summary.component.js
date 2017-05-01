@@ -13,11 +13,14 @@ const user_repository_1 = require("./../api/user-repository");
 const core_1 = require("@angular/core");
 const user_1 = require("../api/user");
 const router_1 = require("@angular/router");
+const platform_browser_1 = require("@angular/platform-browser");
 let AccountSummaryComponent = class AccountSummaryComponent {
-    constructor(router, route, userService) {
+    constructor(router, route, userService, sanitizer, elementRef) {
         this.router = router;
         this.route = route;
         this.userService = userService;
+        this.sanitizer = sanitizer;
+        this.elementRef = elementRef;
         this.xAxisLabels = ['S', 'M', 'T', 'W', 'Th', 'F', 'S'];
         this.hours = Array.from(Array(24)).map((e, i) => i);
         this.chartTitle = 'Tweet Success by Days';
@@ -26,12 +29,44 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         this.user = new user_1.User('twitgood');
         this.user.weeklysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
         this.user.topwords = ['35', '6'];
+        let tweetJSON;
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
             this.userData = data,
                 this.user.weeklysuccess = this.userData.weeklysuccess,
                 this.user.topwords = this.userData.topwords,
-                this.user.top_successful_tweet = this.userData.top_successful_tweet;
+                this.user.top_successful_tweet = this.userData.top_successful_tweet,
+                this.userService.getTweet(this.user.top_successful_tweet).subscribe((x) => {
+                    tweetJSON = x,
+                        this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(tweetJSON.html));
+                }),
+                this.insertScript();
         });
+        if (this.user.top_successful_tweet) {
+            this.userService.getTweet(this.user.top_successful_tweet).subscribe((x) => {
+                tweetJSON = x,
+                    this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(tweetJSON.html));
+            });
+        }
+    }
+    ngAfterViewInit() {
+    }
+    insertScript() {
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.src = "http://platform.twitter.com/widgets.js";
+        this.elementRef.nativeElement.appendChild(s);
+    }
+    addCenterAlignmentToTweet(s) {
+        let str = 'blockquote class="twitter-tweet';
+        let cstr = ' tw-align-center';
+        var n = str.length;
+        console.log(n);
+        var m;
+        m = s.indexOf('blockquote class="twitter-tweet'),
+            console.log(s[n + m]);
+        let idx = n + m;
+        console.log(s.slice(0, idx) + cstr + s.slice(idx + Math.abs(0)));
+        return s.slice(0, idx) + cstr + s.slice(idx + Math.abs(0));
     }
 };
 AccountSummaryComponent = __decorate([
@@ -43,7 +78,9 @@ AccountSummaryComponent = __decorate([
     }),
     __metadata("design:paramtypes", [router_1.Router,
         router_1.ActivatedRoute,
-        user_repository_1.UserRepository])
+        user_repository_1.UserRepository,
+        platform_browser_1.DomSanitizer,
+        core_1.ElementRef])
 ], AccountSummaryComponent);
 exports.AccountSummaryComponent = AccountSummaryComponent;
 //# sourceMappingURL=account-summary.component.js.map

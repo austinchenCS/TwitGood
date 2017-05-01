@@ -18,4 +18,12 @@ export class UserRepository {
 			(res) => res.json()
 		);
 	}
+	getTweet(tweetLink:string){
+		let tweetUrl = 'https://publish.twitter.com/oembed?url='+tweetLink;
+
+		return this.http.get(tweetUrl).map(
+			(res) => res.json()
+		);
+	}
+
 }

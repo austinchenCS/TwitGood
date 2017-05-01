@@ -22,6 +22,10 @@ let UserRepository = class UserRepository {
         let apiUrl = 'https://private-09ea1-twitgood.apiary-mock.com/user/' + handle;
         return this.http.get(apiUrl).map((res) => res.json());
     }
+    getTweet(tweetLink) {
+        let tweetUrl = 'https://publish.twitter.com/oembed?url=' + tweetLink;
+        return this.http.get(tweetUrl).map((res) => res.json());
+    }
 };
 UserRepository = __decorate([
     core_1.Injectable(),
