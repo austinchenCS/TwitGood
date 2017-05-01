@@ -37,16 +37,11 @@ let AccountSummaryComponent = class AccountSummaryComponent {
                 this.user.top_successful_tweet = this.userData.top_successful_tweet,
                 this.userService.getTweet(this.user.top_successful_tweet).subscribe((x) => {
                     tweetJSON = x,
+                        console.log(tweetJSON.html),
                         this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(tweetJSON.html));
                 }),
                 this.insertScript();
         });
-        if (this.user.top_successful_tweet) {
-            this.userService.getTweet(this.user.top_successful_tweet).subscribe((x) => {
-                tweetJSON = x,
-                    this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(tweetJSON.html));
-            });
-        }
     }
     ngAfterViewInit() {
     }
@@ -60,12 +55,9 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         let str = 'blockquote class="twitter-tweet';
         let cstr = ' tw-align-center';
         var n = str.length;
-        console.log(n);
         var m;
-        m = s.indexOf('blockquote class="twitter-tweet'),
-            console.log(s[n + m]);
+        m = s.indexOf('blockquote class="twitter-tweet');
         let idx = n + m;
-        console.log(s.slice(0, idx) + cstr + s.slice(idx + Math.abs(0)));
         return s.slice(0, idx) + cstr + s.slice(idx + Math.abs(0));
     }
 };
