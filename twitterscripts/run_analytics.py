@@ -2,6 +2,7 @@
 DEBUG = True
 DEMO = True
 
+import urllib2
 import re
 import csv
 import tweepy
@@ -96,6 +97,7 @@ def main():
 
         # build URL of current tweet
         curr_url = "https://twitter.com/twitgood/status/" + tweet._json['id_str']
+
 
         tweet_count += 1
 
@@ -219,6 +221,23 @@ def main():
     tweet_polarity_split = learn_tweet_polarity()
 
 
+    # Get the html for all of the urls
+    curr_url = str(top_favorited_tweet[0][0])
+    oEmbed_url = "https://publish.twitter.com/oembed?url=" + curr_url
+    tweet_info = json.loads(urllib2.urlopen(oEmbed_url).read())
+    top_single_favorited_tweet = str(tweet_info['html'].encode('utf-8'))
+
+    curr_url = str(top_retweeted_tweet[0][0])
+    oEmbed_url = "https://publish.twitter.com/oembed?url=" + curr_url
+    tweet_info = json.loads(urllib2.urlopen(oEmbed_url).read())
+    top_single_retweeted_tweet = str(tweet_info['html'].encode('utf-8'))
+
+    curr_url = str(top_successful_tweet[0][0])
+    oEmbed_url = "https://publish.twitter.com/oembed?url=" + curr_url
+    tweet_info = json.loads(urllib2.urlopen(oEmbed_url).read())
+    top_single_successful_tweet = str(tweet_info['html'].encode('utf-8'))
+
+    curr_url = str(tweet_info['html'].encode('utf-8'))
 ###############################################################################
 ########## DEBUG ##############################################################
 ###############################################################################
@@ -230,15 +249,12 @@ def main():
         print("\nProfile Pic: " + profile_pic)
         print("\nTime Zone: " + str(user_data.utc_offset))
         print("Account age: Your account is " + account_age + " old.\n")
-        print("Top 3 Favorited Tweets: ")
-        for i in range(0, 3):
-            print("\t" + str(i + 1) + ". " + str(top_favorited_tweet[i][0]) + " Favorites: " + str(top_favorited_tweet[i][1]))
-        print("\nTop 3 Retweeted Tweets: ")
-        for i in range(0, 3):
-            print("\t" + str(i + 1) + ". " + str(top_retweeted_tweet[i][0]) + " Retweets: " + str(top_retweeted_tweet[i][1]))
-        print("\nTop 3 Successful Tweets: ")
-        for i in range(0, 3):
-            print("\t" + str(i + 1) + ". " + str(top_successful_tweet[i][0]) + " Success: " + str(top_successful_tweet[i][1]))
+        print("Top Favorited Tweet: ")
+        print("\t" +  top_single_favorited_tweet)
+        print("\nTop Retweeted Tweet: ")
+        print("\t" +  top_single_retweeted_tweet)
+        print("\nTop Successful Tweet: ")
+        print("\t" +  top_single_successful_tweet)
 
         print("\nTweet volume per day: ")
         for key in weekly_activity:

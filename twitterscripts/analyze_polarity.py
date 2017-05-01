@@ -75,8 +75,6 @@ def learn_tweet_polarity():
     #        the_data_writer.writerow(row_temp)
     #        counter += 1
 
-    print ("Emotions of Tweets: ")
-
     foundNegative = False
     foundPositive = False
     # Calculate percentage of tweets that are positive or negative
