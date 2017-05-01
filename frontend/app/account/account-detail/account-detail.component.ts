@@ -19,7 +19,10 @@ export class AccountDetailComponent{
               private userService: UserRepository){}
 
     ngOnInit(){
-      this.user = new User('twitgood');
+      this.router.routerState.parent(this.route).params.subscribe(x => {
+          this.user = new User(x['handle']);
+          console.log(this.user);
+      });
       
       this.userService.getUserData(this.user.twitterHandle).subscribe(
         (data) => {this.userData = data,

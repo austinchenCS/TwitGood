@@ -26,7 +26,10 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         this.chartTitle = 'Tweet Success by Days';
     }
     ngOnInit() {
-        this.user = new user_1.User('twitgood');
+        this.router.routerState.parent(this.route).params.subscribe(x => {
+            this.user = new user_1.User(x['handle']);
+            console.log(this.user);
+        });
         this.user.weeklysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
         this.user.topwords = ['35', '6'];
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
