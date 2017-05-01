@@ -176,7 +176,7 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
             }
         }
 
-        $datarr = array('top_favorited_tweet' => $obj->top_faved, 'top_retweeted_tweet' => $obj->top_rted, 'top_successful_tweet' => $obj->top_success, 'hourlysuccess' => $hoursucc, 'hourlyactivity' => $houract, 'weeklysuccess' => $weeklysucc, 'weeklyactivity' => $weeklyact, 'tophashtags' => $tophashtags, 'topwords' => $topwords, 'accountage' => $obj->account_age, 'positive' => $obj->tweets_positive );
+        $datarr = array('top_favorited_tweet' => $obj->top_faved, 'top_retweeted_tweet' => $obj->top_rted, 'top_successful_tweet' => $obj->top_success, 'hourlysuccess' => $hoursucc, 'hourlyactivity' => $houract, 'weeklysuccess' => $weeklysucc, 'weeklyactivity' => $weeklyact, 'accountage' => $obj->account_age,'tophashtags' => $tophashtags, 'topwords' => $topwords, 'positive' => $obj->tweets_positive );
         return $this->response->withJson($datarr)->withHeader('Content-type', 'application/json'); 
     }
     else
