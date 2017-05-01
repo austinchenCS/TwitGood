@@ -63,6 +63,3 @@ export class AccountSummaryComponent{
       return s.slice(0, idx) + cstr + s.slice(idx + Math.abs(0));
     }
 }
-
-
-
