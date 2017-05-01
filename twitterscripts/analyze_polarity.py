@@ -77,13 +77,26 @@ def learn_tweet_polarity():
 
     print ("Emotions of Tweets: ")
 
+    foundNegative = False
+    foundPositive = False
     # Calculate percentage of tweets that are positive or negative
     polarity_counter = {}
     for polarity in all_polarity_english:
+        if polarity == "positive":
+            foundPositive = True
+        if polarity == "negative":
+            foundNegative = True
+
         if polarity in polarity_counter:
             polarity_counter[polarity] += 1
         else:
             polarity_counter[polarity] = 1
+
+    if foundNegative is False:
+        polarity_counter["negative"] = 0
+    if foundPositive is False:
+        polarity_counter["positive"] = 0
+
 
     polarity_pct = {}
 

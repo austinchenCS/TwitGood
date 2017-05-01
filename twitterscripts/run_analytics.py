@@ -268,10 +268,6 @@ def main():
         print("   Positive: " + str(round((tweet_polarity_split[0] * 100), 2)) + "%")
         print("   Negative: " + str(round((tweet_polarity_split[1] * 100), 2)) + "%")
 
-        print(top_favorited_tweet[0][0])
-        print(top_retweeted_tweet[0][0])
-        print(top_successful_tweet[0][0])
-        print(account_age)
 
     	print("\n#####################################################################################")
 
