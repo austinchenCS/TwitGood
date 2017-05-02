@@ -82,8 +82,7 @@ export class FrontpageComponent {
 
     goToAccount(handle : string){
         console.log(handle);
-        this.userService.setUser(handle);
-        console.log(this.userService.getLoginStatus());
+        this.userService.setUser(handle,this.create);
         this.router.navigate(['home']);
     }
     stop() {
