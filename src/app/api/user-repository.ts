@@ -7,14 +7,14 @@ import { UserData } from './user-data';
 
 @Injectable()
 export class UserRepository {
-	private _apiUrl = 'https://private-09ea1-twitgood.apiary-mock.com/user/';
+	private _apiUrl = 'http://35.164.145.233/TwitGood/backend/public/user/';
 	private user : string;
 	private loggedIn : boolean = false;
 
 	constructor(private http1: Http,private http2: Http) {}
 
 	getUserData(handle:string){
-		let apiUrl = 'https://private-09ea1-twitgood.apiary-mock.com/user/'+handle;
+		let apiUrl = 'http://35.164.145.233/TwitGood/backend/public/user/'+handle;
 
 		return this.http1.get(apiUrl).map(
 			(res) => res.json()
