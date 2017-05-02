@@ -1,16 +1,16 @@
 <div class="container" style="margin:auto;">
-    <h1>
+    <h1 class="bigger">
         <strong>Account Summary</strong>
     </h1>
 
-    <h1><span> Success by Hour </span></h1>
+    <h1 class="bold"><span> Success by Hour </span></h1>
 
 <div style="display: block;height:40vh;width:70%;" id="summaryChartContainer">
     <bar-chart [data]="user?.weeklysuccess" [bCL]="xAxisLabels" [chartLabel]="chartTitle"></bar-chart>
 </div>
 
 <div style="display: block;height:40vh;width:30vw;margin:auto;">
-    <h1><span> Top words </span></h1>
+    <h1 class="bold"><span> Top words </span></h1>
     <table class="table table-sm table-inverse">
         <thead>
             <tr>
@@ -28,7 +28,7 @@
 </div>
 <div style="display: block;margin:auto;">
     <br>
-    <h1> Most Successful Tweet </h1>
+    <h1 class="bold" style="margin-bottom:4vh"> Most Successful Tweet </h1>
     <div [innerHTML]="tweetHTML">
     </div>
     <br>
