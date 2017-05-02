@@ -36,6 +36,7 @@ let LandingComponent = class LandingComponent {
     }
     terminateSession() {
         this.router.navigateByUrl('/');
+        this;
     }
 };
 LandingComponent = __decorate([

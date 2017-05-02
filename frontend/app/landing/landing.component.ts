@@ -36,5 +36,6 @@ export class LandingComponent {
     
     terminateSession(){
         this.router.navigateByUrl('/');
+        this
     }
 }
