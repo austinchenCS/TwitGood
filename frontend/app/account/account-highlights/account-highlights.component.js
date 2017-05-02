@@ -9,9 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_repository_1 = require("./../api/user-repository");
+const user_repository_1 = require("../../api/user-repository");
 const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
+const user_1 = require("../../api/user");
 const platform_browser_1 = require("@angular/platform-browser");
 let AccountHighlightsComponent = class AccountHighlightsComponent {
     constructor(elementRef, userService, route, sanitizer, router) {
@@ -24,10 +25,7 @@ let AccountHighlightsComponent = class AccountHighlightsComponent {
     }
     ;
     ngOnInit() {
-        this.route.parent.params.subscribe(x => {
-            this.handle = x['handle'];
-            console.log(this.handle);
-        });
+        this.user = new user_1.User(this.userService.getUser());
         this.userService.getUserData(this.handle).subscribe((data) => {
             this.successful = data.top_successful_tweet;
             this.successful = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.successful));

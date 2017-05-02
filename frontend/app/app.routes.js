@@ -6,7 +6,7 @@ const landing_component_1 = require("./landing/landing.component");
 const Account = require("./account/index");
 exports.routes = [
     { path: '', component: frontpage_component_1.FrontpageComponent, pathMatch: 'full' },
-    { path: 'home/:handle', component: landing_component_1.LandingComponent,
+    { path: 'home', component: landing_component_1.LandingComponent,
         children: [
             { path: '', redirectTo: 'summary', pathMatch: 'full' },
             { path: 'summary', component: Account.AccountSummaryComponent },

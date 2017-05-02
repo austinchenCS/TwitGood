@@ -1,14 +1,14 @@
-import { UserData } from './../api/user-data';
+import { UserData } from '../../api/user-data';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { User } from '../api/user';
-import { UserRepository } from './../api/user-repository';
+import { User } from '../../api/user';
+import { UserRepository } from '../../api/user-repository';
 
 @Component({
     moduleId: module.id,
     selector: 'account-detail',
     templateUrl: 'account-detail.component.html',
-    styleUrls: [ 'account-detail.component.css' ]
+    styleUrls: [ 'account-detail.component.css' ],
 })
 
 export class AccountDetailComponent{
@@ -19,10 +19,7 @@ export class AccountDetailComponent{
               private userService: UserRepository){}
 
     ngOnInit(){
-      this.route.parent.params.subscribe(x => {
-          this.user = new User(x['handle']);
-          console.log(this.user);
-      });
+      this.user = new User(this.userService.getUser());
       
       this.userService.getUserData(this.user.twitterHandle).subscribe(
         (data) => {this.userData = data,
