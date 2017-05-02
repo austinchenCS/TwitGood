@@ -14,13 +14,15 @@ const core_1 = require("@angular/core");
 const user_1 = require("../../api/user");
 const router_1 = require("@angular/router");
 const platform_browser_1 = require("@angular/platform-browser");
+const ng2_loading_animate_1 = require("ng2-loading-animate");
 let AccountSummaryComponent = class AccountSummaryComponent {
-    constructor(router, route, userService, sanitizer, elementRef) {
+    constructor(router, route, userService, sanitizer, elementRef, _loadingSvc) {
         this.router = router;
         this.route = route;
         this.userService = userService;
         this.sanitizer = sanitizer;
         this.elementRef = elementRef;
+        this._loadingSvc = _loadingSvc;
         this.xAxisLabels = ['S', 'M', 'T', 'W', 'Th', 'F', 'S'];
         this.hours = Array.from(Array(24)).map((e, i) => i);
         this.chartTitle = 'Tweet Success by Days';
@@ -29,14 +31,17 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         this.user = new user_1.User(this.userService.getUser());
         this.user.weeklysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
         this.user.topwords = ['35', '6'];
-        this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
-            this.userData = data,
-                this.user.weeklysuccess = this.userData.weeklysuccess,
-                this.user.topwords = this.userData.topwords,
-                this.user.top_successful_tweet = this.userData.top_successful_tweet,
-                this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.user.top_successful_tweet)),
-                this.insertScript();
-        });
+        setTimeout(() => {
+            this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
+                this.userData = data,
+                    this.user.weeklysuccess = this.userData.weeklysuccess,
+                    this.user.topwords = this.userData.topwords,
+                    this.user.top_successful_tweet = this.userData.top_successful_tweet,
+                    this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.user.top_successful_tweet)),
+                    this.insertScript(),
+                    this.stop();
+            });
+        }, 30000);
     }
     ngAfterViewInit() {
     }
@@ -55,6 +60,9 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         let idx = n + m;
         return s.slice(0, idx) + cstr + s.slice(idx + Math.abs(0));
     }
+    stop() {
+        this._loadingSvc.setValue(false);
+    }
 };
 AccountSummaryComponent = __decorate([
     core_1.Component({
@@ -67,7 +75,8 @@ AccountSummaryComponent = __decorate([
         router_1.ActivatedRoute,
         user_repository_1.UserRepository,
         platform_browser_1.DomSanitizer,
-        core_1.ElementRef])
+        core_1.ElementRef,
+        ng2_loading_animate_1.LoadingAnimateService])
 ], AccountSummaryComponent);
 exports.AccountSummaryComponent = AccountSummaryComponent;
 //# sourceMappingURL=account-summary.component.js.map

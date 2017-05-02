@@ -7,6 +7,7 @@ import { ValueMatchDirective } from './../shared/value-match/value-match.directi
 import { Router } from '@angular/router';
 import { UserRepository } from '../api/user-repository';
 import 'rxjs/add/operator/toPromise';
+import { LoadingAnimateService } from 'ng2-loading-animate';
 
 @Component({
  selector: 'frontpage',
@@ -25,12 +26,14 @@ export class FrontpageComponent {
 
     constructor(private http: Http,
     private router: Router,
-    private userService: UserRepository){
+    private userService: UserRepository,
+    private _loadingSvc: LoadingAnimateService){
         this.create = false;
         this.details = new LoginDetails(false);
     };
 
     ngOnInit(){
+        this.stop(); 
         if(this.userService.getLoginStatus()){
             this.router.navigate(["home"]);
         }
@@ -82,5 +85,8 @@ export class FrontpageComponent {
         this.userService.setUser(handle);
         console.log(this.userService.getLoginStatus());
         this.router.navigate(['home']);
+    }
+    stop() {
+      this._loadingSvc.setValue(false);
     }
 }

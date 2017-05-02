@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule} from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FrontpageComponent } from './../frontpage/frontpage.component'
-import { UserRepository } from '../api/user-repository';
 
 import { AccountSummaryComponent } from './account-summary/account-summary.component';
 import { AccountHighlightsComponent } from './account-highlights/account-highlights.component';
@@ -33,8 +32,7 @@ import * as Shared from '../shared/index';
     AccountDetailComponent,
     AccountEngagementComponent,
     AccountHomeComponent
-  ],
-  providers: [UserRepository]
+  ]
 })
 
 export class AccountModule { }

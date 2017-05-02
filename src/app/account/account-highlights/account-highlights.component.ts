@@ -16,7 +16,7 @@ export class AccountHighlightsComponent{
     retweeted : any;
     successful : any;
     handle : string;
-    user: any;
+    user: User;
     scriptInput = '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
     @ViewChild("favoriteTarget") favoriteTarget : ElementRef;
 

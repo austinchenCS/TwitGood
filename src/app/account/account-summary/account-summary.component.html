@@ -1,35 +1,39 @@
+
 <div class="container" style="margin:auto;">
     <h1 class="bigger">
         <strong>Account Summary</strong>
     </h1>
+    
+    <h1 class="bold vertical-separate"><span> Success by Hour </span></h1>
 
-    <h1 class="bold"><span> Success by Hour </span></h1>
-
-<div style="display: block;height:40vh;width:70%;" id="summaryChartContainer">
-    <bar-chart [data]="user?.weeklysuccess" [bCL]="xAxisLabels" [chartLabel]="chartTitle"></bar-chart>
-</div>
-
-<div style="display: block;height:40vh;width:30vw;margin:auto;">
-    <h1 class="bold"><span> Top words </span></h1>
-    <table class="table table-sm table-inverse">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Word</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let word of user?.topwords; let i = index; trackBy: trackByFn">
-                <th scope="row">{{i+1}}</th>
-                <td>{{word}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div style="display: block;margin:auto;">
-    <br>
-    <h1 class="bold" style="margin-bottom:4vh"> Most Successful Tweet </h1>
-    <div [innerHTML]="tweetHTML">
+    <div style="display: block;height:40vh;width:70%;" id="summaryChartContainer">
+        <bar-chart [data]="user?.weeklysuccess" [bCL]="xAxisLabels" [chartLabel]="chartTitle"></bar-chart>
     </div>
-    <br>
+
+    <hr>
+
+    <div style="display: block;height:40vh;width:30vw;margin:auto;">
+        <h1 class="bold vertical-separate"><span> Top words </span></h1>
+        <table class="table table-sm table-inverse">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Word</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let word of user?.topwords; let i = index; trackBy: trackByFn">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{word}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <div style="display: block;margin:auto;">
+        <h1 class="bold vertical-separate"> Most Successful Tweet </h1>
+        <div [innerHTML]="tweetHTML" class="vertical-separate">
+    </div>
 </div>

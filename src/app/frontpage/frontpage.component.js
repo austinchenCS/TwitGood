@@ -16,11 +16,13 @@ const http_1 = require("@angular/http");
 const router_1 = require("@angular/router");
 const user_repository_1 = require("../api/user-repository");
 require("rxjs/add/operator/toPromise");
+const ng2_loading_animate_1 = require("ng2-loading-animate");
 let FrontpageComponent = class FrontpageComponent {
-    constructor(http, router, userService) {
+    constructor(http, router, userService, _loadingSvc) {
         this.http = http;
         this.router = router;
         this.userService = userService;
+        this._loadingSvc = _loadingSvc;
         this.loginFail = false;
         this.loginUrl = 'https://private-17592-twitgood.apiary-mock.com/users/auth/';
         this.createUrl = 'https://private-17592-twitgood.apiary-mock.com/user/';
@@ -29,6 +31,7 @@ let FrontpageComponent = class FrontpageComponent {
     }
     ;
     ngOnInit() {
+        this.stop();
         if (this.userService.getLoginStatus()) {
             this.router.navigate(["home"]);
         }
@@ -75,6 +78,9 @@ let FrontpageComponent = class FrontpageComponent {
         console.log(this.userService.getLoginStatus());
         this.router.navigate(['home']);
     }
+    stop() {
+        this._loadingSvc.setValue(false);
+    }
 };
 __decorate([
     core_1.ViewChild("loginForm"),
@@ -88,7 +94,8 @@ FrontpageComponent = __decorate([
     }),
     __metadata("design:paramtypes", [http_1.Http,
         router_1.Router,
-        user_repository_1.UserRepository])
+        user_repository_1.UserRepository,
+        ng2_loading_animate_1.LoadingAnimateService])
 ], FrontpageComponent);
 exports.FrontpageComponent = FrontpageComponent;
 //# sourceMappingURL=frontpage.component.js.map
