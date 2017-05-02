@@ -9,9 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_repository_1 = require("./../api/user-repository");
+const user_repository_1 = require("../../api/user-repository");
 const core_1 = require("@angular/core");
-const user_1 = require("../api/user");
+const user_1 = require("../../api/user");
 const router_1 = require("@angular/router");
 const platform_browser_1 = require("@angular/platform-browser");
 let AccountSummaryComponent = class AccountSummaryComponent {
@@ -26,23 +26,15 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         this.chartTitle = 'Tweet Success by Days';
     }
     ngOnInit() {
-        this.router.routerState.parent(this.route).params.subscribe(x => {
-            this.user = new user_1.User(x['handle']);
-            console.log(this.user);
-        });
+        this.user = new user_1.User(this.userService.getUser());
         this.user.weeklysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
         this.user.topwords = ['35', '6'];
-        let tweetJSON;
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
             this.userData = data,
                 this.user.weeklysuccess = this.userData.weeklysuccess,
                 this.user.topwords = this.userData.topwords,
                 this.user.top_successful_tweet = this.userData.top_successful_tweet,
-                this.userService.getTweet(this.user.top_successful_tweet).subscribe((x) => {
-                    tweetJSON = x,
-                        console.log(tweetJSON.html),
-                        this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(tweetJSON.html));
-                }),
+                this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.user.top_successful_tweet)),
                 this.insertScript();
         });
     }

@@ -9,9 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_repository_1 = require("./../api/user-repository");
+const user_repository_1 = require("../../api/user-repository");
 const core_1 = require("@angular/core");
-const user_1 = require("../api/user");
+const user_1 = require("../../api/user");
 const router_1 = require("@angular/router");
 let AccountEngagementComponent = class AccountEngagementComponent {
     constructor(router, route, userService) {
@@ -29,10 +29,7 @@ let AccountEngagementComponent = class AccountEngagementComponent {
         //this.xAxisLabels = new Array<string>(this.hours.length);
         // for(var i=0;i<24;i++)
         //   this.xAxisLabels[i] = (i%12 || 12).toString()+(Math.floor(i/12) ? 'PM' : 'AM');
-        this.router.routerState.parent(this.route).params.subscribe(x => {
-            this.user = new user_1.User(x['handle']);
-            console.log(this.user);
-        });
+        this.user = new user_1.User(this.userService.getUser());
         this.user.hourlysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
         this.user.hourlyactivity = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64];
         this.user.weeklysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64];
@@ -51,7 +48,7 @@ AccountEngagementComponent = __decorate([
         moduleId: module.id,
         selector: 'account-engagement',
         templateUrl: 'account-engagement.component.html',
-        styleUrls: ['account-engagement.component.css']
+        styleUrls: ['account-engagement.component.css'],
     }),
     __metadata("design:paramtypes", [router_1.Router,
         router_1.ActivatedRoute,

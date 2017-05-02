@@ -11,13 +11,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
+const http_1 = require("@angular/http");
+const user_repository_1 = require("../api/user-repository");
 let LandingComponent = class LandingComponent {
-    constructor(router, route) {
+    constructor(router, route, http, userService) {
         this.router = router;
         this.route = route;
-        this.handle = 'johndoe';
+        this.http = http;
+        this.userService = userService;
+        this.userDataUrl = "https://private-17592-twitgood.apiary-mock.com/user/info/";
+        this.handle = this.userService.getUser();
+        this.http
+            .get(this.userDataUrl + this.handle)
+            .toPromise()
+            .then(x => {
+            this.imageSource = x.json().image_profile;
+        })
+            .catch(x => x.message);
     }
     ;
+    ngOnInit() {
+        if (!this.userService.getLoginStatus()) {
+            console.log(this.userService.getLoginStatus());
+            this.router.navigate([""]);
+        }
+    }
 };
 LandingComponent = __decorate([
     core_1.Component({
@@ -27,7 +45,9 @@ LandingComponent = __decorate([
         styleUrls: ['landing.component.css'],
     }),
     __metadata("design:paramtypes", [router_1.Router,
-        router_1.ActivatedRoute])
+        router_1.ActivatedRoute,
+        http_1.Http,
+        user_repository_1.UserRepository])
 ], LandingComponent);
 exports.LandingComponent = LandingComponent;
 //# sourceMappingURL=landing.component.js.map

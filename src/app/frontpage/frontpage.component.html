@@ -1,7 +1,9 @@
 <div class="text-center size-normalizer">
     <div class="vertical-center">
         <img src="/app/resources/logo.png" class="logo"/>
-        <p class="med-text text-muted move-up">where dreams come true</p>
+        <p class="med-text text-muted move-up">
+            tweet better
+        </p>
         
             <div class="input-center">
                 <form name="loginForm"
@@ -17,10 +19,18 @@
                 <div *ngIf="create">
                 <div class="input-group">
                     <span class="input-group-addon" id="sizing-addon1">Twitter Handle</span>
-                    <input #handle="ngModel" type="text" class="form-control" placeholder="Twitter Handle" aria-describedby="sizing-addon1" [(ngModel)]="details.handle" name="handle" required>
+                    <input #handle="ngModel" type="text" class="form-control" placeholder="Twitter Handle" aria-describedby="sizing-addon1" [(ngModel)]="details.twitter_handle" name="handle" required>
                 </div>
-                <br *ngIf="create"/>
+                <br/>
                 <validation [model]="handle" [messages]="{required : 'Handle is required'}"></validation>
+                </div>
+                <div *ngIf="create">
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon1">First name</span>
+                    <input #firstname="ngModel" type="text" class="form-control" placeholder="First name" aria-describedby="sizing-addon1" [(ngModel)]="details.first_name" name="firstname" required>
+                </div>
+                <br/>
+                <validation [model]="firstname" [messages]="{required : 'First name is required'}"></validation>
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon" id="sizing-addon1">Password</span>

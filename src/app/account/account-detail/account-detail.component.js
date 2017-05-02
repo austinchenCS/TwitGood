@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
-const user_1 = require("../api/user");
-const user_repository_1 = require("./../api/user-repository");
+const user_1 = require("../../api/user");
+const user_repository_1 = require("../../api/user-repository");
 let AccountDetailComponent = class AccountDetailComponent {
     constructor(router, route, userService) {
         this.router = router;
@@ -20,15 +20,13 @@ let AccountDetailComponent = class AccountDetailComponent {
         this.userService = userService;
     }
     ngOnInit() {
-        this.router.routerState.parent(this.route).params.subscribe(x => {
-            this.user = new user_1.User(x['handle']);
-            console.log(this.user);
-        });
+        this.user = new user_1.User(this.userService.getUser());
         this.userService.getUserData(this.user.twitterHandle).subscribe((data) => {
             this.userData = data,
                 this.user.accountage = this.userData.accountage,
                 this.user.tophashtags = this.userData.tophashtags,
-                this.user.topwords = this.userData.topwords;
+                this.user.topwords = this.userData.topwords,
+                this.user.positive = this.userData.positive;
         });
     }
 };
@@ -37,7 +35,7 @@ AccountDetailComponent = __decorate([
         moduleId: module.id,
         selector: 'account-detail',
         templateUrl: 'account-detail.component.html',
-        styleUrls: ['account-detail.component.css']
+        styleUrls: ['account-detail.component.css'],
     }),
     __metadata("design:paramtypes", [router_1.Router,
         router_1.ActivatedRoute,

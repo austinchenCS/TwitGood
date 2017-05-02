@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params, RouterLinkActive } from '@angular/router';
+import { Http, Headers, Response } from '@angular/http';
+import { UserRepository } from '../api/user-repository';
 
 @Component({
     moduleId: module.id,
@@ -9,9 +11,29 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class LandingComponent {
-    handle ='johndoe';
+    handle : string;
+    imageSource : string;
+    userDataUrl : string = "https://private-17592-twitgood.apiary-mock.com/user/info/";
 
     constructor(private router: Router,
-    private route: ActivatedRoute){};
+    private route: ActivatedRoute,
+    private http: Http,
+    private userService: UserRepository){
+        this.handle = this.userService.getUser();
+        this.http
+			.get(this.userDataUrl+this.handle)
+			.toPromise()
+			.then(x => {
+                this.imageSource = x.json().image_profile;
+            })
+			.catch(x => x.message);
+    };
+
+    ngOnInit(){
+        if(!this.userService.getLoginStatus()){
+            console.log(this.userService.getLoginStatus());
+            this.router.navigate([""]);
+        }
+    }
     
 }

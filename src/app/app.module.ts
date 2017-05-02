@@ -9,6 +9,7 @@ import { routing, appRoutingProviders } from './app.routes';
 import * as Account from './account/index';
 import * as Shared from './shared/index';
 import { LandingComponent } from './landing/landing.component';
+import { UserRepository } from './api/user-repository';
 
 @NgModule({
  imports: [ BrowserModule,
@@ -19,7 +20,7 @@ import { LandingComponent } from './landing/landing.component';
             Shared.SharedModule,
             routing ],
  declarations: [ AppComponent, FrontpageComponent, LandingComponent ],
- providers: [ appRoutingProviders ],
+ providers: [ appRoutingProviders, UserRepository ],
  bootstrap: [ AppComponent ]
 })
 export class AppModule {

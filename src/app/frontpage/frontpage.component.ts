@@ -5,6 +5,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { ValidationComponent } from './../shared/validation/validation.component';
 import { ValueMatchDirective } from './../shared/value-match/value-match.directive';
 import { Router } from '@angular/router';
+import { UserRepository } from '../api/user-repository';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -23,10 +24,17 @@ export class FrontpageComponent {
     private createUrl = 'https://private-17592-twitgood.apiary-mock.com/user/';
 
     constructor(private http: Http,
-    private router: Router){
+    private router: Router,
+    private userService: UserRepository){
         this.create = false;
         this.details = new LoginDetails(false);
     };
+
+    ngOnInit(){
+        if(this.userService.getLoginStatus()){
+            this.router.navigate(["home"]);
+        }
+    }
 
     createFlip(){
         this.create = !this.create;
@@ -55,7 +63,14 @@ export class FrontpageComponent {
     validateResult(result : any){
         console.log(result);
         if(result.success){
-            this.goToAccount(result.handle);
+            if(this.create)
+            {
+                this.goToAccount(this.details.twitter_handle);
+            }
+            else
+            {
+                this.goToAccount(result.handle);
+            }
         }
         else{
             this.loginFail = true;
@@ -64,6 +79,8 @@ export class FrontpageComponent {
 
     goToAccount(handle : string){
         console.log(handle);
-        this.router.navigate(['home/'+handle]);
+        this.userService.setUser(handle);
+        console.log(this.userService.getLoginStatus());
+        this.router.navigate(['home']);
     }
 }

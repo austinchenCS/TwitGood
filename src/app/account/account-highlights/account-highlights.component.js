@@ -9,27 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_repository_1 = require("./../api/user-repository");
+const user_repository_1 = require("../../api/user-repository");
 const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
+const user_1 = require("../../api/user");
+const platform_browser_1 = require("@angular/platform-browser");
 let AccountHighlightsComponent = class AccountHighlightsComponent {
-    constructor(elementRef, userService, route, router) {
+    constructor(elementRef, userService, route, sanitizer, router) {
         this.elementRef = elementRef;
         this.userService = userService;
         this.route = route;
+        this.sanitizer = sanitizer;
         this.router = router;
         this.scriptInput = '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
     }
     ;
     ngOnInit() {
-        this.router.routerState.parent(this.route).params.subscribe(x => {
-            this.handle = x['handle'];
-            console.log(this.handle);
-        });
+        this.user = new user_1.User(this.userService.getUser());
         this.userService.getUserData(this.handle).subscribe((data) => {
             this.successful = data.top_successful_tweet;
+            this.successful = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.successful));
             this.retweeted = data.top_retweeted_tweet;
+            this.retweeted = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.retweeted));
             this.favorited = data.top_favorited_tweet;
+            this.favorited = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.favorited));
             this.runTwitter();
         });
     }
@@ -38,6 +41,15 @@ let AccountHighlightsComponent = class AccountHighlightsComponent {
         s.type = "text/javascript";
         s.src = "http://platform.twitter.com/widgets.js";
         this.elementRef.nativeElement.appendChild(s);
+    }
+    addCenterAlignmentToTweet(s) {
+        let str = 'blockquote class="twitter-tweet';
+        let cstr = ' tw-align-center';
+        var n = str.length;
+        var m;
+        m = s.indexOf('blockquote class="twitter-tweet');
+        let idx = n + m;
+        return s.slice(0, idx) + cstr + s.slice(idx + Math.abs(0));
     }
 };
 __decorate([
@@ -54,6 +66,7 @@ AccountHighlightsComponent = __decorate([
     __metadata("design:paramtypes", [core_1.ElementRef,
         user_repository_1.UserRepository,
         router_1.ActivatedRoute,
+        platform_browser_1.DomSanitizer,
         router_1.Router])
 ], AccountHighlightsComponent);
 exports.AccountHighlightsComponent = AccountHighlightsComponent;
