@@ -17,6 +17,7 @@ const app_routes_1 = require("./app.routes");
 const Account = require("./account/index");
 const Shared = require("./shared/index");
 const landing_component_1 = require("./landing/landing.component");
+const ng2_loading_animate_1 = require("ng2-loading-animate");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -27,9 +28,10 @@ AppModule = __decorate([
             router_1.RouterModule,
             Account.AccountModule,
             Shared.SharedModule,
+            ng2_loading_animate_1.LoadingAnimateModule.forRoot(),
             app_routes_1.routing],
         declarations: [app_component_1.AppComponent, frontpage_component_1.FrontpageComponent, landing_component_1.LandingComponent],
-        providers: [app_routes_1.appRoutingProviders],
+        providers: [app_routes_1.appRoutingProviders, ng2_loading_animate_1.LoadingAnimateService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

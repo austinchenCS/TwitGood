@@ -16,7 +16,8 @@
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       'rxjs': 'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
-      'ng2-charts': 'npm:ng2-charts'
+      'ng2-charts': 'npm:ng2-charts',
+      'ng2-loading-animate':'npm:ng2-loading-animate'
     },
     packages: {
       app: {
@@ -32,6 +33,10 @@
       },
       'ng2-charts': {
         main: "ng2-charts.js",
+        defaultExtension: 'js'
+      },
+      'ng2-loading-animate': {
+        main: "ng2-loading-animate.js",
         defaultExtension: 'js'
       },
     }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params, RouterLinkActive } from '@angular/router';
 import { Http, Headers, Response } from '@angular/http';
+import { LoadingAnimateService } from 'ng2-loading-animate';
 
 @Component({
     moduleId: module.id,
@@ -16,7 +17,9 @@ export class LandingComponent {
 
     constructor(private router: Router,
     private route: ActivatedRoute,
-    private http: Http){
+    private http: Http,
+    private _loadingSvc: LoadingAnimateService){
+        this.start();
         this.route.params.subscribe(x => this.handle = x['handle']);
         this.http
 			.get(this.userDataUrl+this.handle)
@@ -26,5 +29,12 @@ export class LandingComponent {
             })
 			.catch(x => x.message);
     };
+
+    start() {
+        this._loadingSvc.setValue(true);
+    }
     
+    terminateSession(){
+        this.router.navigateByUrl('/');
+    }
 }

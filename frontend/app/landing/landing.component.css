@@ -78,3 +78,13 @@ hr {
     font-weight: bold;
     text-decoration: underline;
 }
+
+#dropdownMenuCog,
+#dropdownMenuCog:hover,
+#dropdownMenuCog:focus,
+#dropdownMenuCog:active,
+#dropdownMenuCog.active {
+  color: #ffffff;
+  background-color: rgb(33,184,168);
+  border-color: rgb(33,184,168);
+}
