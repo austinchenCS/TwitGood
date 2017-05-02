@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS `Users` (
   `user_id` int(11) NOT NULL,
   `email` varchar(200) NOT NULL,
-  `first_name` varchar(20) NOT NULL,
+  `first_name` varchar(20),
   `password` varchar(256) NOT NULL,
   `twitter_handle` varchar(50) NOT NULL,
-  `api_key` varchar(50) NOT NULL,
-  `api_secret` varchar(50) NOT NULL, 
+  `api_key` varchar(50),
+  `api_secret` varchar(50), 
   `profile_image` varchar(150),
   `created_at` timestamp NOT NULL,
   `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -44,9 +44,9 @@ ALTER TABLE `ViewEngagement` ADD FOREIGN KEY(`user_id`) REFERENCES `Users`(`user
 
 CREATE TABLE IF NOT EXISTS `TweetData` (
   `user_id` int(11) NOT NULL,
-  `top_faved` varchar(150) NOT NULL,
-  `top_rted` varchar(150) NOT NULL,
-  `top_success` varchar(150) NOT NULL,
+  `top_faved` varchar(1000) NOT NULL,
+  `top_rted` varchar(1000) NOT NULL,
+  `top_success` varchar(1000) NOT NULL,
   `account_age` varchar(150) NOT NULL,
   `tweets_positive` varchar(150) NOT NULL,
   `created` timestamp NOT NULL,
@@ -120,9 +120,9 @@ ALTER TABLE `TopWords` ADD PRIMARY KEY(`user_id`, `rank`);
 ALTER TABLE `TopWords` ADD FOREIGN KEY(`user_id`) REFERENCES `Users`(`user_id`);
 
 INSERT INTO `TopWords` (`user_id`, `rank`, `word`, `created`)
-VALUES ('3', '00', 'supercallifragilisticexpiallodocius', NOW()), ('3', '01', 'puppy', NOW()),
-('3', '02', 'love', NOW()), ('3', '03', 'dog', NOW()),
-('3', '04', 'good', NOW());
+VALUES ('3', '01', 'supercallifragilisticexpiallodocius', NOW()), ('3', '02', 'puppy', NOW()),
+('3', '03', 'love', NOW()), ('3', '04', 'dog', NOW()),
+('3', '05', 'good', NOW());
 
 CREATE TABLE IF NOT EXISTS `TopHashtags` (
   `user_id` int(11) NOT NULL,
@@ -136,7 +136,7 @@ ALTER TABLE `TopHashtags` ADD PRIMARY KEY(`user_id`, `rank`);
 ALTER TABLE `TopHashtags` ADD FOREIGN KEY(`user_id`) REFERENCES `Users`(`user_id`);
 
 INSERT INTO `TopHashtags` (`user_id`, `rank`, `hashtag`, `created`)
-VALUES ('3', '00', 'synergy', NOW()), ('3', '01', 'marketing', NOW()),
-('3', '02', 'seo', NOW()), ('3', '03', 'supercallifragilisticexpiallodocius', NOW()),
-('3', '04', 'good', NOW());
+VALUES ('3', '01', 'synergy', NOW()), ('3', '02', 'marketing', NOW()),
+('3', '03', 'seo', NOW()), ('3', '04', 'supercallifragilisticexpiallodocius', NOW()),
+('3', '05', 'good', NOW());
 

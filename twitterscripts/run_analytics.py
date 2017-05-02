@@ -1,6 +1,6 @@
 #!/usr/bin/python
 DEBUG = True
-DEMO = True
+DEMO = False
 
 import urllib2
 import re
@@ -226,16 +226,19 @@ def main():
     oEmbed_url = "https://publish.twitter.com/oembed?url=" + curr_url
     tweet_info = json.loads(urllib2.urlopen(oEmbed_url).read())
     top_single_favorited_tweet = str(tweet_info['html'].encode('utf-8'))
+    top_single_favorited_tweet = top_single_favorited_tweet.replace("\"", "\\\"")
 
     curr_url = str(top_retweeted_tweet[0][0])
     oEmbed_url = "https://publish.twitter.com/oembed?url=" + curr_url
     tweet_info = json.loads(urllib2.urlopen(oEmbed_url).read())
     top_single_retweeted_tweet = str(tweet_info['html'].encode('utf-8'))
+    top_single_retweeted_tweet = top_single_retweeted_tweet.replace("\"", "\\\"")
 
     curr_url = str(top_successful_tweet[0][0])
     oEmbed_url = "https://publish.twitter.com/oembed?url=" + curr_url
     tweet_info = json.loads(urllib2.urlopen(oEmbed_url).read())
     top_single_successful_tweet = str(tweet_info['html'].encode('utf-8'))
+    top_single_successful_tweet = top_single_successful_tweet.replace("\"", "\\\"")
 
     curr_url = str(tweet_info['html'].encode('utf-8'))
 ###############################################################################
@@ -298,11 +301,51 @@ def main():
 
     if not DEMO:
         users = Users.get(Users.twitter_handle == sys.argv[1])
-        new_tweetdata = Tweetdata(user_id = users.user, top_faved = top_favorited_tweet[0][0], top_rted = top_retweeted_tweet[0][0], top_success = top_successful_tweet[0][0], account_age = account_age, created = datetime.datetime.now())
-        new_tweetdata.save()
+        users.profile_image = profile_pic
+        users.save()
 
-	for i in range(len(most_frequent_words)):
-            Topwords.create(user_id = users.user, rank = (i + 1), word = most_frequent_words[i][0], created = datetime.datetime.now()).save()
+        try:
+            new_tweetdata = Tweetdata.get(user_id = users.user)
+            new_tweetdata = Tweetdata(user_id = users.user, top_faved = top_favorited_tweet[0][0], top_rted = top_retweeted_tweet[0][0], top_success = top_successful_tweet[0][0], account_age = account_age, tweets_positive = str(round((tweet_polarity_split[0]*100), 2)))
+            new_tweetdata.save()
+        except:
+            print(str(round((tweet_polarity_split[0]*100), 2)))
+            Tweetdata.create(user_id = users.user, top_faved = top_favorited_tweet[0][0], top_rted = top_retweeted_tweet[0][0], top_success = top_successful_tweet[0][0], account_age = account_age, tweets_positive = str(round((tweet_polarity_split[0]*100), 2)), created = datetime.datetime.now()).save()
+
+        for i in range(24):
+            try:
+                new_hourlydata = Hourlydata.get(user_id = users.user, hour = i)
+                new_hourlydata = Hourlydata(user_id = users.user, hour = i, activity = hourly_activity[i], success = hourly_success[i], created = datetime.datetime.now())
+                new_hourlydata.save()
+            except:
+                Hourlydata.create(user_id = users.user, hour = i, activity = hourly_activity[i], success = hourly_success[i], created = datetime.datetime.now()).save()
+
+        days = ['sun','mon','tue','wed','thu','fri','sat']
+
+        for i in range(len(days)):
+            try:
+                new_weeklydata = Weeklydata.get(user_id = users.user, day = i)
+                new_weeklydata = Weeklydata(user_id = users.user, day = i, activity = weekly_activity[days[i]], success = weekly_success[days[i]])
+                new_weeklydata.save()
+            except:
+                Weeklydata.create(user_id = users.user, day = i, activity = weekly_activity[days[i]], success = weekly_success[days[i]], created = datetime.datetime.now()).save()
+
+        for i in range(len(most_frequent_words)):
+            try:
+                new_topwords = Topwords.get(user_id = users.user, rank = (i + 1))
+                new_topwords = Topwords(user_id = users.user, rank = (i + 1), word = most_frequent_words[i][0])
+                new_topwords.save()
+            except:
+                Topwords.create(user_id = users.user, rank = (i + 1), word = most_frequent_words[i][0], created = datetime.datetime.now()).save()
+
+        for i in range(len(most_frequent_hashtags)):
+            try:
+                new_tophashtags = Tophashtags.get(user_id = users.user, rank = (i + 1))
+                new_tophashtags = Tophashtags(user_id = users.user, rank = (i + 1), hashtag = most_frequent_hashtags[i])
+                new_tophashtags.save()
+            except:
+                Tophashtags.create(user_id = users.user, rank = (i + 1), hashtag = most_frequent_hashtags[i], created = datetime.datetime.now()).save()
+
 
 ###############################################################################
 ######### /SQL INSERTION ######################################################

@@ -1,4 +1,8 @@
 <?php
+
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header("Access-Control-Allow-Headers: x-requested-with, Content-Type, origin, authorization, accept, client-security-token");
 // Routes
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
@@ -24,7 +28,7 @@ $app->post('/user/', function($request, $response) {
     
     if ($emailqry->rowCount() > 0)
     {
-        $valid = json_encode(array('success' => False, 'location' => 'email'));
+        $valid = array('success' => False, 'location' => 'email');
         return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
         echo "You messed up";
     }
@@ -37,7 +41,7 @@ $app->post('/user/', function($request, $response) {
     $handlerslt = $handleqry->fetchAll();
     if ($handleqry->rowCount() > 0)
     {
-        $valid = json_encode(array('success' => False, 'location' => 'handle'));
+        $valid = array('success' => False, 'location' => 'handle');
         return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
         echo "You messed up";
     }
@@ -57,7 +61,7 @@ $app->post('/user/', function($request, $response) {
     $sth->bindParam("secret", $data['api_secret']);
     $sth->execute();
      
-    $valid = json_encode(array('success' => True, 'location' => 'N/A'));
+    $valid = array('success' => True, 'location' => 'N/A');
     return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
 });
 
@@ -68,9 +72,8 @@ $app->get('/user/info/[{twitter_handle}]', function($request, $response, $args) 
     $sth->execute();
     $todos = $sth->fetchObject();
     echo "\n";
-    $valid = json_encode($todos);
     //$newResponse = $valid->withHeader('Content-type', 'application/json');
-    return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
+    return $this->response->withJson($todos)->withHeader('Content-type', 'application/json');
 });
 
 // Authenticates a user
@@ -82,6 +85,14 @@ $app->post('/users/auth/', function($request, $response) {
     $sth->execute();
 
     $obj = $sth->fetchObject();
+
+
+    
+    if ($sth->rowCount() == 0)
+    {
+        $valid = array('success' => False, 'handle' => 'NULL');
+        return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');  
+    }
     
     $password_in = $data['password'];
     $password = $obj->password;
@@ -90,13 +101,25 @@ $app->post('/users/auth/', function($request, $response) {
 
     if ($is_valid)
     {
-        return $this->response->withJson(json_encode(array( 'success' => True, 'twitter_handle' => $obj->twitter_handle)));
+        // Runs the python script if field is null
+        $sth = $this->db->prepare("SELECT * FROM TweetData WHERE user_id=:user_id");
+        $sth->bindParam("user_id", $obj->user_id);
+        $sth->execute();
+        $obj2 = $sth->fetchObject();
+        //if(is_null($obj2->user_id))
+        //{
+        //    // Un-comment when you know which script to run
+        //    //exec("python /var/www/html/TwitGood/twitterscripts/");
+        //}
+        
+        $temp = array('success' => True, 'handle' => $obj->twitter_handle);
+        return $this->response->withJson($temp)->withHeader('Content-type', 'application/json');
     }
 
     if ($is_valid != true)
     {
-        $valid = json_encode(array('success' => False, 'twitter_handle' => 'NULL'));
-        return $this->response->withJson($valid);  
+        $valid = array('success' => False, 'handle' => 'NULL');
+        return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');  
     }
 
 });
@@ -116,8 +139,6 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
         $sth->bindParam("user_id", $id);
         $sth->execute();
         $obj = $sth->fetchObject();
-
-        print $obj->user_id; 
 
         $sth = $this->db->prepare("SELECT * FROM HourlyData WHERE user_id=:user_id");
         $sth->bindParam("user_id", $id);
@@ -141,7 +162,7 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
         $weeklydata = $sth->fetchAll();
         $weeklyact = [];
         $weeklysucc = []; 
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < 7; $i++) {
             foreach($weeklydata as $row) {
                 if( $i == $row['day'] ) {
                     array_push($weeklyact, $row['activity']);
@@ -161,7 +182,7 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
         $hashtagData = $sth->fetchAll();
         $topwords = [];
         $tophashtags = [];
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 1; $i < 6; $i++) {
             foreach($wordData as $row) {
                 if ( $i == $row['rank'] ) {
                     array_push($topwords, $row['word']); 
@@ -175,8 +196,27 @@ $app->get('/user/[{twitter_handle}]', function($request, $response, $args) {
                 }
             }
         }
+        
+        //print (string)$obj->top_faved;
+        //print (string)$obj->top_rted;
+        //print (string)$obj->top_success;
 
-        $datarr = array('top_favorited_tweet' => $obj->top_faved, 'top_retweeted_tweet' => $obj->top_rted, 'top_successful_tweet' => $obj->top_success, 'hourlysuccess' => $hoursucc, 'hourlyactivity' => $houract, 'weeklysuccess' => $weeklysucc, 'weeklyactivity' => $weeklyact, 'accountage' => $obj->account_age,'tophashtags' => $tophashtags, 'topwords' => $topwords, 'positive' => $obj->tweets_positive );
+
+        //$top_faved_encoded = htmlspecialchars(utf8_encode($obj->top_faved));
+        //$top_rted_encoded = htmlspecialchars(utf8_encode($obj->top_rted));
+        //$top_success_encoded = htmlspecialchars(utf8_encode($obj->top_success));
+
+        $top_faved_encoded = utf8_encode($obj->top_faved);
+        $top_rted_encoded = utf8_encode($obj->top_rted);
+        $top_success_encoded = utf8_encode($obj->top_success);
+
+        //print $top_faved_encoded;
+        //print $top_rted_encoded;
+        //print $top_success_encoded;
+
+        //$datarr = array('top_favorited_tweet' => (string)$obj->top_faved, 'top_retweeted_tweet' => (string)$obj->top_rted, 'top_successful_tweet' => (string)$obj->top_success, 'hourlysuccess' => $hoursucc, 'hourlyactivity' => $houract, 'weeklysuccess' => $weeklysucc, 'weeklyactivity' => $weeklyact, 'accountage' => $obj->account_age,'tophashtags' => $tophashtags, 'topwords' => $topwords, 'positive' => $obj->tweets_positive );
+
+        $datarr = array('top_favorited_tweet' => $top_faved_encoded, 'top_retweeted_tweet' => $top_rted_encoded, 'top_successful_tweet' => $top_success_encoded, 'hourlysuccess' => $hoursucc, 'hourlyactivity' => $houract, 'weeklysuccess' => $weeklysucc, 'weeklyactivity' => $weeklyact, 'accountage' => $obj->account_age,'tophashtags' => $tophashtags, 'topwords' => $topwords, 'positive' => $obj->tweets_positive );
         return $this->response->withJson($datarr)->withHeader('Content-type', 'application/json'); 
     }
     else
