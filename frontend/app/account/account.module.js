@@ -9,7 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const platform_browser_1 = require("@angular/platform-browser");
 const http_1 = require("@angular/http");
-const user_repository_1 = require("./api/user-repository");
 const account_summary_component_1 = require("./account-summary/account-summary.component");
 const account_highlights_component_1 = require("./account-highlights/account-highlights.component");
 const account_detail_component_1 = require("./account-detail/account-detail.component");
@@ -38,8 +37,7 @@ AccountModule = __decorate([
             account_detail_component_1.AccountDetailComponent,
             account_engagement_component_1.AccountEngagementComponent,
             account_home_component_1.AccountHomeComponent
-        ],
-        providers: [user_repository_1.UserRepository]
+        ]
     })
 ], AccountModule);
 exports.AccountModule = AccountModule;

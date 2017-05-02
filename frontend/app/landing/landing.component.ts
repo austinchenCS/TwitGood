@@ -45,7 +45,7 @@ export class LandingComponent {
     }
     
     terminateSession(){
+        this.userService.logout();
         this.router.navigateByUrl('/');
-        this
     }
 }

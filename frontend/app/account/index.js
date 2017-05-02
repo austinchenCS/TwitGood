@@ -9,7 +9,7 @@ __export(require("./account-highlights/account-highlights.component"));
 __export(require("./account-detail/account-detail.component"));
 __export(require("./account-engagement/account-engagement.component"));
 __export(require("./account-home/account-home.component"));
-__export(require("./api/user"));
-__export(require("./api/user-data"));
-__export(require("./api/user-repository"));
+// export * from './api/user';
+// export * from './api/user-data';
+// export * from './api/user-repository'; 
 //# sourceMappingURL=index.js.map

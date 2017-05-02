@@ -4,7 +4,13 @@
     margin-top: 2%;
     margin-bottom: 12%;
 }
+.vertical-separate{
+    margin-top: 4vh;
+}
 
+.bottom-separate{
+    margin-bottom: 4vh;
+}
 .bigger{
     font-size: 7vh;
 }

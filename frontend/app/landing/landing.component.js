@@ -43,8 +43,8 @@ let LandingComponent = class LandingComponent {
         }
     }
     terminateSession() {
+        this.userService.logout();
         this.router.navigateByUrl('/');
-        this;
     }
 };
 LandingComponent = __decorate([
