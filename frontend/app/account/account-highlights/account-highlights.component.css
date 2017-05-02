@@ -1,3 +1,15 @@
 .vertical-separate{
-    margin-top: 2vh;
+    margin-top: 4vh;
+}
+
+.bottom-separate{
+    margin-bottom: 4vh;
+}
+
+.bigger{
+    font-size: 7vh;
+}
+
+.bold{
+    font-weight: bold;
 }

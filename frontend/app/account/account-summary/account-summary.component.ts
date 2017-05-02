@@ -1,6 +1,6 @@
-import { UserRepository } from './../api/user-repository';
+import { UserRepository } from '../../api/user-repository';
 import { Component, OnInit, Input, AfterViewInit, ElementRef } from '@angular/core';
-import { User } from '../api/user';
+import { User } from '../../api/user';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import { LoadingAnimateService } from 'ng2-loading-animate';
@@ -28,10 +28,7 @@ export class AccountSummaryComponent{
               private _loadingSvc: LoadingAnimateService){}
 
     ngOnInit(){
-      this.route.parent.params.subscribe(x => {
-          this.user = new User(x['handle']);
-          console.log(this.user);
-      });
+      this.user = new User(this.userService.getUser());
       this.user.weeklysuccess = [35,6,2,8,10,5,20,3,8,12,50,51,64]; //Placeholders
       this.user.topwords = ['35','6'];
 

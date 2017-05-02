@@ -13,15 +13,18 @@ const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
 const http_1 = require("@angular/http");
 const ng2_loading_animate_1 = require("ng2-loading-animate");
+const user_repository_1 = require("../api/user-repository");
 let LandingComponent = class LandingComponent {
-    constructor(router, route, http, _loadingSvc) {
+    constructor(router, route, http, userService, _loadingSvc) {
         this.router = router;
         this.route = route;
         this.http = http;
+        this.userService = userService;
         this._loadingSvc = _loadingSvc;
         this.userDataUrl = "https://private-17592-twitgood.apiary-mock.com/user/info/";
         this.start();
         this.route.params.subscribe(x => this.handle = x['handle']);
+        this.handle = this.userService.getUser();
         this.http
             .get(this.userDataUrl + this.handle)
             .toPromise()
@@ -30,9 +33,14 @@ let LandingComponent = class LandingComponent {
         })
             .catch(x => x.message);
     }
-    ;
     start() {
         this._loadingSvc.setValue(true);
+    }
+    ngOnInit() {
+        if (!this.userService.getLoginStatus()) {
+            console.log(this.userService.getLoginStatus());
+            this.router.navigate([""]);
+        }
     }
     terminateSession() {
         this.router.navigateByUrl('/');
@@ -49,6 +57,7 @@ LandingComponent = __decorate([
     __metadata("design:paramtypes", [router_1.Router,
         router_1.ActivatedRoute,
         http_1.Http,
+        user_repository_1.UserRepository,
         ng2_loading_animate_1.LoadingAnimateService])
 ], LandingComponent);
 exports.LandingComponent = LandingComponent;

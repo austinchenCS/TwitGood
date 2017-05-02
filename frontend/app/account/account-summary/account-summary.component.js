@@ -9,9 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_repository_1 = require("./../api/user-repository");
+const user_repository_1 = require("../../api/user-repository");
 const core_1 = require("@angular/core");
-const user_1 = require("../api/user");
+const user_1 = require("../../api/user");
 const router_1 = require("@angular/router");
 const platform_browser_1 = require("@angular/platform-browser");
 const ng2_loading_animate_1 = require("ng2-loading-animate");
@@ -28,10 +28,7 @@ let AccountSummaryComponent = class AccountSummaryComponent {
         this.chartTitle = 'Tweet Success by Days';
     }
     ngOnInit() {
-        this.route.parent.params.subscribe(x => {
-            this.user = new user_1.User(x['handle']);
-            console.log(this.user);
-        });
+        this.user = new user_1.User(this.userService.getUser());
         this.user.weeklysuccess = [35, 6, 2, 8, 10, 5, 20, 3, 8, 12, 50, 51, 64]; //Placeholders
         this.user.topwords = ['35', '6'];
         setTimeout(() => {

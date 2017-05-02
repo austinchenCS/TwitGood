@@ -10,6 +10,7 @@ import * as Account from './account/index';
 import * as Shared from './shared/index';
 import { LandingComponent } from './landing/landing.component';
 import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate';
+import { UserRepository } from './api/user-repository';
 
 @NgModule({
  imports: [ BrowserModule,
@@ -21,7 +22,7 @@ import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate
             LoadingAnimateModule.forRoot(),
             routing ],
  declarations: [ AppComponent, FrontpageComponent, LandingComponent ],
- providers: [ appRoutingProviders, LoadingAnimateService ],
+ providers: [ appRoutingProviders, LoadingAnimateService, UserRepository],
  bootstrap: [ AppComponent ]
 })
 export class AppModule {

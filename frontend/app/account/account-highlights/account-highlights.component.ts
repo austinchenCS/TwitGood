@@ -1,7 +1,7 @@
-import { UserRepository } from './../api/user-repository';
+import { UserRepository } from '../../api/user-repository';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { User } from '../api/user';
+import { User } from '../../api/user';
 import { DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
@@ -28,10 +28,7 @@ export class AccountHighlightsComponent{
                 };
 
     ngOnInit(){
-      this.route.parent.params.subscribe(x => {
-          this.handle = x['handle'];
-          console.log(this.handle);
-      });
+      this.user = new User(this.userService.getUser());
       this.userService.getUserData(this.handle).subscribe(
         (data) => {
           this.successful = data.top_successful_tweet;

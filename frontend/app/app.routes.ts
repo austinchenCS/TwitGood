@@ -5,7 +5,7 @@ import * as Account from './account/index';
 
 export const routes: Routes = [
   { path: '', component: FrontpageComponent, pathMatch: 'full' },
-  { path: 'home/:handle', component: LandingComponent,
+  { path: 'home', component: LandingComponent,
     children: [
       { path: '', redirectTo: 'summary', pathMatch: 'full' },
       { path: 'summary', component: Account.AccountSummaryComponent },

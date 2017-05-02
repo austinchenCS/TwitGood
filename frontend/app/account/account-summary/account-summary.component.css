@@ -4,3 +4,11 @@
     margin-top: 2%;
     margin-bottom: 12%;
 }
+
+.bigger{
+    font-size: 7vh;
+}
+
+.bold{
+    font-weight: bold;
+}
