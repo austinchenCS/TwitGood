@@ -24,6 +24,7 @@ let FrontpageComponent = class FrontpageComponent {
         this.userService = userService;
         this._loadingSvc = _loadingSvc;
         this.loginFail = false;
+        this.handleNotExists = false;
         this.loginUrl = 'https://private-17592-twitgood.apiary-mock.com/users/auth/';
         this.createUrl = 'https://private-17592-twitgood.apiary-mock.com/user/';
         this.create = false;
@@ -72,6 +73,9 @@ let FrontpageComponent = class FrontpageComponent {
         }
         else {
             this.loginFail = true;
+            if (result.location = "twitter_handle") {
+                this.handleNotExists = true;
+            }
         }
     }
     goToAccount(handle) {

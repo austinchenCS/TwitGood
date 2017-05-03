@@ -21,6 +21,7 @@ export class FrontpageComponent {
     create : boolean;
     details : LoginDetails;
     loginFail : boolean = false;
+    handleNotExists : boolean = false;
     private loginUrl = 'https://private-17592-twitgood.apiary-mock.com/users/auth/';
     private createUrl = 'https://private-17592-twitgood.apiary-mock.com/user/';
 
@@ -79,6 +80,9 @@ export class FrontpageComponent {
         }
         else{
             this.loginFail = true;
+            if(result.location = "twitter_handle"){
+                this.handleNotExists = true;
+            }
         }
     }
 
