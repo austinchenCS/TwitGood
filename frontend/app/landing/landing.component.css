@@ -63,8 +63,8 @@ hr {
 } 
 
 #topbar{
-    background-color: rgb(33,184,168);
-    color: white;
+    background-color: white;
+    color: rgb(33,184,168);
 }
 
 .biggerFont{
@@ -84,7 +84,7 @@ hr {
 #dropdownMenuCog:focus,
 #dropdownMenuCog:active,
 #dropdownMenuCog.active {
-  color: #ffffff;
-  background-color: rgb(33,184,168);
-  border-color: rgb(33,184,168);
+  color: rgb(33,184,168);
+  background-color: white;
+  border-color: white;
 }
