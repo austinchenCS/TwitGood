@@ -2,6 +2,7 @@ import { UserRepository } from '../../api/user-repository';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../api/user';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Color } from 'ng2-charts/ng2-charts';
 
 @Component({
     moduleId: module.id,
@@ -16,6 +17,14 @@ export class AccountEngagementComponent{
     hours: string[];
     hoursNum : number[] = Array.from(Array(24)).map((e,i)=>i);
     userData: any;
+    colorsActivity: Array<Color> = [{
+      backgroundColor: '#70cbf9',
+      hoverBackgroundColor: '#00a7f1'
+    }];
+    colorsSuccess: Array<Color> = [{
+      backgroundColor: '#f4ee3e',
+      hoverBackgroundColor: '#f2d600'
+    }];
 
     constructor(private router: Router,
               private route: ActivatedRoute,

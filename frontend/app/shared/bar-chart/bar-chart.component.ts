@@ -10,6 +10,7 @@ export class BarChartComponent {
   @Input() data : Array<number>;
   @Input() bCL : Array<string>;
   @Input() chartLabel : string;
+  @Input() colorsInput: Array<Color>;
   
   ngOnChanges(){
     this.barChartData = [
@@ -21,6 +22,9 @@ export class BarChartComponent {
       {data: this.data, label: this.chartLabel},
     ];
     this.barChartLabels = this.bCL;
+    
+    if(this.colorsInput)
+      this.colorsOverride = this.colorsInput;
   }
   colorsOverride: Array<Color> = [{
     backgroundColor: '#82d9cd',
