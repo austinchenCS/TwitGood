@@ -32,12 +32,20 @@ export class AccountHighlightsComponent{
       this.user = new User(this.userService.getUser());
       this.userService.getUserData(this.handle).subscribe(
         (data) => {
-          this.successful = data.top_successful_tweet;
-          this.successful = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.successful));
-          this.retweeted = data.top_retweeted_tweet;
-          this.retweeted = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.retweeted));
-          this.favorited = data.top_favorited_tweet;
-          this.favorited = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.favorited));
+          //this.successful = data.top_successful_tweet;
+          //console.log('raw data: ');
+          //console.dir(data.top_successful_tweet);
+
+          this.successful = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(data.top_successful_tweet)),
+          //this.retweeted = data.top_retweeted_tweet;
+          this.retweeted = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(data.top_retweeted_tweet)),
+          //this.favorited = data.top_favorited_tweet;
+          this.favorited = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(data.top_favorited_tweet)),
+          
+        //   this.buildTweet(data.top_successful_tweet);
+        //   this.buildTweet(data.top_retweeted_tweet);
+        //   this.buildTweet(data.top_favorited_tweet);
+          
           this.runTwitter();
       });
     }
@@ -47,6 +55,24 @@ export class AccountHighlightsComponent{
         s.type = "text/javascript";
         s.src = "http://platform.twitter.com/widgets.js";
         this.elementRef.nativeElement.appendChild(s);
+    }
+
+    // builds a tweet element with the given twitter link and appends it to the document
+    buildTweet(s: string) {
+        // build the outer blockquote
+        let tweetElement = document.createElement('blockquote');
+        tweetElement.className = 'twitter-tweet';
+
+        // build the inner link element
+        let tweetLinkElement = document.createElement('a');
+        tweetLinkElement.href = s;
+        tweetLinkElement.innerHTML = 'penis';
+
+        // put the link element inside of the blockquote
+        tweetElement.appendChild(tweetLinkElement);
+
+        // append it to the end
+        this.elementRef.nativeElement.appendChild(tweetElement);
     }
 
     addCenterAlignmentToTweet(s:string){

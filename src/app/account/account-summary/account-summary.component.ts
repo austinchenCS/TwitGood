@@ -19,6 +19,8 @@ export class AccountSummaryComponent{
     chartTitle = 'Tweet Success by Days';
     userData: any;
     tweetHTML: any;
+    tweetHTML2: any;
+    tweetHTML3: any;
 
     constructor(private router: Router,
               private route: ActivatedRoute,
@@ -39,7 +41,11 @@ export class AccountSummaryComponent{
           this.user.weeklysuccess = this.userData.weeklysuccess,
           this.user.topwords = this.userData.topwords,
           this.user.top_successful_tweet = this.userData.top_successful_tweet,
+          this.user.top_favorited_tweet = this.userData.top_favorited_tweet,
+          this.user.top_retweeted_tweet = this.userData.top_retweeted_tweet,
           this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.user.top_successful_tweet)),
+          this.tweetHTML2 = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.user.top_favorited_tweet)),
+          this.tweetHTML3 = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.user.top_retweeted_tweet)),
           this.insertScript(),
           this.stop();
       });
