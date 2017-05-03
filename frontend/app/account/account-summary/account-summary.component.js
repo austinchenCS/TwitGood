@@ -38,8 +38,7 @@ let AccountSummaryComponent = class AccountSummaryComponent {
                     this.user.topwords = this.userData.topwords,
                     this.user.top_successful_tweet = this.userData.top_successful_tweet,
                     this.tweetHTML = this.sanitizer.bypassSecurityTrustHtml(this.addCenterAlignmentToTweet(this.user.top_successful_tweet)),
-                    this.insertScript(),
-                ;
+                    this.insertScript();
                 //this.stop();
             });
         }, 2000);
