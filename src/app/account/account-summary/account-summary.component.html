@@ -17,13 +17,13 @@
         <table class="table table-sm table-inverse">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Word</th>
+                    <td><h3>#</h3></td>
+                    <td><h3>Word</h3></td>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let word of user?.topwords; let i = index; trackBy: trackByFn">
-                    <th scope="row">{{i+1}}</th>
+                    <td scope="row">{{i+1}}</td>
                     <td>{{word}}</td>
                 </tr>
             </tbody>
