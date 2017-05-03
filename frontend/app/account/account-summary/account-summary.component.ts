@@ -30,7 +30,7 @@ export class AccountSummaryComponent{
     ngOnInit(){
       this.user = new User(this.userService.getUser());
       this.user.weeklysuccess = [35,6,2,8,10,5,20,3,8,12,50,51,64]; //Placeholders
-      this.user.topwords = ['35','6'];
+      this.user.topwords = ['last','night','was','crazy'];
 
       setTimeout(()=>{ 
         this.userService.getUserData(this.user.twitterHandle).subscribe(
