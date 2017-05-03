@@ -41,7 +41,7 @@ let AccountSummaryComponent = class AccountSummaryComponent {
                     this.insertScript(),
                     this.stop();
             });
-        }, 30000);
+        }, 2000);
     }
     ngAfterViewInit() {
     }

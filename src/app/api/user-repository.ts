@@ -7,9 +7,10 @@ import { UserData } from './user-data';
 
 @Injectable()
 export class UserRepository {
-	private _apiUrl = 'http://35.164.145.233/TwitGood/backend/public/user/';
+	private _apiUrl = 'https://private-09ea1-twitgood.apiary-mock.com/user/';
 	private user : string;
 	private loggedIn : boolean = false;
+	private created : boolean;
 
 	constructor(private http1: Http,private http2: Http) {}
 
@@ -28,9 +29,10 @@ export class UserRepository {
 		);
 	}
 
-	setUser(user : string) : void{
+	setUser(user : string, created : boolean) : void{
 		this.user = user;
 		this.loggedIn = true;
+		this.created = created;
 	}
 
 	logout() : void{
@@ -44,6 +46,10 @@ export class UserRepository {
 
 	getUser() : string{
 		return this.user;
+	}
+
+	getCreated() : boolean{
+		return this.created;
 	}
 
 }

@@ -14,21 +14,22 @@ import { UserRepository } from '../api/user-repository';
 export class LandingComponent {
     handle : string;
     imageSource : string;
-    userDataUrl : string = "https://private-17592-twitgood.apiary-mock.com/user/info/";
+    userDataUrl : string = "http://35.164.145.233/TwitGood/backend/public/user/info/";
 
     constructor(private router: Router,
     private route: ActivatedRoute,
     private http: Http,
     private userService: UserRepository,
     private _loadingSvc: LoadingAnimateService){
-        this.start();
-        this.route.params.subscribe(x => this.handle = x['handle']);
         this.handle = this.userService.getUser();
+        if(this.userService.getCreated()){
+            this.start();
+        }
         this.http
 			.get(this.userDataUrl+this.handle)
 			.toPromise()
 			.then(x => {
-                this.imageSource = x.json().image_profile;
+                this.imageSource = x.json().profile_image;
             })
 			.catch(x => x.message);
     }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { Color } from 'ng2-charts/ng2-charts';
  
 @Component({
   moduleId: module.id,
@@ -21,13 +22,16 @@ export class BarChartComponent {
     ];
     this.barChartLabels = this.bCL;
   }
+  colorsOverride: Array<Color> = [{
+    backgroundColor: '#82d9cd',
+    hoverBackgroundColor: '#21b4a4'
+  }];
   public barChartOptions:any = {
     scaleShowVerticalLines: false,
     responsive: true,
-    //showLines: false,
     backgroundColor: 'fillPattern'
   };
-  public barChartLabels:string[]; //= ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9','10','11'];
+  public barChartLabels:string[];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
  
