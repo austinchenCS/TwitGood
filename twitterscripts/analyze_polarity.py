@@ -14,7 +14,7 @@ from sklearn.linear_model import LogisticRegression
 
 
 def learn_tweet_polarity():
-    training_data = pd.read_csv("tweet_data.csv")
+    training_data = pd.read_csv("/var/www/tweet_data.csv")
     training_data['polarity_num'] = training_data.polarity.map({'negative': 0, 'positive': 1})
 
     # Create matrices with data

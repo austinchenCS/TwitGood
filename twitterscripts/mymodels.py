@@ -1,9 +1,6 @@
 from peewee import *
-from KEYS import *
 
-passwd = get_mySQL_pass()
-
-database = MySQLDatabase('Twitgood', **{'password': passwd, 'user': 'root'})
+database = MySQLDatabase('Twitgood', **{'password': 'jJT89vEEjq', 'user': 'root'})
 
 class UnknownField(object):
     def __init__(self, *_, **__): pass
@@ -13,14 +10,14 @@ class BaseModel(Model):
         database = database
 
 class Users(BaseModel):
-    api_key = CharField()
-    api_secret = CharField()
+    api_key = CharField(null=True)
+    api_secret = CharField(null=True)
     created_at = DateTimeField()
     email = CharField()
-    first_name = CharField()
+    first_name = CharField(null=True)
     last_updated = DateTimeField()
     password = CharField()
-    profile_image = CharField()
+    profile_image = CharField(null=True)
     twitter_handle = CharField()
     user = PrimaryKeyField(db_column='user_id')
 
@@ -90,6 +87,7 @@ class Tweetdata(BaseModel):
     top_faved = CharField()
     top_rted = CharField()
     top_success = CharField()
+    tweets_positive = CharField()
     user = ForeignKeyField(db_column='user_id', primary_key=True, rel_model=Users, to_field='user')
 
     class Meta:
