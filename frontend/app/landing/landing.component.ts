@@ -21,9 +21,10 @@ export class LandingComponent {
     private http: Http,
     private userService: UserRepository,
     private _loadingSvc: LoadingAnimateService){
-        this.start();
-        this.route.params.subscribe(x => this.handle = x['handle']);
         this.handle = this.userService.getUser();
+        if(this.userService.getCreated()){
+            this.start();
+        }
         this.http
 			.get(this.userDataUrl+this.handle)
 			.toPromise()

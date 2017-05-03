@@ -28,9 +28,10 @@ let UserRepository = class UserRepository {
         let tweetUrl = 'https://publish.twitter.com/oembed?url=' + tweetLink;
         return this.http2.get(tweetUrl).map((res) => res.json());
     }
-    setUser(user) {
+    setUser(user, created) {
         this.user = user;
         this.loggedIn = true;
+        this.created = created;
     }
     logout() {
         this.user = null;
@@ -41,6 +42,9 @@ let UserRepository = class UserRepository {
     }
     getUser() {
         return this.user;
+    }
+    getCreated() {
+        return this.created;
     }
 };
 UserRepository = __decorate([

@@ -22,9 +22,10 @@ let LandingComponent = class LandingComponent {
         this.userService = userService;
         this._loadingSvc = _loadingSvc;
         this.userDataUrl = "https://private-17592-twitgood.apiary-mock.com/user/info/";
-        this.start();
-        this.route.params.subscribe(x => this.handle = x['handle']);
         this.handle = this.userService.getUser();
+        if (this.userService.getCreated()) {
+            this.start();
+        }
         this.http
             .get(this.userDataUrl + this.handle)
             .toPromise()
