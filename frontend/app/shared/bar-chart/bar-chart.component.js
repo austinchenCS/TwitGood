@@ -12,10 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 let BarChartComponent = class BarChartComponent {
     constructor() {
+        this.colorsOverride = [{
+                backgroundColor: '#82d9cd',
+                hoverBackgroundColor: '#21b4a4'
+            }];
         this.barChartOptions = {
             scaleShowVerticalLines: false,
             responsive: true,
-            //showLines: false,
             backgroundColor: 'fillPattern'
         };
         this.barChartType = 'bar';
