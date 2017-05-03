@@ -24,7 +24,7 @@ let LandingComponent = class LandingComponent {
         this.userDataUrl = "https://private-17592-twitgood.apiary-mock.com/user/info/";
         this.handle = this.userService.getUser();
         if (this.userService.getCreated()) {
-            this.start();
+            //this.start();
         }
         this.http
             .get(this.userDataUrl + this.handle)

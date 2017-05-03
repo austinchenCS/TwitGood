@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { FrontpageComponent } from './../frontpage/frontpage.component'
 
 import { AccountSummaryComponent } from './account-summary/account-summary.component';
-import { AccountHighlightsComponent } from './account-highlights/account-highlights.component';
 import { AccountDetailComponent } from './account-detail/account-detail.component';
 import { AccountEngagementComponent } from './account-engagement/account-engagement.component';
 import { AccountHomeComponent } from './account-home/account-home.component';
@@ -21,14 +20,12 @@ import * as Shared from '../shared/index';
   ],
   declarations: [
     AccountSummaryComponent,
-    AccountHighlightsComponent,
     AccountDetailComponent,
     AccountEngagementComponent,
     AccountHomeComponent
    ],
   exports: [
     AccountSummaryComponent,
-    AccountHighlightsComponent,
     AccountDetailComponent,
     AccountEngagementComponent,
     AccountHomeComponent

@@ -24,6 +24,7 @@ let FrontpageComponent = class FrontpageComponent {
         this.userService = userService;
         this._loadingSvc = _loadingSvc;
         this.loginFail = false;
+        this.handleNotExists = false;
         this.loginUrl = 'https://private-17592-twitgood.apiary-mock.com/users/auth/';
         this.createUrl = 'https://private-17592-twitgood.apiary-mock.com/user/';
         this.create = false;
@@ -44,6 +45,7 @@ let FrontpageComponent = class FrontpageComponent {
     }
     accountInteraction() {
         if (this.create) {
+            this.start();
             this.http
                 .post(this.createUrl, this.details)
                 .toPromise()
@@ -60,6 +62,7 @@ let FrontpageComponent = class FrontpageComponent {
     }
     validateResult(result) {
         console.log(result);
+        this.stop();
         if (result.success) {
             if (this.create) {
                 this.goToAccount(this.details.twitter_handle);
@@ -70,12 +73,18 @@ let FrontpageComponent = class FrontpageComponent {
         }
         else {
             this.loginFail = true;
+            if (result.location = "twitter_handle") {
+                this.handleNotExists = true;
+            }
         }
     }
     goToAccount(handle) {
         console.log(handle);
         this.userService.setUser(handle, this.create);
         this.router.navigate(['home']);
+    }
+    start() {
+        this._loadingSvc.setValue(true);
     }
     stop() {
         this._loadingSvc.setValue(false);

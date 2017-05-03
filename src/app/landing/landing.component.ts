@@ -23,7 +23,7 @@ export class LandingComponent {
     private _loadingSvc: LoadingAnimateService){
         this.handle = this.userService.getUser();
         if(this.userService.getCreated()){
-            this.start();
+            //this.start();
         }
         this.http
 			.get(this.userDataUrl+this.handle)

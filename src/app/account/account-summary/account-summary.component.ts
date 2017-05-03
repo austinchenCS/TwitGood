@@ -34,7 +34,7 @@ export class AccountSummaryComponent{
       this.user.weeklysuccess = [35,6,2,8,10,5,20,3,8,12,50,51,64]; //Placeholders
       this.user.topwords = ['35','6'];
 
-      setTimeout(()=>{ 
+
         this.userService.getUserData(this.user.twitterHandle).subscribe(
         (data) => {
           this.userData = data,
@@ -49,7 +49,7 @@ export class AccountSummaryComponent{
           this.insertScript(),
           this.stop();
       });
-      }, 2000);
+
 
       
     }

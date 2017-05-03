@@ -49,7 +49,7 @@
                 <div *ngIf="loginFail" class="alert alert-danger" role="alert">
                     <ul style="list-style: none">
                         <li>
-                            {{ create ? "Username is taken" : "Username or password is incorrect" }}
+                            {{ create ? ( handleNotExists ? "Twitter handle does not exist" : "Username is taken") : "Username or password is incorrect" }}
                         </li>
                     </ul>
                 </div>

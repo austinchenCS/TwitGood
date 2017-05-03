@@ -34,6 +34,8 @@ let BarChartComponent = class BarChartComponent {
             { data: this.data, label: this.chartLabel },
         ];
         this.barChartLabels = this.bCL;
+        if (this.colorsInput)
+            this.colorsOverride = this.colorsInput;
     }
     // events
     chartClicked(e) {
@@ -56,6 +58,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", String)
 ], BarChartComponent.prototype, "chartLabel", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], BarChartComponent.prototype, "colorsInput", void 0);
 BarChartComponent = __decorate([
     core_1.Component({
         moduleId: module.id,

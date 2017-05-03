@@ -21,6 +21,7 @@ export class FrontpageComponent {
     create : boolean;
     details : LoginDetails;
     loginFail : boolean = false;
+    handleNotExists : boolean = false;
     private loginUrl = 'http://35.164.145.233/TwitGood/backend/public/users/auth/';
     private createUrl = 'http://35.164.145.233/TwitGood/backend/public/user/';
 
@@ -48,6 +49,7 @@ export class FrontpageComponent {
 
     accountInteraction(){
         if(this.create){
+            this.start();
             this.http
 			.post(this.createUrl, this.details)
 			.toPromise()
@@ -65,6 +67,7 @@ export class FrontpageComponent {
 
     validateResult(result : any){
         console.log(result);
+        this.stop();
         if(result.success){
             if(this.create)
             {
@@ -77,6 +80,9 @@ export class FrontpageComponent {
         }
         else{
             this.loginFail = true;
+            if(result.location = "twitter_handle"){
+                this.handleNotExists = true;
+            }
         }
     }
 
@@ -84,6 +90,9 @@ export class FrontpageComponent {
         console.log(handle);
         this.userService.setUser(handle,this.create);
         this.router.navigate(['home']);
+    }
+    start() {
+        this._loadingSvc.setValue(true);
     }
     stop() {
       this._loadingSvc.setValue(false);

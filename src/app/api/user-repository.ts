@@ -12,8 +12,6 @@ export class UserRepository {
 	private loggedIn : boolean = false;
 	private created : boolean;
 
-	private userData: any;
-
 	constructor(private http1: Http,private http2: Http) {}
 
 	getUserData(handle:string){

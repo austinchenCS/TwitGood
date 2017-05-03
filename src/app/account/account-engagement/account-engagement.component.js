@@ -20,6 +20,14 @@ let AccountEngagementComponent = class AccountEngagementComponent {
         this.userService = userService;
         this.days = ['S', 'M', 'T', 'W', 'Th', 'F', 'S'];
         this.hoursNum = Array.from(Array(24)).map((e, i) => i);
+        this.colorsActivity = [{
+                backgroundColor: '#70cbf9',
+                hoverBackgroundColor: '#00a7f1'
+            }];
+        this.colorsSuccess = [{
+                backgroundColor: '#f4ee3e',
+                hoverBackgroundColor: '#f2d600'
+            }];
     }
     ngOnInit() {
         this.hours = new Array(this.hoursNum.length);

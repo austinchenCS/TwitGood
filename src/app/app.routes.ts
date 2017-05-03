@@ -10,8 +10,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'summary', pathMatch: 'full' },
       { path: 'summary', component: Account.AccountSummaryComponent },
       { path: 'detail', component: Account.AccountDetailComponent },
-      { path: 'engagement', component: Account.AccountEngagementComponent },
-      { path: 'highlights', component: Account.AccountHighlightsComponent }
+      { path: 'engagement', component: Account.AccountEngagementComponent }
     ]
   }
 ];
