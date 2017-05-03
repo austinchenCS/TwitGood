@@ -80,7 +80,7 @@ export class FrontpageComponent {
         }
         else{
             this.loginFail = true;
-            if(result.location = "twitter_handle"){
+            if(result.location == "twitter_handle"){
                 this.handleNotExists = true;
             }
         }
