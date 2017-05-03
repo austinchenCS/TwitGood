@@ -44,6 +44,7 @@ let FrontpageComponent = class FrontpageComponent {
     }
     accountInteraction() {
         if (this.create) {
+            this.start();
             this.http
                 .post(this.createUrl, this.details)
                 .toPromise()
@@ -60,6 +61,7 @@ let FrontpageComponent = class FrontpageComponent {
     }
     validateResult(result) {
         console.log(result);
+        this.stop();
         if (result.success) {
             if (this.create) {
                 this.goToAccount(this.details.twitter_handle);
@@ -76,6 +78,9 @@ let FrontpageComponent = class FrontpageComponent {
         console.log(handle);
         this.userService.setUser(handle, this.create);
         this.router.navigate(['home']);
+    }
+    start() {
+        this._loadingSvc.setValue(true);
     }
     stop() {
         this._loadingSvc.setValue(false);
