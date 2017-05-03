@@ -1,6 +1,6 @@
 <div class="text-center size-normalizer">
     <div class="vertical-center">
-        <img src="/app/resources/logo.png" class="logo"/>
+        <img src="/assets/logo.png" class="logo"/>
         <p class="med-text text-muted move-up">
             tweet better
         </p>
@@ -49,7 +49,7 @@
                 <div *ngIf="loginFail" class="alert alert-danger" role="alert">
                     <ul style="list-style: none">
                         <li>
-                            {{ create ? ( handleNotExists ? "Twitter handle does not exist" : "Username is taken") : "Username or password is incorrect" }}
+                            {{ create ? ( handleNotExists ? "Twitter handle does not exist" : "Email is taken") : "Username or password is incorrect" }}
                         </li>
                     </ul>
                 </div>
