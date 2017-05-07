@@ -1,0 +1,58 @@
+<div class="container" style="margin:auto;">
+    <h1 class="bigger">
+        <strong>Account Detail</strong>
+    </h1>
+
+    <br>
+
+    <h1 class="bold" style="margin-top: 4vh; margin-bottom: 5vh;"><span> You have been on Twitter for:</span></h1>
+    <h2 class="bold">{{user?.accountage}}</h2>
+
+    <br>
+    <hr>
+    <h1 class="bold">Your tweet content analyzed:</h1>
+    <div style="display: block;height:9vh;width:25vw;margin:auto;margin-top:7vh;">
+        <h1>😃 Positive: {{user ? user.positive : 100}}%</h1>
+    </div>
+    <div style="display: block;height:7vh;width:25vw;margin:auto;margin-bottom:7vh;">
+        <h1>😠 Negative: {{user ? 100 - user.positive : 0}}%</h1>
+    </div>
+    <hr>
+    <div style="display: block;height:35vh;width:25vw;margin:auto;margin-top:7vh;margin-bottom:7vh;">
+        <h1><span class="bold"> Top hashtags </span></h1>
+            <table class="table table-sm table-inverse">
+                <thead>
+                    <tr>
+                        <td><h3>#</h3></td>
+                        <td><h3>Hashtag</h3></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let hashtag of user?.tophashtags; let i = index; trackBy: trackByFn">
+                        <td scope="row">{{i+1}}</td>
+                        <td>{{hashtag}}</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+
+    <br>
+<hr>
+    <div style="display: block;height:40vh;width:25vw;margin:auto;margin-top:7vh;">
+        <h1><span class="bold"> Top words </span></h1>
+            <table class="table table-sm table-inverse">
+                <thead>
+                    <tr>
+                        <td><h3>#</h3></td>
+                        <td><h3>Word</h3></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let word of user?.topwords; let i = index; trackBy: trackByFn">
+                        <td scope="row">{{i+1}}</td>
+                        <td>{{word}}</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+</div>

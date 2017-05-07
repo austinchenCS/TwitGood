@@ -1,0 +1,27 @@
+<div class="container" style="margin:auto;">
+    <h1 class="bigger"><strong>Account Engagement</strong></h1>
+    <br> 
+    <div>
+
+        <div class="chart-container" style="display: block; height:40vh; width:40vw; margin:auto;">
+            <bar-chart [data]="user?.hourlyactivity" [bCL]="hours" [chartLabel]="'Hourly Activity'" [colorsInput]="colorsActivity"></bar-chart>
+        </div>
+
+        <hr>
+        <div class="chart-container" style="display: block;height:40vh;width:40vw;margin:auto;">
+            <bar-chart [data]="user?.hourlysuccess" [bCL]="hours" [chartLabel]="'Hourly Success (Average Retweets and Favorites)'"
+            [colorsInput]="colorsSuccess"></bar-chart>
+        </div>
+
+        <hr>
+        <div class="chart-container" style="display: block;height:40vh;width:40vw;margin:auto;">
+            <bar-chart [data]="user?.weeklyactivity" [bCL]="days" [chartLabel]="'Weekly Activity'" [colorsInput]="colorsActivity"></bar-chart>
+        </div>
+
+        <hr>
+        <div class="chart-container" style="display: block;height:40vh;width:40vw;margin:auto;">
+            <bar-chart [data]="user?.weeklysuccess" [bCL]="days" [chartLabel]="'Weekly Success (Average Retweets and Favorites)'"
+            [colorsInput]="colorsSuccess"></bar-chart>
+        </div>
+    </div>
+</div>
