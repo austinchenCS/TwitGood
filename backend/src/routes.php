@@ -34,6 +34,28 @@ $app->post('/user/', function($request, $response) {
     }
     
     // Check if the twitter handle is unique 
+    //$response_twitter = file_get_contents("http://www.twitter.com/".(string)$data['twitter_handle']);
+    //echo "goerehg f"
+    //echo $response_twitter;
+    //echo "got here";
+    $ch = curl_init(); 
+    $url_test = "http://www.twitter.com/".$data['twitter_handle'];
+    curl_setopt($ch, CURLOPT_URL, $url_test); 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    $output = curl_exec($ch); 
+    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);   
+
+    if ((int)$httpcode > 300) 
+    {
+        $valid = array('success' => False, 'location' => 'twitter_handle');
+        return $this->response->withJson($valid)->withHeader('Content-type', 'application/json');
+        echo "You messed up";
+    }
+
+
+
     //$handlesql = "SELECT * FROM Users WHERE twitter_handle =:twitter_handle";
     //$handleqry = $this->db->prepare($handlesql);
     //$handleqry->bindParam("twitter_handle", $data['twitter_handle']);
